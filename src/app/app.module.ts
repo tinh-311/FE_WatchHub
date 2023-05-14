@@ -8,11 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from './header/header.component';
 
-import { ToolbarModule } from 'primeng/toolbar';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+
+import { ToolbarModule } from 'primeng/toolbar';
+import { MenubarModule } from 'primeng/menubar';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     AppRoutingModule,
     ButtonModule,
     ToolbarModule,
-    DateInputsModule
+    MenubarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
