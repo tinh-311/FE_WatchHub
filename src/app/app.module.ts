@@ -11,10 +11,16 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
 
 import { ToolbarModule } from 'primeng/toolbar';
 import { MenubarModule } from 'primeng/menubar';
+import { FooterComponent } from './footer/footer.component';
+import { CarouselModule } from 'primeng/carousel';
+import { InputTextModule } from 'primeng/inputtext';
 
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,8 @@ import { MenubarModule } from 'primeng/menubar';
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +37,14 @@ import { MenubarModule } from 'primeng/menubar';
     AppRoutingModule,
     ButtonModule,
     ToolbarModule,
-    MenubarModule
+    MenubarModule,
+    CarouselModule,
+    InputTextModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}

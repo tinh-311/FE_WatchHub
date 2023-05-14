@@ -3,36 +3,46 @@
     <div class="container">
       <div class="row gy-3 align-items-center">
         <div class="col-lg-2 col-sm-4 col-4">
-          <a href="http://therichpost.com" class="navbar-brand"> RichEcom </a>
-          <!-- brand end.// -->
+          <a href="" class="navbar-brand fw-bold text-primary h1"> WatchHub </a>
         </div>
         <div class="order-lg-last col-lg-5 col-sm-8 col-8">
           <div class="float-end">
-            <a href="#" class="btn btn-light">
+            <a href="#" class="btn mx-2 btn-primary">
               <i class="fa fa-user"></i>
               <span class="ms-1 d-none d-sm-inline-block">Sign in </span>
             </a>
-            <a href="#" class="btn btn-light">
+            <a href="#" class="btn mx-2 btn-primary">
               <i class="fa fa-heart"></i>
               <span class="ms-1 d-none d-sm-inline-block">Wishlist</span>
             </a>
             <a
               data-bs-toggle="offcanvas"
               href="#offcanvas_cart"
-              class="btn btn-light"
+              class="btn mx-2 btn-primary"
             >
               <i class="fa fa-shopping-cart"></i>
               <span class="ms-1">My cart </span>
             </a>
           </div>
         </div>
-        <!-- col end.// -->
       </div>
-      <!-- row end.// -->
+      <div>
+        <div class="input-group my-3">
+          <input
+            type="text"
+            class="form-control h-3rem"
+            placeholder="Tìm kiếm sản phẩm..."
+            [(ngModel)]="searchInput"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary h-3rem w-3rem" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- container end.// -->
   </section>
-  <!-- header-main end.// -->
 
   <nav class="navbar navbar-light bg-primary border-top navbar-expand-lg">
     <div class="container">
@@ -46,45 +56,12 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbar_main">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav d-flex justify-content-between w-100">
           <li class="nav-item">
-            <a class="nav-link ps-0" href="#"> Categories </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Hot offers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Gift boxes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Projects</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Menu item</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Menu name</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="dropdown-toggle nav-link"
-              href="#"
-              data-bs-toggle="dropdown"
-            >
-              Others
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Submenu one </a></li>
-              <li><a class="dropdown-item" href="#">Submenu two</a></li>
-              <li><a class="dropdown-item" href="#">Submenu three</a></li>
-            </ul>
+            <a class="nav-link ps-0 text-white" href="#"> Sản Phẩm </a>
           </li>
         </ul>
       </div>
-      <!-- collapse end.// -->
     </div>
-    <!-- container end.// -->
   </nav>
-  <!-- navbar end.// -->
 </header>
-<!-- section-header end.// -->

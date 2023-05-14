@@ -7,6 +7,8 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  searchInput: string = '';
+
   ngOnInit() {
   }
 }

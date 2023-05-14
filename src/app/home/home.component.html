@@ -1,7 +1,7 @@
-<!-- ================ SECTION INTRO ================ -->
+<app-header></app-header>
 <section class="section-intro padding-top-sm">
   <div class="container">
-    <main class="card p-3">
+    <main class="card p-3 mt-2">
       <div class="row">
         <aside class="col-lg-3">
           <nav class="nav flex-column nav-pills">
@@ -19,18 +19,24 @@
           </nav>
         </aside>
         <div class="col-lg-9">
-          <article class="card-banner p-5 bg-primary" style="height: 360px">
-            <div style="max-width: 500px">
-              <h2 class="text-white">
-                Great products with <br />
-                best deals
-              </h2>
-              <p class="text-white">
-                No matter how far along you are in your sophistication as an
-                amateur astronomer, there is always one.
-              </p>
-              <a href="#" class="btn btn-warning"> View more </a>
-            </div>
+          <article class="card-banner p-1">
+            <p-carousel
+              [value]="banners"
+              [numVisible]="1"
+              [numScroll]="1"
+              [circular]="true"
+              [responsiveOptions]="responsiveOptions"
+              [autoplayInterval]="8000"
+            >
+              <ng-template let-src pTemplate="item">
+                <div class="image-container">
+                  <img
+                    [src]="src"
+                    alt=""
+                  />
+                </div>
+              </ng-template>
+            </p-carousel>
           </article>
         </div>
       </div>
@@ -38,9 +44,7 @@
   </div>
   <!-- container end.// -->
 </section>
-<!-- ================ SECTION INTRO END.// ================ -->
 
-<!-- ================ SECTION PRODUCTS ================ -->
 <section class="padding-top">
   <div class="container">
     <header class="section-heading">
@@ -207,9 +211,7 @@
   </div>
   <!-- container end.// -->
 </section>
-<!-- ================ SECTION PRODUCTS END.// ================ -->
 
-<!-- ================ SECTION FEATURE ================ -->
 <section class="padding-top">
   <div class="container">
     <div class="row gy-4">
@@ -268,9 +270,7 @@
   </div>
   <!-- container end.// -->
 </section>
-<!-- ================ SECTION FEATURE END.// ================ -->
 
-<!-- ================ SECTION PRODUCTS ================ -->
 <section class="padding-top">
   <div class="container">
     <header class="section-heading">
@@ -349,7 +349,6 @@
   </div>
   <!-- container end.// -->
 </section>
-<!-- ================ SECTION PRODUCTS END.// ================ -->
 
 <section class="padding-y">
   <div class="container">
@@ -421,3 +420,5 @@
   </div>
   <!-- //container -->
 </section>
+
+<app-footer></app-footer>
