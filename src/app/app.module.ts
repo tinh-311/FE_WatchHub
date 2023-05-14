@@ -10,7 +10,6 @@ import { HeaderComponent } from './header/header.component';
 
 import { ToolbarModule } from 'primeng/toolbar';
 import { LoginComponent } from './login/login.component';
-import { HeaderLoginComponent } from './login/header-login/header-login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
@@ -21,7 +20,6 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    HeaderLoginComponent,
     RegisterComponent,
     HomeComponent
   ],
