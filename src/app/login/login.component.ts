@@ -32,47 +32,33 @@ export class LoginComponent implements OnInit {
     const auth = getAuth();
     firebase.onAuthStateChanged(auth, (user) => {
       if (user) {
-        // Người dùng đã đăng nhập, chuyển trang tại đây
-        this.router.navigate(['/home']); // Thay đổi '/home' thành đường dẫn mong muốn
+        console.log('🏍️ ~ user: ', user)
+        this.router.navigate(['/home']);
       } else {
-        // Người dùng chưa đăng nhập
+        this.router.navigate(['']);
       }
     });
-
-    firebase.getRedirectResult(auth)
-      .then((result: any) => {
-        const user = result.user;
-        if (user) {
-          // Người dùng đã đăng nhập, bạn có thể lấy thông tin người dùng tại đây
-          console.log('Thông tin người dùng:', user);
-          this.router.navigate(['/home']);
-        } else {
-          // Người dùng chưa đăng nhập hoặc đã đăng xuất
-        }
-      })
-      .catch((error) => {
-      });
   }
 
   login() {
-    // this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
   }
 
-  loginWithGitHub() {
+  async loginWithGitHub() {
     const provider = new firebase.GithubAuthProvider();
-    const result =  firebase.signInWithRedirect(auth, provider);
-    console.log('🏍️ ~ result: ', result)
+    const result: any = await firebase.signInWithPopup(auth, provider);
+    console.log('🏍️ ~ result: ', result.user)
   }
 
-  loginWithGoogle() {
+  async loginWithGoogle() {
     const provider = new firebase.GoogleAuthProvider();
-    const result =  firebase.signInWithRedirect(auth, provider);
-    console.log('🏍️ ~ result: ', result)
+    const result: any = await firebase.signInWithPopup(auth, provider);
+    console.log('🏍️ ~ result: ', result.user)
   }
 
-  loginWithFacebook() {
+  async loginWithFacebook() {
     const provider = new firebase.FacebookAuthProvider();
-    const result =  firebase.signInWithRedirect(auth, provider);
-    console.log('🏍️ ~ result: ', result)
+    const result = await firebase.signInWithPopup(auth, provider);
+    console.log('🏍️ ~ result: ', result.user)
   }
 }
