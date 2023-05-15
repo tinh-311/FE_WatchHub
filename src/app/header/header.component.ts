@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { getAuth, signOut } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 const auth = getAuth();
 @Component({
@@ -11,6 +12,9 @@ const auth = getAuth();
 export class HeaderComponent implements OnInit {
   searchInput: string = '';
 
+  constructor(private router: Router) {
+  }
+
   ngOnInit() {}
 
   logout() {
@@ -19,6 +23,7 @@ export class HeaderComponent implements OnInit {
       .then(() => {
         // Đăng xuất thành công
         console.log('Đăng xuất thành công');
+        this.router.navigate(['']);
       })
       .catch((error) => {
         // Xảy ra lỗi khi đăng xuất

@@ -50,38 +50,65 @@
                   >Subscribe to our newsletter</label
                 >
               </div>
-              <button (click)="login()" type="submit" class="btn btn-primary btn-block mb-2">
+              <button
+                (click)="login()"
+                type="submit"
+                class="btn w-100 btn-primary py-2 mb-3"
+              >
                 Login
               </button>
-              <div class="pt-0 mb-4">
+              <div class="pt-0 mb-3">
                 <span class="fw-normal">You don't have account?</span>
                 <a
                   class="ml-1 text-primary cursor-pointer"
                   href="/register"
                   title="Register now!"
-                  >Register now!</a
+                  >Register now</a
                 >
               </div>
               <p class="text-center">or login with:</p>
-              <div class="d-flex justify-content-center">
-                <a
-                  (click)="loginWithFacebook()"
-                  class="btn btn-link btn-floating mx-1"
-                  title="Sign up with Facebook"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a
-                  (click)="loginWithGoogle()"
-                  class="btn btn-link btn-floating mx-1"
-                  title="Sign up with Google"
-                  ><i class="fab fa-google"></i
-                ></a>
-                <a
+
+              <div class="container">
+                <div class="my-2 d-flex w-100">
+                  <button
+                    (click)="loginWithGoogle()"
+                    class="google-button btn mx-1 w-100 border"
+                  >
+                    <img
+                      style="width: 30px; height: 30px"
+                      src="assets/images/logo/google-logo.png"
+                      alt="Google Logo"
+                      class="d-inline-block mb-1"
+                    />
+                    <span class="ml-1">Google</span>
+                  </button>
+
+                  <button
+                    (click)="loginWithFacebook()"
+                    class="google-button btn w-100 border"
+                  >
+                    <img
+                      style="width: 20px; height: 20px"
+                      src="assets/images/logo/facebook-logo.png"
+                      alt="Google Logo"
+                      class="d-inline-block mb-1"
+                    />
+                    <span class="ml-1">Facebook</span>
+                  </button>
+                </div>
+
+                <button
                   (click)="loginWithGitHub()"
-                  class="btn btn-link btn-floating mx-1"
-                  title="Sign up with Github"
-                  ><i class="fab fa-github"></i
-                ></a>
+                  class="google-button btn ml-1 w-100 border"
+                >
+                  <img
+                    style="width: 30px; height: 30px"
+                    src="assets/images/logo/github-logo.png"
+                    alt="Google Logo"
+                    class="d-inline-block mb-1"
+                  />
+                  <span class="ml-1">GitHub</span>
+                </button>
               </div>
             </form>
           </div>

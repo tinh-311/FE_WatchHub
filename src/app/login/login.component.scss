@@ -6,3 +6,9 @@
     padding-block: 64px;
   }
 }
+
+.google-button {
+  &:hover {
+    background-color: #e8e7e733;
+  }
+}
