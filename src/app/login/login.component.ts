@@ -2,38 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase/auth';
-import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { User } from 'firebase/auth';
+import { firebaseConfig } from 'src/environments/environment';
+import { User } from '../model/user.model';
+import { AuthenService } from 'src/service/authen.service';
 
-export const firebaseConfig = {
-  production: false,
-  apiKey: "AIzaSyBEfkmx1fl2iy2EjYwNtW9eQcZR0oQLhuw",
-  authDomain: "watchhub-386708.firebaseapp.com",
-  projectId: "watchhub-386708",
-  storageBucket: "watchhub-386708.appspot.com",
-  messagingSenderId: "611260875244",
-  appId: "1:611260875244:web:b91532a10fdda0a31cc0c9",
-  measurementId: "G-V1V8N2RYNV"
-};
 initializeApp(firebaseConfig);
-const auth = getAuth();
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router) {
-  }
+  auth = getAuth();
+  firebaseConfig = firebaseConfig;
+  user: any;
+
+  constructor(private router: Router, private authenService: AuthenService) {}
 
   ngOnInit() {
     const auth = getAuth();
     firebase.onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('🏍️ ~ user: ', user)
-        this.router.navigate(['/home']);
+        console.log('🏍️ ~ user 1: ', user);
       } else {
         this.router.navigate(['']);
       }
@@ -44,21 +36,21 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  async loginWithGitHub() {
-    const provider = new firebase.GithubAuthProvider();
-    const result: any = await firebase.signInWithPopup(auth, provider);
-    console.log('🏍️ ~ result: ', result.user)
-  }
-
   async loginWithGoogle() {
     const provider = new firebase.GoogleAuthProvider();
-    const result: any = await firebase.signInWithPopup(auth, provider);
-    console.log('🏍️ ~ result: ', result.user)
-  }
+    const result: any = await firebase.signInWithPopup(this.auth, provider);
 
-  async loginWithFacebook() {
-    const provider = new firebase.FacebookAuthProvider();
-    const result = await firebase.signInWithPopup(auth, provider);
-    console.log('🏍️ ~ result: ', result.user)
+    this.user = {
+      username: result?.user?.displayName,
+      password: result?.user?.uid,
+      fullname: result?.user?.displayName,
+      email: result?.user?.email,
+      phone: result?.user?.phoneNumber || '0123456789',
+      address: result?.user?.email,
+    } as User;
+
+    this.authenService.registerUser(this.user).subscribe((res) => {
+      console.log('🏍️ ~ res: ', res);
+    });
   }
 }
