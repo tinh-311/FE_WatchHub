@@ -1,35 +1,65 @@
 <header class="section-header">
   <section class="header-main">
     <div class="container">
-      <div class="row gy-3 align-items-center">
-        <div class="col-lg-2 col-sm-4 col-4">
-          <a href="" class="navbar-brand fw-bold text-primary h1"> WatchHub </a>
-        </div>
-        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-          <div class="float-end">
-            <a (click)="logout()" class="btn mx-2 btn-primary">
-              <i class="fa fa-user"></i>
-              <span class="ms-1 d-none d-sm-inline-block">Logout </span>
-            </a>
-            <a href="#" class="btn mx-2 btn-primary">
-              <i class="fa fa-user"></i>
-              <span class="ms-1 d-none d-sm-inline-block">Sign in </span>
-            </a>
-            <a href="#" class="btn mx-2 btn-primary">
-              <i class="fa fa-heart"></i>
-              <span class="ms-1 d-none d-sm-inline-block">Wishlist</span>
-            </a>
-            <a
-              data-bs-toggle="offcanvas"
-              href="#offcanvas_cart"
-              class="btn mx-2 btn-primary"
-            >
-              <i class="fa fa-shopping-cart"></i>
-              <span class="ms-1">My cart </span>
+      <div class="container">
+        <div class="row gy-3 align-items-center">
+          <div class="col-lg-2 col-md-4 col-6">
+            <a href="#" class="navbar-brand fw-bold text-primary h1">
+              <img
+                style="width: 110px; height: 110px"
+                src="assets/images/logo/watchhub.png"
+                class="d-inline-block mb-1"
+              />
+              <span class="h4">
+                WatchHub
+              </span>
             </a>
           </div>
+          <div class="col-lg-5 col-md-8 col-6 order-lg-last d-none d-lg-block">
+            <div class="float-end">
+              <!-- <a href="#" class="btn mx-2 btn-primary">
+                <i class="fa fa-user"></i>
+                <span class="ms-1 d-none d-sm-inline-block">Sign in </span>
+              </a> -->
+              <a (click)="logout()" class="btn mx-2 btn-primary">
+                <i class="fa fa-user"></i>
+                <span class="ms-1 d-none d-sm-inline-block">Logout </span>
+              </a>
+              <a href="#" class="btn mx-2 btn-primary">
+                <i class="fa fa-heart"></i>
+                <span class="ms-1 d-none d-sm-inline-block">Wishlist</span>
+              </a>
+              <a
+                data-bs-toggle="offcanvas"
+                href="#offcanvas_cart"
+                class="btn mx-2 btn-primary"
+              >
+                <i class="fa fa-shopping-cart"></i>
+                <span class="ms-1">My cart </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="float-end d-sm-none mb-3">
+          <a (click)="logout()" class="btn mx-2 btn-primary">
+            <i class="fa fa-user"></i>
+            <span class="ms-1 d-none d-sm-inline-block">Logout </span>
+          </a>
+          <a href="#" class="btn mx-2 btn-primary">
+            <i class="fa fa-heart"></i>
+            <span class="ms-1 d-none d-sm-inline-block">Wishlist</span>
+          </a>
+          <a
+            data-bs-toggle="offcanvas"
+            href="#offcanvas_cart"
+            class="btn mx-2 btn-primary"
+          >
+            <i class="fa fa-shopping-cart"></i>
+            <span class="ms-1">My cart </span>
+          </a>
         </div>
       </div>
+
       <div>
         <div class="input-group my-3">
           <input
@@ -61,6 +91,16 @@
 
       <div class="collapse navbar-collapse" id="navbar_main">
         <ul class="navbar-nav d-flex justify-content-between w-100">
+          <li class="nav-item d-flex">
+            <ul class="navbar-nav d-flex justify-content-between w-100">
+              <li>
+                <a class="nav-link ps-0 text-white" href="#"> Sản Phẩm </a>
+              </li>
+              <li>
+                <a class="nav-link ps-0 text-white" href="#"> Liên Hệ </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a class="nav-link ps-0 text-white" href="#"> Sản Phẩm </a>
           </li>

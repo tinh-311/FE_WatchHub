@@ -1,51 +1,134 @@
 <div
-  class="px-4 px-md-5 text-center text-lg-start register "
-  style="background-color: hsl(0, 0%, 96%); padding-block: 88px;"
+  class="px-4 py-5 px-md-5 text-center text-lg-start login"
+  style="background-color: hsl(0, 0%, 96%); min-height: 100vh"
 >
-  <div class="container register-container">
+  <div class="container login-container">
     <div class="row gx-lg-5 align-items-center">
       <div class="col-lg-7 mb-5 mb-lg-0">
         <h1 class="text-left my-5 display-4 fw-bold ls-tight">
-          Join WatchHub<br /><span class="text-primary"
-            >Register and Explore the World of Watches!</span
+          Discover Time in Style<br /><span class="text-primary"
+            >WatchHub - Your Premier Watch Shopping Experience!</span
           >
         </h1>
         <p class="text-left" style="color: hsl(217, 10%, 50.8%)">
-          Become a part of the WatchHub community and discover a wide range of
-          exquisite watches curated just for you!
+          A Captivating Haven for Discerning Timepiece Aficionados, Showcasing
+          Exquisite Watches Crafted with Impeccable Precision and Unparalleled
+          Artistry!
         </p>
       </div>
       <div class="wrapper col-lg-5 mb-1 mb-lg-0">
         <div class="card">
           <div class="card-body py-5 px-md-5">
-            <form>
+            <form [formGroup]="registerForm">
+              <div class="form-floating mb-4">
+                <input
+                  placeholder="Your Name"
+                  formControlName="yourName"
+                  type="text"
+                  class="form-control"
+                  id="floatingPassword"
+                />
+                <label for="floatingPassword">Your Name</label>
+                <small
+                  *ngIf="
+                    registerForm.controls['yourName']?.errors &&
+                    registerForm.controls['yourName'].dirty
+                  "
+                  class="text-danger"
+                >
+                  <div
+                    *ngIf="registerForm.controls['yourName']?.errors?.required"
+                  >
+                    Your Name is required
+                  </div>
+                </small>
+              </div>
+
               <div class="form-floating mb-4">
                 <input
                   placeholder="Email address"
+                  formControlName="email"
                   type="email"
                   class="form-control"
                   id="floatingInput"
                 />
                 <label for="floatingInput">Email address</label>
+
+                <small
+                  class="mt-1"
+                  *ngIf="
+                    registerForm.controls['email'].errors &&
+                    registerForm.controls['email'].dirty
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="registerForm.controls['email'].errors.required">
+                    Email is required
+                  </div>
+                  <div *ngIf="registerForm.controls['email'].errors.email">
+                    Invalid email format
+                  </div>
+                </small>
               </div>
+
               <div class="form-floating mb-4">
                 <input
                   placeholder="Password"
+                  formControlName="password"
                   type="password"
                   class="form-control"
                   id="floatingPassword"
                 />
                 <label for="floatingPassword">Password</label>
+                <small
+                  *ngIf="
+                    registerForm.controls['password']?.errors &&
+                    registerForm.controls['password'].dirty
+                  "
+                  class="text-danger"
+                >
+                  <div
+                    *ngIf="registerForm.controls['password']?.errors?.required"
+                  >
+                    Password is required
+                  </div>
+                </small>
               </div>
+
               <div class="form-floating mb-4">
                 <input
                   placeholder="Confirm Password"
+                  formControlName="confirmPassword"
                   type="password"
                   class="form-control"
-                  id="floatingConfirmPassword"
+                  id="floatingPassword"
                 />
-                <label for="floatingConfirmPassword">Confirm Password</label>
+                <label for="floatingPassword">Confirm Password</label>
+                <small
+                  *ngIf="
+                    registerForm.controls['confirmPassword']?.errors &&
+                    registerForm.controls['confirmPassword'].dirty
+                  "
+                  class="text-danger"
+                >
+                  <div
+                    *ngIf="
+                      registerForm.controls['confirmPassword']?.errors?.required
+                    "
+                  >
+                    Confirm Password is required
+                  </div>
+                  <div
+                    *ngIf="
+                      registerForm.controls['confirmPassword']?.errors
+                        ?.matchPassword
+                    "
+                  >
+                    Confirm Password and Password not matching
+                  </div>
+                </small>
               </div>
+
               <div class="form-check d-flex justify-content-center mb-4">
                 <input
                   class="form-check-input me-2"
@@ -58,38 +141,38 @@
                   >Subscribe to our newsletter</label
                 >
               </div>
-              <button type="submit" class="btn btn-primary btn-block mb-2">
+              <button
+                (click)="register()"
+                type="submit"
+                class="btn w-100 btn-primary py-2 mb-3"
+              >
                 Register
               </button>
-              <div class="pt-0 mb-4">
+              <div class="pt-0 mb-3">
                 <span class="fw-normal">Already have an account?</span>
                 <a
                   class="ml-1 text-primary cursor-pointer"
                   href="/login"
                   title="Login now!"
-                  >Login now!</a
+                  >Login now</a
                 >
               </div>
-              <p class="text-center">or sign up with:</p>
-              <div class="d-flex justify-content-center">
-                <a
-                  href="#"
-                  class="btn btn-link btn-floating mx-1"
-                  title="Sign up with Facebook"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a
-                  href="#"
-                  class="btn btn-link btn-floating mx-1"
-                  title="Sign up with Google"
-                  ><i class="fab fa-google"></i
-                ></a>
-                <a
-                  href="#"
-                  class="btn btn-link btn-floating mx-1"
-                  title="Signup with Github"
-                  ><i class="fab fa-github"></i
-                ></a>
+              <p class="text-center">or register with:</p>
+              <div class="container">
+                <div class="my-2 d-flex w-100">
+                  <button
+                    (click)="registerWithGoogle()"
+                    class="google-button btn mx-1 w-100 border"
+                  >
+                    <img
+                      style="width: 30px; height: 30px"
+                      src="assets/images/logo/google-logo.png"
+                      alt="Google Logo"
+                      class="d-inline-block mb-1"
+                    />
+                    <span class="ml-1">Google</span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>
