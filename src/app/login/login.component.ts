@@ -7,6 +7,10 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from 'src/environments/environment';
 import { User } from '../model/user.model';
 import { AuthenService } from 'src/service/authen.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { LoadingService } from 'src/service/loading.service';
+import { ToastService } from 'src/service/toast.service';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 
 initializeApp(firebaseConfig);
 @Component({
@@ -19,7 +23,18 @@ export class LoginComponent implements OnInit {
   firebaseConfig = firebaseConfig;
   user: any;
 
-  constructor(private router: Router, private authenService: AuthenService) {}
+  loginForm: any = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
+
+  constructor(
+    private router: Router,
+    private authenService: AuthenService,
+    private fb: FormBuilder,
+    private loadingService: LoadingService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     const auth = getAuth();
@@ -32,7 +47,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.router.navigate(['/home']);
+    this.loadingService.showLoading();
+    const auth = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    };
+
+    this.authenService.login(auth).subscribe(
+      (res) => {
+        this.toastService.showMessage(ToasSumary.Success, res, ToastType.Success);
+        this.loadingService.hideLoading();
+      },
+      (err) => {
+        this.toastService.showMessage(ToasSumary.Error, err?.error?.message, ToastType.Error);
+        this.loadingService.hideLoading();
+      }
+    );
   }
 
   async loginWithGoogle() {

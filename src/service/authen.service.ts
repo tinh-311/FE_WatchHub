@@ -11,6 +11,11 @@ export class AuthenService {
 
   constructor(private http: HttpClient) { }
 
+  login(data: any): Observable<any> {
+    const url = `${this.baseUrl}/Users/authenticate`;
+    return this.http.post<any>(url, data);
+  }
+
   registerUser(userData: any): Observable<any> {
     const url = `${this.baseUrl}/Users/register`;
     return this.http.post<any>(url, userData);

@@ -17,6 +17,6 @@ export const BE = {
 }
 
 export const FE = {
-  devUrl: 'http://localhost:4200/',
-  productionUrl: 'http://watchhub.website/'
+  devUrl: 'http://localhost:4200',
+  productionUrl: 'http://watchhub.website'
 }

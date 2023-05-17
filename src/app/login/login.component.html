@@ -19,25 +19,58 @@
       <div class="wrapper col-lg-5 mb-1 mb-lg-0">
         <div class="card">
           <div class="card-body py-5 px-md-5">
-            <form>
+            <form [formGroup]="loginForm">
               <div class="form-floating mb-4">
                 <input
                   placeholder="Email address"
+                  formControlName="email"
                   type="email"
                   class="form-control"
                   id="floatingInput"
                 />
                 <label for="floatingInput">Email address</label>
+
+                <small
+                  class="mt-1"
+                  *ngIf="
+                    loginForm.controls['email'].errors &&
+                    loginForm.controls['email'].dirty
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="loginForm.controls['email'].errors.required">
+                    Email is required
+                  </div>
+                  <div *ngIf="loginForm.controls['email'].errors.email">
+                    Invalid email format
+                  </div>
+                </small>
               </div>
+
               <div class="form-floating mb-4">
                 <input
                   placeholder="Password"
+                  formControlName="password"
                   type="password"
                   class="form-control"
                   id="floatingPassword"
                 />
                 <label for="floatingPassword">Password</label>
+                <small
+                  *ngIf="
+                    loginForm.controls['password']?.errors &&
+                    loginForm.controls['password'].dirty
+                  "
+                  class="text-danger"
+                >
+                  <div
+                    *ngIf="loginForm.controls['password']?.errors?.required"
+                  >
+                    Password is required
+                  </div>
+                </small>
               </div>
+
               <div class="form-check d-flex justify-content-center mb-4">
                 <input
                   class="form-check-input me-2"
@@ -52,6 +85,7 @@
               </div>
               <button
                 (click)="login()"
+                [disabled]="loginForm.invalid"
                 type="submit"
                 class="btn w-100 btn-primary py-2 mb-3"
               >
