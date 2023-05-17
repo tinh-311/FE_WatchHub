@@ -29,6 +29,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { ProfileComponent } from './profile/profile.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     PasswordModule,
     AvatarModule,
     DropdownModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    InputNumberModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

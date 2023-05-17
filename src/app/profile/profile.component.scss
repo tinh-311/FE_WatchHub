@@ -34,3 +34,12 @@ body {
   color: #fff;
   cursor: pointer;
 }
+
+:host ::ng-deep {
+  .p-dropdown {
+    width: 100%;
+  }
+  .p-inputtext {
+    width: 100%;
+  }
+}
