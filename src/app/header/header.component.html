@@ -48,14 +48,45 @@
                   <i *ngIf="isFullScreen" class="fas fa-compress"></i>
                 </a>
               </span>
+
               <p-avatar
                 image="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/342049984_221228790530112_6155011813849949330_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=VCgEKM4rVXIAX8o2I9v&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfARxyBcVqbt83obcqTj7LrxCGdNbSwVeUY4tWNEPFzYKw&oe=6468FB3D"
                 styleClass=""
                 size="large"
                 shape="circle"
                 class="cursor-pointer"
-                (click)="profileSettings()"
+                (click)="op.toggle($event)"
               ></p-avatar>
+
+              <p-overlayPanel #op>
+                <ng-template pTemplate="content">
+                  <div class="list-unstyled info">
+                    <a
+                      [href]="'/profile'"
+                      class="text-decoration-none text-secondary"
+                    >
+                      <i class="fas fa-user-edit mr-2"></i>
+                      Thông tin cá nhân
+                    </a>
+                    <hr />
+                    <a
+                      [href]="'/profile'"
+                      class="text-decoration-none text-secondary"
+                    >
+                      <i class="fas fa-dolly mr-2"></i>
+                      Đơn đặt hàng
+                    </a>
+                    <hr />
+                    <a
+                      (click)="logout()"
+                      class="text-decoration-none text-secondary"
+                    >
+                      <i class="fas fa-sign-out-alt mr-2"></i>
+                      Đăng xuất
+                    </a>
+                  </div>
+                </ng-template>
+              </p-overlayPanel>
             </div>
           </div>
         </div>
@@ -89,7 +120,7 @@
               size="large"
               shape="circle"
               class="cursor-pointer"
-              (click)="profileSettings()"
+              (click)="op.toggle($event)"
             ></p-avatar>
           </div>
         </div>

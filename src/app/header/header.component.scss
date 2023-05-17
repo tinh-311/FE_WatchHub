@@ -15,3 +15,12 @@
   display: inline-block !important;
   margin-top: 6px !important;
 }
+
+.info {
+  a {
+    &:hover {
+      color: $primary-color !important;
+      cursor: pointer;
+    }
+  }
+}
