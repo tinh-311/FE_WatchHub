@@ -30,15 +30,11 @@ export class HeaderComponent implements OnInit {
       .then(() => {
         // Đăng xuất thành công
         console.log('Đăng xuất thành công');
-        this.router.navigate(['']);
+        this.router.navigate(['/login']);
       })
       .catch((error) => {
         // Xảy ra lỗi khi đăng xuất
         console.error('Lỗi đăng xuất:', error);
       });
-  }
-
-  profileSettings() {
-    this.router.navigate(['/profile']);
   }
 }

@@ -27,6 +27,8 @@ import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
 import { AvatarModule } from 'primeng/avatar';
 import { ProfileComponent } from './profile/profile.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ProfileComponent } from './profile/profile.component';
     ToastModule,
     ProgressSpinnerModule,
     PasswordModule,
-    AvatarModule
+    AvatarModule,
+    DropdownModule,
+    OverlayPanelModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

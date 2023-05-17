@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
       if (user) {
         console.log('🏍️ ~ user 1: ', user);
       } else {
-        this.router.navigate(['']);
       }
     });
   }
