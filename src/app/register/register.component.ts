@@ -3,6 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
 import { AuthenService } from 'src/service/authen.service';
+import { LoadingService } from 'src/service/loading.service';
+import { ToastService } from 'src/service/toast.service';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 
 @Component({
   selector: 'app-register',
@@ -23,10 +26,14 @@ export class RegisterComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthenService
+    private authService: AuthenService,
+    private loadingService: LoadingService,
+    private toastService: ToastService,
   ) {}
 
   register() {
+    this.loadingService.showLoading();
+
     const user = {
       fullname: this.registerForm.value.yourName,
       email: this.registerForm.value.email,
@@ -34,9 +41,14 @@ export class RegisterComponent {
     }
 
     this.authService.registerUser(user).subscribe(res => {
-      console.log('🏍️ ~ res: ', res)
+      console.log('🏍️ ~ user: ', user)
+      this.loadingService.hideLoading();
+      this.toastService.showMessage(ToasSumary.Success, 'Đăng ký thành công', ToastType.Success);
     }, (err) => {
       console.log('🏍️ ~ err: ', err)
+      this.loadingService.hideLoading();
+      this.toastService.showMessage(ToasSumary.Error, err?.error?.message, ToastType.Error);
+
     })
   }
 

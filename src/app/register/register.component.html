@@ -143,6 +143,7 @@
               </div>
               <button
                 (click)="register()"
+                [disabled]="registerForm.invalid"
                 type="submit"
                 class="btn w-100 btn-primary py-2 mb-3"
               >

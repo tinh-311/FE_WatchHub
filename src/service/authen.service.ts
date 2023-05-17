@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BE, isProduction_BE } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenService {
-  private baseUrl = 'https://localhost:44350';
+  private baseUrl = isProduction_BE ? BE.productionUrl : BE.devUrl;
 
   constructor(private http: HttpClient) { }
 

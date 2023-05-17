@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingComponent } from './loading/loading.component';
 
 import { ToolbarModule } from 'primeng/toolbar';
 import { MenubarModule } from 'primeng/menubar';
@@ -20,7 +21,9 @@ import { CarouselModule } from 'primeng/carousel';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { HttpClientModule } from '@angular/common/http';
-import { OAuthModule, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
+import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { OAuthModule, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
     RegisterComponent,
     HomeComponent,
     FooterComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +47,10 @@ import { OAuthModule, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ToastModule,
+    ProgressSpinnerModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
