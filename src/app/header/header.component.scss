@@ -1,1 +1,17 @@
 @import 'src/style/variables.scss';
+
+.title {
+  font-size: 28px;
+  font-weight: 900;
+  font-family: serif;
+}
+
+.clear-fix-ava {
+  display: inline-block !important;
+  margin-top: 6px !important;
+}
+
+.clear-fix-ava-m {
+  display: inline-block !important;
+  margin-top: 6px !important;
+}

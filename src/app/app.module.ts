@@ -24,6 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
+import { PasswordModule } from 'primeng/password';
+import { AvatarModule } from 'primeng/avatar';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { MessageService } from 'primeng/api';
     RegisterComponent,
     HomeComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import { MessageService } from 'primeng/api';
     HttpClientModule,
     ReactiveFormsModule,
     ToastModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    PasswordModule,
+    AvatarModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

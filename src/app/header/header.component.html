@@ -10,53 +10,88 @@
                 src="assets/images/logo/watchhub.png"
                 class="d-inline-block mb-1"
               />
-              <span class="h4">
-                WatchHub
-              </span>
+              <span class="h4 title"> WatchHub </span>
             </a>
           </div>
           <div class="col-lg-5 col-md-8 col-6 order-lg-last d-none d-lg-block">
-            <div class="float-end">
-              <!-- <a href="#" class="btn mx-2 btn-primary">
+            <div class="d-flex justify-content-around">
+              <span>
+                <a
+                  (click)="logout()"
+                  class="btn mx-2 btn-primary clear-fix-ava"
+                >
+                  <i class="fa fa-user"></i>
+                  <span class="ms-1 d-none d-sm-inline-block"> Đăng Xuất </span>
+                </a>
+                <a href="#" class="btn mx-2 btn-danger clear-fix-ava">
+                  <i class="fa fa-heart"></i>
+                  <span class="ms-1 d-none d-sm-inline-block"> Yêu Thích</span>
+                </a>
+                <a
+                  data-bs-toggle="offcanvas"
+                  href="#offcanvas_cart"
+                  class="btn mx-2 btn-success clear-fix-ava"
+                >
+                  <i class="fa fa-shopping-cart text-white"></i>
+                  <span class="ms-1 text-white"> Giỏ Hàng </span>
+                </a>
+
+                <a
+                  title="Toogle Full Screen"
+                  class="btn mx-2 btn-secondary clear-fix-ava"
+                  (click)="toggleFullscreen()"
+                >
+                  <i
+                    *ngIf="!isFullScreen"
+                    class="fas fa-expand cursor-pointer"
+                  ></i>
+                  <i *ngIf="isFullScreen" class="fas fa-compress"></i>
+                </a>
+              </span>
+              <p-avatar
+                image="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/342049984_221228790530112_6155011813849949330_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=VCgEKM4rVXIAX8o2I9v&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfARxyBcVqbt83obcqTj7LrxCGdNbSwVeUY4tWNEPFzYKw&oe=6468FB3D"
+                styleClass=""
+                size="large"
+                shape="circle"
+                class="cursor-pointer"
+                (click)="profileSettings()"
+              ></p-avatar>
+            </div>
+          </div>
+        </div>
+        <div class="float-end d-lg-none mb-3">
+          <div class="d-flex justify-content-around">
+            <span>
+              <a
+                (click)="logout()"
+                class="btn mx-2 btn-primary clear-fix-ava-m"
+              >
                 <i class="fa fa-user"></i>
-                <span class="ms-1 d-none d-sm-inline-block">Sign in </span>
-              </a> -->
-              <a (click)="logout()" class="btn mx-2 btn-primary">
-                <i class="fa fa-user"></i>
-                <span class="ms-1 d-none d-sm-inline-block">Logout </span>
+                <span class="ms-1 d-none d-sm-inline-block"> Đăng Xuất </span>
               </a>
-              <a href="#" class="btn mx-2 btn-primary">
+              <a href="#" class="btn mx-2 btn-danger clear-fix-ava-m">
                 <i class="fa fa-heart"></i>
-                <span class="ms-1 d-none d-sm-inline-block">Wishlist</span>
+                <span class="ms-1 d-none d-sm-inline-block"> Yêu Thích</span>
               </a>
               <a
                 data-bs-toggle="offcanvas"
                 href="#offcanvas_cart"
-                class="btn mx-2 btn-primary"
+                class="btn mx-2 btn-success clear-fix-ava-m"
               >
-                <i class="fa fa-shopping-cart"></i>
-                <span class="ms-1">My cart </span>
+                <i class="fa fa-shopping-cart text-white"></i>
+                <span class="ms-1 text-white"> Giỏ Hàng </span>
               </a>
-            </div>
+            </span>
+
+            <p-avatar
+              image="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/342049984_221228790530112_6155011813849949330_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=VCgEKM4rVXIAX8o2I9v&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfARxyBcVqbt83obcqTj7LrxCGdNbSwVeUY4tWNEPFzYKw&oe=6468FB3D"
+              styleClass=""
+              size="large"
+              shape="circle"
+              class="cursor-pointer"
+              (click)="profileSettings()"
+            ></p-avatar>
           </div>
-        </div>
-        <div class="float-end d-sm-none mb-3">
-          <a (click)="logout()" class="btn mx-2 btn-primary">
-            <i class="fa fa-user"></i>
-            <span class="ms-1 d-none d-sm-inline-block">Logout </span>
-          </a>
-          <a href="#" class="btn mx-2 btn-primary">
-            <i class="fa fa-heart"></i>
-            <span class="ms-1 d-none d-sm-inline-block">Wishlist</span>
-          </a>
-          <a
-            data-bs-toggle="offcanvas"
-            href="#offcanvas_cart"
-            class="btn mx-2 btn-primary"
-          >
-            <i class="fa fa-shopping-cart"></i>
-            <span class="ms-1">My cart </span>
-          </a>
         </div>
       </div>
 
@@ -101,9 +136,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link ps-0 text-white" href="#"> Sản Phẩm </a>
-          </li>
+          <li class="nav-item"></li>
         </ul>
       </div>
     </div>
