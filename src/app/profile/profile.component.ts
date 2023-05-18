@@ -8,6 +8,8 @@ import { ToastService } from 'src/service/toast.service';
 import { formatAddress, parseAddressData } from '../constant/util.constant';
 import { FilterService } from 'primeng/api';
 import { LoadingService } from 'src/service/loading.service';
+import { Geolocation } from '@capacitor/geolocation';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-profile',
@@ -22,9 +24,13 @@ export class ProfileComponent implements OnInit {
     road: ['', [Validators.required]],
   });
 
+  infoForm: any;
+
   provinces: any[] = [];
   districts: any[] = [];
   wards: any[] = [];
+
+  currentUser: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,6 +43,18 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
+    if(token) {
+      this.currentUser = jwt_decode(token);
+      this.infoForm = this.formBuilder.group({
+        fullName: [this.currentUser?.fullname, [Validators.required]],
+        email: [this.currentUser?.email, [Validators.required, Validators.email]],
+        phoneNumber: [this.currentUser?.phone, [Validators.required, Validators.pattern(/^\d{10}$/)]],
+        createdDate: [this.currentUser?.created_date],
+        totalOrder: [0, [Validators.required]],
+      });
+    }
+
     this.loadingService.showLoading();
     this.addressService.getProvinces().subscribe(
       (res: any) => {
@@ -57,7 +75,7 @@ export class ProfileComponent implements OnInit {
   onProvinceChange() {
     this.loadingService.showLoading();
     const selectedProvince = this.addressForm.value?.city;
-    if(!selectedProvince) {
+    if (!selectedProvince) {
       this.wards = [];
     }
 
@@ -96,42 +114,63 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  onWardsChange() {}
+
   onSubmitAddress() {
     console.log(this.addressForm.value);
   }
 
-  getCurrenAddress() {
+  async getCurrenAddress() {
     this.loadingService.showLoading();
-    this.geolocationService
-      .getCurrentLocation()
-      .then((position) => {
-        this.addressByGeoService
-          .getAddressByGeolocation(
-            position?.coords?.latitude,
-            position?.coords?.longitude
-          )
-          .subscribe(
-            (res) => {
-              const address = parseAddressData(res);
+    const coordinates: any = await Geolocation.getCurrentPosition();
+    this.addressByGeoService
+      .getAddressByGeolocation(
+        coordinates?.coords?.latitude,
+        coordinates?.coords?.longitude
+      )
+      .subscribe(
+        (res) => {
+          const address = parseAddressData(res);
 
-              let selectedCity = this.provinces.find((p) =>
-                this.filterService.filters.contains(address.city, p?.name)
+          let selectedCity = this.provinces.find((p) =>
+            this.filterService.filters.contains(address.city, p?.name)
+          );
+
+          this.addressForm = this.formBuilder.group({
+            city: [selectedCity, [Validators.required]],
+            districts: ['', [Validators.required]],
+            wards: ['', [Validators.required]],
+            road: ['', [Validators.required]],
+          });
+
+          this.addressService.getDistricts(selectedCity?.code).subscribe(
+            (res: any) => {
+              this.districts = res?.data?.data;
+
+              let selectedDistrict = this.districts.find((p) =>
+                this.filterService.filters.contains(
+                  address.city_district,
+                  p?.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                )
               );
 
               this.addressForm = this.formBuilder.group({
                 city: [selectedCity, [Validators.required]],
-                districts: ['', [Validators.required]],
+                districts: [
+                  selectedDistrict || this.districts[0],
+                  [Validators.required],
+                ],
                 wards: ['', [Validators.required]],
                 road: ['', [Validators.required]],
               });
 
-              this.addressService.getDistricts(selectedCity?.code).subscribe(
+              this.addressService.getWards(selectedDistrict?.code).subscribe(
                 (res: any) => {
-                  this.districts = res?.data?.data;
+                  this.wards = res?.data?.data;
 
-                  let selectedDistrict = this.districts.find((p) =>
+                  let selectedWards = this.wards.find((p) =>
                     this.filterService.filters.contains(
-                      address.city_district,
+                      address.suburb,
                       p?.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                     )
                   );
@@ -139,51 +178,28 @@ export class ProfileComponent implements OnInit {
                   this.addressForm = this.formBuilder.group({
                     city: [selectedCity, [Validators.required]],
                     districts: [selectedDistrict, [Validators.required]],
-                    wards: ['', [Validators.required]],
+                    wards: [
+                      selectedWards || this.wards[0],
+                      [Validators.required],
+                    ],
                     road: ['', [Validators.required]],
                   });
 
-                  this.addressService
-                    .getWards(selectedDistrict?.code)
-                    .subscribe(
-                      (res: any) => {
-                        this.wards = res?.data?.data;
-                        let selectedWards = this.wards.find((p) =>
-                          this.filterService.filters.contains(
-                            address.suburb,
-                            p?.name
-                              .normalize('NFD')
-                              .replace(/[\u0300-\u036f]/g, '')
-                          )
-                        );
-                        this.addressForm = this.formBuilder.group({
-                          city: [selectedCity, [Validators.required]],
-                          districts: [selectedDistrict, [Validators.required]],
-                          wards: [selectedWards, [Validators.required]],
-                          road: ['', [Validators.required]],
-                        });
-                        let road = '';
-                        if (address?.road && address?.road != 'unnamed road') {
-                          road = address?.road;
-                        }
+                  let road = '';
+                  if (address?.road && address?.road != 'unnamed road') {
+                    road = address?.road;
+                  }
 
-                        this.addressForm = this.formBuilder.group({
-                          city: [selectedCity, [Validators.required]],
-                          districts: [selectedDistrict, [Validators.required]],
-                          wards: [selectedWards, [Validators.required]],
-                          road: [road, [Validators.required]],
-                        });
-                        this.loadingService.hideLoading();
-                      },
-                      (err) => {
-                        this.loadingService.hideLoading();
-                        this.toastService.showMessage(
-                          ToastType.Error,
-                          err?.error?.message,
-                          ToastType.Error
-                        );
-                      }
-                    );
+                  this.addressForm = this.formBuilder.group({
+                    city: [selectedCity, [Validators.required]],
+                    districts: [selectedDistrict, [Validators.required]],
+                    wards: [
+                      selectedWards || this.wards[0],
+                      [Validators.required],
+                    ],
+                    road: [road, [Validators.required]],
+                  });
+                  this.loadingService.hideLoading();
                 },
                 (err) => {
                   this.loadingService.hideLoading();
@@ -195,12 +211,24 @@ export class ProfileComponent implements OnInit {
                 }
               );
             },
-            (err) => {}
+            (err) => {
+              this.loadingService.hideLoading();
+              this.toastService.showMessage(
+                ToastType.Error,
+                err?.error?.message,
+                ToastType.Error
+              );
+            }
           );
-      })
-      .catch((error) => {
-        this.loadingService.hideLoading();
-        console.error('Failed to get current location:', error);
-      });
+        },
+        (err) => {
+          this.loadingService.hideLoading();
+          this.toastService.showMessage(
+            ToastType.Error,
+            err?.error?.message,
+            ToastType.Error
+          );
+        }
+      );
   }
 }
