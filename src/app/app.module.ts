@@ -31,6 +31,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
+import {NgxWebstorageModule} from 'ngx-webstorage';
+import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +65,9 @@ import { TooltipModule } from 'primeng/tooltip';
     DropdownModule,
     OverlayPanelModule,
     InputNumberModule,
-    TooltipModule
+    TooltipModule,
+    NgxWebstorageModule,
+    CalendarModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],
