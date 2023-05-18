@@ -20,3 +20,5 @@ export const FE = {
   devUrl: 'http://localhost:4200',
   productionUrl: 'http://watchhub.website'
 }
+
+export const apiOpencageKey = '7be67489458e4ff1946dfb04aa62160f'
