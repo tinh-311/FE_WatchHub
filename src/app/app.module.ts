@@ -30,6 +30,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     AvatarModule,
     DropdownModule,
     OverlayPanelModule,
-    InputNumberModule
+    InputNumberModule,
+    TooltipModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],
