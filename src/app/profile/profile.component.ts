@@ -5,7 +5,11 @@ import { AddressService } from 'src/service/address.service';
 import { ToastType } from 'src/service/constant/toast.constant';
 import { GeolocationService } from 'src/service/geolocation.service';
 import { ToastService } from 'src/service/toast.service';
-import { formatAddress, parseAddressData } from '../constant/util.constant';
+import {
+  formatAddress,
+  normalizeName,
+  parseAddressData,
+} from '../constant/util.constant';
 import { FilterService } from 'primeng/api';
 import { LoadingService } from 'src/service/loading.service';
 import { Geolocation } from '@capacitor/geolocation';
@@ -31,6 +35,7 @@ export class ProfileComponent implements OnInit {
   wards: any[] = [];
 
   currentUser: any;
+  address: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,12 +49,18 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     const token = localStorage.getItem('token');
-    if(token) {
+    if (token) {
       this.currentUser = jwt_decode(token);
       this.infoForm = this.formBuilder.group({
         fullName: [this.currentUser?.fullname, [Validators.required]],
-        email: [this.currentUser?.email, [Validators.required, Validators.email]],
-        phoneNumber: [this.currentUser?.phone, [Validators.required, Validators.pattern(/^\d{10}$/)]],
+        email: [
+          this.currentUser?.email,
+          [Validators.required, Validators.email],
+        ],
+        phoneNumber: [
+          this.currentUser?.phone,
+          [Validators.required, Validators.pattern(/^\d{10}$/)],
+        ],
         createdDate: [this.currentUser?.created_date],
         totalOrder: [0, [Validators.required]],
       });
@@ -130,8 +141,8 @@ export class ProfileComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          const address = parseAddressData(res);
-
+          const address: any = parseAddressData(res);
+          this.address = address;
           let selectedCity = this.provinces.find((p) =>
             this.filterService.filters.contains(address.city, p?.name)
           );
@@ -168,12 +179,13 @@ export class ProfileComponent implements OnInit {
                 (res: any) => {
                   this.wards = res?.data?.data;
 
-                  let selectedWards = this.wards.find((p) =>
-                    this.filterService.filters.contains(
+                  let selectedWards = this.wards.find((p) => {
+                    let n = normalizeName(p?.name);
+                    return this.filterService.filters.contains(
                       address.suburb,
-                      p?.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-                    )
-                  );
+                      n
+                    );
+                  });
 
                   this.addressForm = this.formBuilder.group({
                     city: [selectedCity, [Validators.required]],
