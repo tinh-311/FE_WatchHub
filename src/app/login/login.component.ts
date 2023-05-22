@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     firebase.onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('🏍️ ~ user 1: ', user);
+        this.router.navigate(['']);
       } else {
       }
     });
@@ -55,7 +56,6 @@ export class LoginComponent implements OnInit {
 
     this.authenService.login(auth).subscribe(
       (res) => {
-        console.log('🏍️ ~ res: ', res)
         this.toastService.showMessage(ToasSumary.Success, 'Đăng nhập thành công', ToastType.Success);
         localStorage.setItem('token', res?.token);
         this.loadingService.hideLoading();
@@ -81,8 +81,10 @@ export class LoginComponent implements OnInit {
       address: result?.user?.email,
     } as User;
 
-    this.authenService.registerUser(this.user).subscribe((res) => {
-      console.log('🏍️ ~ res: ', res);
-    });
+    // this.authenService.registerUser(this.user).subscribe((res) => {
+    //   console.log('🏍️ ~ res gg: ', res);
+    // }, (err) => {
+    //   console.log('🏍️ ~ err login w gg: ', err)
+    // });
   }
 }
