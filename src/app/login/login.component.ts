@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
 
     this.authenService.login(auth).subscribe(
       (res) => {
+        console.log('🏍️ ~ res: ', res)
         this.toastService.showMessage(ToasSumary.Success, 'Đăng nhập thành công', ToastType.Success);
         localStorage.setItem('token', res?.token);
         this.loadingService.hideLoading();
