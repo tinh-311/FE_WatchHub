@@ -33,6 +33,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { CalendarModule } from 'primeng/calendar';
+import { AdminUserComponent } from './admin/admin-user/admin-user.component';
+import { TableModule } from 'primeng/table';
+import { AdminDasboardComponent } from './admin/admin-dasboard/admin-dasboard.component';
+import { SplitterModule } from 'primeng/splitter';
+import { AdminDashboardHomeComponent } from './admin/admin-dashboard-home/admin-dashboard-home.component';
 
 
 @NgModule({
@@ -44,7 +49,10 @@ import { CalendarModule } from 'primeng/calendar';
     HomeComponent,
     FooterComponent,
     LoadingComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminUserComponent,
+    AdminDasboardComponent,
+    AdminDashboardHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +75,9 @@ import { CalendarModule } from 'primeng/calendar';
     InputNumberModule,
     TooltipModule,
     NgxWebstorageModule,
-    CalendarModule
+    CalendarModule,
+    TableModule,
+    SplitterModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

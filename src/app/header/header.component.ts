@@ -29,6 +29,15 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
+  isMobileScreen(): boolean {
+    const mobileScreenWidth = 768;
+    return window.innerWidth < mobileScreenWidth;
+  }
+
+  navigateAdmin() {
+    this.router.navigate(['/admin']);
+  }
+
   toggleFullscreen() {
     this.isFullScreen = !this.isFullScreen;
     this.fullScreenService.toggleFullscreen();

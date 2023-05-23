@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-auto sticky-top" style="background-color: #5171FE;">
+      <div
+        class="d-flex flex-md-column flex-md-row flex-nowrap align-items-center sticky-top"
+      >
+        <a
+          class="d-block p-3 link-dark text-decoration-none d-none d-md-inline"
+          title=""
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          data-bs-original-title="Icon-only"
+        >
+          <img
+            style="height: 90px; border-radius: 0.5rem;"
+            src="assets/images/logo/logo5.png"
+            class="d-inline-block mb-1"
+          />
+          <hr class="text-white">
+        </a>
+        <ul
+          *ngFor="let navItem of SIDE_NAV"
+          class="nav nav-pills nav-flush flex-md-column flex-md-row flex-nowrap mb-auto mx-auto w-100 px-3 mt-0"
+        >
+          <li class="nav-item ml-0">
+            <a
+              class="nav-link py-3 px-2 text-white w-100 d-flex align-items-center cursor-pointer"
+              (click)="onClickNavItem(navItem)"
+            >
+              <i [class]="navItem?.iconClass"></i>
+              <span class="ml-3 d-none d-md-inline fw-light"> {{ navItem?.name }} </span>
+            </a>
+          </li>
+        </ul>
+        <div>
+          <a
+            href="#"
+            class="text-white d-flex align-items-center justify-content-center p-3 text-decoration-none"
+          >
+            <i class="fas fa-user-circle fa-2x"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm p-3 min-vh-100">
+      <app-admin-dashboard-home *ngIf="curentNavItem === SideNav.Dashboard"></app-admin-dashboard-home>
+      <app-admin-user *ngIf="curentNavItem === SideNav.Users"></app-admin-user>
+    </div>
+  </div>
+</div>

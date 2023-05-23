@@ -3,25 +3,29 @@
     <div class="container">
       <div class="container">
         <div class="row gy-3 align-items-center">
-          <div class="col-lg-2 col-md-4 col-6">
+          <div
+            [ngClass]="{
+              'w-100 d-flex justify-content-center': isMobileScreen()
+            }"
+            class="col-lg-2 col-md-4 col-6 w-100"
+          >
             <a href="#" class="navbar-brand fw-bold text-primary h1">
               <img
-                style="width: 110px; height: 110px"
-                src="assets/images/logo/watchhub.png"
+                style="width: 130px; height: 100px"
+                src="assets/images/logo/logo4.png"
                 class="d-inline-block mb-1"
               />
-              <span class="h4 title"> WatchHub </span>
             </a>
           </div>
           <div class="col-lg-5 col-md-8 col-6 order-lg-last d-none d-lg-block">
             <div class="d-flex justify-content-around">
               <span>
                 <a
-                  (click)="logout()"
+                  (click)="navigateAdmin()"
                   class="btn mx-2 btn-primary clear-fix-ava"
                 >
-                  <i class="fa fa-user"></i>
-                  <span class="ms-1 d-none d-sm-inline-block"> Đăng Xuất </span>
+                  <i class="fa fa-admin"></i>
+                  <span class="ms-1 d-none d-sm-inline-block"> Admin </span>
                 </a>
                 <a href="#" class="btn mx-2 btn-danger clear-fix-ava">
                   <i class="fa fa-heart"></i>
@@ -50,14 +54,16 @@
               </span>
 
               <p-avatar
-                [image]="currentUser?.avatar ||
-                'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'"
+                [image]="
+                  currentUser?.avatar ||
+                  'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
+                "
                 styleClass=""
                 size="large"
                 shape="circle"
                 class="cursor-pointer"
                 (click)="op.toggle($event)"
-                pTooltip="{{currentUser?.fullname}}"
+                pTooltip="{{ currentUser?.fullname }}"
                 tooltipPosition="bottom"
               ></p-avatar>
 

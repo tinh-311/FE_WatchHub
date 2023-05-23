@@ -11,6 +11,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoadingService } from 'src/service/loading.service';
 import { ToastService } from 'src/service/toast.service';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
+import jwt_decode from 'jwt-decode';
 
 initializeApp(firebaseConfig);
 @Component({
@@ -45,6 +46,14 @@ export class LoginComponent implements OnInit {
       } else {
       }
     });
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      const currentUser = jwt_decode(token);
+      if(currentUser) {
+        this.router.navigate(['']);
+      }
+    }
   }
 
   login() {
@@ -73,13 +82,13 @@ export class LoginComponent implements OnInit {
     const result: any = await firebase.signInWithPopup(this.auth, provider);
 
     this.user = {
-      username: result?.user?.displayName,
-      password: result?.user?.uid,
-      fullname: result?.user?.displayName,
+      name: result?.user?.displayName,
       email: result?.user?.email,
-      phone: result?.user?.phoneNumber || '0123456789',
-      address: result?.user?.email,
-    } as User;
+      picture: result?.user?.photoURL,
+      phone: result?.user?.phoneNumber,
+      uid: result?.user?.uid
+    };
+    console.log('🏍️ ~ user: ', this.user)
 
     // this.authenService.registerUser(this.user).subscribe((res) => {
     //   console.log('🏍️ ~ res gg: ', res);
