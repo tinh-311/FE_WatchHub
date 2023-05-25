@@ -1,0 +1,73 @@
+<div
+  class="px-4 py-5 px-md-5 text-center text-lg-start verify"
+  style="background-color: hsl(0, 0%, 96%)"
+>
+  <div
+    class="container verify-container d-flex justify-content-center align-content-center align-items-center"
+  >
+    <div class="wrapper col-lg-5 mb-1 mb-lg-0">
+      <div class="card">
+        <div class="card-body py-5 px-md-5">
+          <form [formGroup]="verifyForm">
+            <div class="form-floating mb-4">
+              <input
+                placeholder="Email address"
+                formControlName="email"
+                type="email"
+                class="form-control"
+                id="floatingInput"
+              />
+              <label for="floatingInput">Email address</label>
+
+              <small
+                class="mt-1"
+                *ngIf="
+                  verifyForm.controls['email'].errors &&
+                  verifyForm.controls['email'].dirty
+                "
+                class="text-danger"
+              >
+                <div *ngIf="verifyForm.controls['email'].errors.required">
+                  Email is required
+                </div>
+                <div *ngIf="verifyForm.controls['email'].errors.email">
+                  Invalid email format
+                </div>
+              </small>
+            </div>
+
+            <div class="form-floating mb-4">
+              <input
+                placeholder="Verify code"
+                formControlName="code"
+                type="text"
+                class="form-control"
+                id="floatingPassword"
+              />
+              <label for="floatingPassword">Verify Code</label>
+              <small
+                *ngIf="
+                  verifyForm.controls['code']?.errors &&
+                  verifyForm.controls['code'].dirty
+                "
+                class="text-danger"
+              >
+                <div *ngIf="verifyForm.controls['code']?.errors?.required">
+                  Verify code is required
+                </div>
+              </small>
+            </div>
+
+            <button
+              (click)="onClickSubmit()"
+              type="submit"
+              class="btn w-100 btn-primary py-2 mb-3"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

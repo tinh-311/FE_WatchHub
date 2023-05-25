@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +38,8 @@ import { TableModule } from 'primeng/table';
 import { AdminDasboardComponent } from './admin/admin-dasboard/admin-dasboard.component';
 import { SplitterModule } from 'primeng/splitter';
 import { AdminDashboardHomeComponent } from './admin/admin-dashboard-home/admin-dashboard-home.component';
+import { ImageModule } from 'primeng/image';
+import { VerifyComponent } from './verify/verify.component';
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { AdminDashboardHomeComponent } from './admin/admin-dashboard-home/admin-
     ProfileComponent,
     AdminUserComponent,
     AdminDasboardComponent,
-    AdminDashboardHomeComponent
+    AdminDashboardHomeComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,
@@ -77,10 +80,12 @@ import { AdminDashboardHomeComponent } from './admin/admin-dashboard-home/admin-
     NgxWebstorageModule,
     CalendarModule,
     TableModule,
-    SplitterModule
+    SplitterModule,
+    ImageModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {
 }

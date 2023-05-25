@@ -22,7 +22,7 @@ export class AuthenService {
   }
 
   registerWithGoogle(userData: any): Observable<any> {
-    const url = `${this.baseUrl}/Users/register`;
+    const url = `${this.baseUrl}/Users/LoginWithGoogle`;
     return this.http.post<any>(url, userData);
   }
 }

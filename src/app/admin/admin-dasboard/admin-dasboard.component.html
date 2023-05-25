@@ -28,18 +28,10 @@
               (click)="onClickNavItem(navItem)"
             >
               <i [class]="navItem?.iconClass"></i>
-              <span class="ml-3 d-none d-md-inline fw-light"> {{ navItem?.name }} </span>
+              <span class="ml-3 d-none d-md-inline fw-light"> {{ navItem?.displayName | uppercase }} </span>
             </a>
           </li>
         </ul>
-        <div>
-          <a
-            href="#"
-            class="text-white d-flex align-items-center justify-content-center p-3 text-decoration-none"
-          >
-            <i class="fas fa-user-circle fa-2x"></i>
-          </a>
-        </div>
       </div>
     </div>
     <div class="col-sm p-3 min-vh-100">
