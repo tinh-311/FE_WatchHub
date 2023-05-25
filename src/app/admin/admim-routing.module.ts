@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'order',
     component: AdminDasboardComponent,
   },
+  {
+    path: 'profile',
+    component: AdminDasboardComponent,
+  },
 ];
 
 @NgModule({

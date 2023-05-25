@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     const auth = getAuth();
     firebase.onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('🏍️ ~ user 1: ', user);
         this.router.navigate(['']);
       } else {
       }
@@ -50,7 +49,7 @@ export class LoginComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       const currentUser = jwt_decode(token);
-      if(currentUser) {
+      if (currentUser) {
         this.router.navigate(['']);
       }
     }
@@ -58,42 +57,65 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loadingService.showLoading();
-    const auth = {
+    const auth: User = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     };
 
     this.authenService.login(auth).subscribe(
       (res) => {
-        this.toastService.showMessage(ToasSumary.Success, 'Đăng nhập thành công', ToastType.Success);
+        this.toastService.showMessage(
+          ToasSumary.Success,
+          'Đăng nhập thành công',
+          ToastType.Success
+        );
         localStorage.setItem('token', res?.token);
         this.loadingService.hideLoading();
         this.router.navigate(['']);
       },
       (err) => {
-        this.toastService.showMessage(ToasSumary.Error, err?.error?.message, ToastType.Error);
+        this.toastService.showMessage(
+          ToasSumary.Error,
+          err?.error?.message,
+          ToastType.Error
+        );
         this.loadingService.hideLoading();
       }
     );
   }
 
   async loginWithGoogle() {
+    this.loadingService.showLoading();
     const provider = new firebase.GoogleAuthProvider();
     const result: any = await firebase.signInWithPopup(this.auth, provider);
 
-    this.user = {
+    const ggUser: User = {
+      uid: result?.user?.uid,
       name: result?.user?.displayName,
-      email: result?.user?.email,
       picture: result?.user?.photoURL,
-      phone: result?.user?.phoneNumber,
-      uid: result?.user?.uid
+      email: result?.user?.email,
+      phone: result?.user?.phoneNumber || '000',
     };
-    console.log('🏍️ ~ user: ', this.user)
 
-    // this.authenService.registerUser(this.user).subscribe((res) => {
-    //   console.log('🏍️ ~ res gg: ', res);
-    // }, (err) => {
-    //   console.log('🏍️ ~ err login w gg: ', err)
-    // });
+    this.authenService.registerWithGoogle(ggUser).subscribe(
+      (res) => {
+        this.toastService.showMessage(
+          ToasSumary.Success,
+          'Đăng nhập thành công',
+          ToastType.Success
+        );
+        localStorage.setItem('token', res?.token);
+        this.loadingService.hideLoading();
+        this.router.navigate(['']);
+      },
+      (err) => {
+        this.toastService.showMessage(
+          ToasSumary.Error,
+          err?.error?.message,
+          ToastType.Error
+        );
+        this.loadingService.hideLoading();
+      }
+    );
   }
 }
