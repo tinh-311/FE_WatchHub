@@ -2,19 +2,29 @@
 <div class="container rounded bg-white mt-5 mb-5">
   <div class="row pb-md-3">
     <div class="col-md-3 border-right">
-      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-        <img
-          class="rounded-circle mt-5"
-          width="150px"
-          [src]="
-            currentUser?.avatar ||
-            'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
-          "
-        /><span class="font-weight-bold">{{ currentUser?.fullname }}</span
+      <div
+        class="d-flex flex-column align-items-center text-center p-3 py-5"
+      >
+        <lr-img
+          class="rounded-circle mt-5 position-relative  mb-2"
+          width="200px"
+          height="200px"
+          id="user-avatar-profile"
+          uuid="e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c"
+        >
+          <lr-file-uploader-regular
+            css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
+            ctx-name="my-uploader"
+            class="my-config position-absolute top-50 z-5 d-none"
+            style="left: 20%"
+          ></lr-file-uploader-regular>
+        </lr-img>
+        <span class="font-weight-bold">{{ currentUser?.fullname }}</span
         ><span class="text-black-50">{{ currentUser?.email }}</span
         ><span> </span>
       </div>
     </div>
+
     <div class="col-md-5 border-right">
       <form [formGroup]="infoForm" class="p-3 py-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -23,23 +33,42 @@
         <div class="row mt-2">
           <div class="col-md-6">
             <label class="labels">Họ Tên</label>
-            <input formControlName="fullName" pInputText placeholder="Nhập họ tên" />
+            <input
+              formControlName="fullName"
+              pInputText
+              placeholder="Nhập họ tên"
+            />
           </div>
           <div class="col-md-6">
             <label class="labels">Email</label><br />
-            <input formControlName="email" pInputText placeholder="Nhập Email" />
+            <input
+              formControlName="email"
+              pInputText
+              placeholder="Nhập Email"
+            />
           </div>
         </div>
         <div class="row mt-3">
           <div class="col-md-12">
             <label class="labels">Số điện thoại</label><br />
-            <input formControlName="phoneNumber" pInputText placeholder="Nhập Số điện thoại" />
+            <input
+              formControlName="phoneNumber"
+              pInputText
+              placeholder="Nhập Số điện thoại"
+            />
           </div>
         </div>
         <div class="row mt-3">
           <div class="col-md-12">
             <label class="labels">Ngày tạo tài khoản</label><br />
-            <input class="disabled" id="disabled-input" type="text" formControlName="createdDate" pInputText [disabled]="true" />
+            <input
+              class="disabled"
+              id="disabled-input"
+              type="text"
+              formControlName="createdDate"
+              pInputText
+              [disabled]="true"
+            />
           </div>
         </div>
         <div class="row mt-3">

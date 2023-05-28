@@ -17,7 +17,7 @@
               />
             </a>
           </div>
-          <div class="col-lg-5 col-md-8 col-6 order-lg-last d-none d-lg-block">
+          <div class="col-lg-5 col-md-8 col-6 order-lg-last d-lg-block">
             <div class="d-flex justify-content-around">
               <span>
                 <a
@@ -53,19 +53,16 @@
                 </a>
               </span>
 
-              <p-avatar
-                [image]="
-                  currentUser?.avatar ||
-                  'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
-                "
-                styleClass=""
-                size="large"
-                shape="circle"
-                class="cursor-pointer"
+              <lr-img
                 (click)="op.toggle($event)"
                 pTooltip="{{ currentUser?.fullname }}"
                 tooltipPosition="bottom"
-              ></p-avatar>
+                class="rounded-circle cursor-pointer"
+                width="50px"
+                height="50px"
+                id="user-avatar"
+                uuid="e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c"
+              ></lr-img>
 
               <p-overlayPanel #op>
                 <ng-template pTemplate="content">
@@ -97,40 +94,6 @@
                 </ng-template>
               </p-overlayPanel>
             </div>
-          </div>
-        </div>
-        <div class="float-end d-lg-none mb-3">
-          <div class="d-flex justify-content-around">
-            <span>
-              <a
-                (click)="navigateAdmin()"
-                class="btn mx-2 btn-primary clear-fix-ava"
-              >
-                <i class="fas fa-user-shield"></i>
-                <span class="ms-1 d-none d-sm-inline-block"> Admin </span>
-              </a>
-              <a href="#" class="btn mx-2 btn-danger clear-fix-ava-m">
-                <i class="fa fa-heart"></i>
-                <span class="ms-1 d-none d-sm-inline-block"> Yêu Thích</span>
-              </a>
-              <a
-                data-bs-toggle="offcanvas"
-                href="#offcanvas_cart"
-                class="btn mx-2 btn-success clear-fix-ava-m"
-              >
-                <i class="fa fa-shopping-cart text-white"></i>
-                <span class="ms-1 text-white"> Giỏ Hàng </span>
-              </a>
-            </span>
-
-            <p-avatar
-              image="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/342049984_221228790530112_6155011813849949330_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=VCgEKM4rVXIAX8o2I9v&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfARxyBcVqbt83obcqTj7LrxCGdNbSwVeUY4tWNEPFzYKw&oe=6468FB3D"
-              styleClass=""
-              size="large"
-              shape="circle"
-              class="cursor-pointer"
-              (click)="op.toggle($event)"
-            ></p-avatar>
           </div>
         </div>
       </div>

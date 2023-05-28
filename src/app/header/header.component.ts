@@ -4,6 +4,14 @@ import { getAuth, signOut } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { FullScreenService } from 'src/service/full-screen.service';
 import jwt_decode from 'jwt-decode';
+import * as LR from '@uploadcare/blocks';
+import type { UploadcareFile } from '@uploadcare/upload-client';
+
+LR.registerBlocks(LR);
+
+type UploadcareBlocksFile = UploadcareFile & {
+  cdnUrlModifiers: string | null;
+};
 
 const auth = getAuth();
 @Component({
@@ -27,7 +35,17 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.updateLRImgElementWithUuid(this.currentUser?.avatar);
+  }
+
+  updateLRImgElementWithUuid(uploadedUuid: string) {
+    console.log('🏍️ ~ uploadedUuid: ', uploadedUuid);
+    const lrImgElement = document.getElementById('user-avatar') as HTMLElement;
+    if (lrImgElement) {
+      lrImgElement.setAttribute('uuid', uploadedUuid);
+    }
+  }
 
   isMobileScreen(): boolean {
     const mobileScreenWidth = 768;

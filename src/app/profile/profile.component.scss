@@ -69,3 +69,19 @@ body {
 .icon-wrapper:hover i {
   animation: icon-animation 0.6s infinite; /* Thêm animation cho biểu tượng khi hover */
 }
+
+lr-img {
+  --lr-img-lazy: 0;
+}
+
+.rounded-circle {
+  img {
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+  }
+
+  &:hover {
+    lr-file-uploader-regular {
+      display: block !important;
+    }
+  }
+}
