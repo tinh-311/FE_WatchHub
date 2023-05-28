@@ -2,3 +2,17 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import './style/variables.scss';
+
+.my-config {
+  --cfg-pubkey: "c269e71c569cd0fc0baa";
+  --cfg-img-only: 1;
+  --cfg-multiple: 0;
+  --cfg-max-local-file-size-bytes: 5242880;
+  --cfg-multiple-max: 1;
+  --cfg-use-cloud-image-editor: 1;
+  --cfg-source-list: "local, url, camera, facebook, gdrive, gphotos, instagram";
+  --darkmode: 0;
+  --h-accent: 223;
+  --s-accent: 100%;
+  --l-accent: 61%;
+}

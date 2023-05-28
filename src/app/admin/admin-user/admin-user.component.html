@@ -6,7 +6,7 @@
   [rowsPerPageOptions]="[10, 25, 50]"
   [paginator]="true"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [globalFilterFields]="['fullname  ', 'email', 'phone', 'isAdmin', 'is_deleted']"
+  [globalFilterFields]="['fullname  ', 'email', 'phone', 'is_admin', 'is_deleted']"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -46,12 +46,12 @@
           display="menu"
         ></p-columnFilter>
       </th>
-      <th pSortableColumn="isAdmin">
+      <th pSortableColumn="is_admin">
         Is Admin
-        <p-sortIcon field="isAdmin"></p-sortIcon>
+        <p-sortIcon field="is_admin"></p-sortIcon>
         <p-columnFilter
           type="boolean"
-          field="isAdmin"
+          field="is_admin"
           display="menu"
         ></p-columnFilter>
       </th>
@@ -79,7 +79,7 @@
       <td>{{ user?.fullname }}</td>
       <td>{{ user?.email }}</td>
       <td>{{ user?.phone }}</td>
-      <td>{{ user?.isAdmin }}</td>
+      <td>{{ user?.is_admin }}</td>
       <td>{{ user?.is_deleted }}</td>
     </tr>
   </ng-template>
