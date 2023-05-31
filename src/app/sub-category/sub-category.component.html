@@ -1,0 +1,147 @@
+<app-header></app-header>
+<div class="grid" style="min-height: 50vh; max-width: 100vw">
+  <div class="col-fixed" style="width: 20%">
+    <section class="section-intro padding-top-sm">
+      <div class="container w-100">
+        <main class="card mt-2 pl-3 w-100" style="min-height: 300px">
+          <div class="row w-100">
+            <div class="col-1 w-100">
+              <aside *ngFor="let subCategory of subCategories" class="w-100">
+                <nav class="nav flex-column nav-pills mb-1">
+                  <a
+                    [class.active]="selectedSubCategory?.id === subCategory?.id"
+                    (click)="onCliskSubCategory(subCategory)"
+                    class="nav-link cursor-pointer"
+                  >
+                    {{ subCategory?.sub_category_name }}
+                  </a>
+                </nav>
+              </aside>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+  </div>
+  <div class="col">
+    <div class="card">
+      <p-dataView #dv [value]="products" [layout]="layout">
+        <ng-template pTemplate="header">
+          <div class="flex justify-content-end">
+            <p-dataViewLayoutOptions
+              [layout]="layout"
+            ></p-dataViewLayoutOptions>
+          </div>
+        </ng-template>
+        <ng-template let-product pTemplate="listItem">
+          <div class="col-12">
+            <div
+              class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4"
+            >
+              <img
+                class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+                [src]="
+                  'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg'
+                "
+                [alt]="product.product_type_name"
+              />
+              <div
+                class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4"
+              >
+                <div
+                  class="flex flex-column align-items-center sm:align-items-start gap-3"
+                >
+                  <div class="text-2xl font-bold text-900">
+                    {{ product.product_type_name }}
+                  </div>
+                  <p-rating
+                    [ngModel]="4"
+                    [readonly]="true"
+                    [cancel]="false"
+                  ></p-rating>
+                  <div class="flex align-items-center gap-3">
+                    <span class="flex align-items-center gap-2">
+                      <i class="pi pi-tag"></i>
+                      <span class="font-semibold">{{ product.category }}</span>
+                    </span>
+                    <p-tag
+                      [value]="'INSTOCK'"
+                      severity="{{ getSeverity(product) }}"
+                    ></p-tag>
+                  </div>
+                </div>
+                <div
+                  class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
+                >
+                  <span class="text-2xl font-semibold">{{
+                    "$" + product.price
+                  }}</span>
+                  <button
+                    pButton
+                    icon="pi pi-shopping-cart"
+                    class="md:align-self-end mb-2 p-button-rounded"
+                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template let-product pTemplate="gridItem">
+          <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
+            <div class="p-4 border-1 surface-border surface-card border-round">
+              <div
+                class="flex flex-wrap align-items-center justify-content-between gap-2"
+              >
+                <span class="flex align-items-center gap-2">
+                  <i class="pi pi-tag"></i>
+                  <span class="font-semibold">{{ product.category }}</span>
+                </span>
+                <p-tag
+                  [value]="'INSTOCK'"
+                  severity="{{ getSeverity(product) }}"
+                ></p-tag>
+              </div>
+              <div class="flex flex-column align-items-center gap-3 py-5">
+                <img
+                  class="w-9 shadow-2 border-round"
+                  [src]="
+                    'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg'
+                  "
+                  [alt]="product.name"
+                />
+                <div class="text-2xl font-bold">
+                  {{ product.product_type_name }}
+                </div>
+                <p-rating
+                  [ngModel]="4"
+                  [readonly]="true"
+                  [cancel]="false"
+                ></p-rating>
+              </div>
+              <div class="flex align-items-center justify-content-between">
+                <span class="text-2xl font-semibold">{{
+                  product.price | currency : "VND"
+                }}</span>
+                <button
+                  pButton
+                  icon="pi pi-shopping-cart"
+                  class="p-button-rounded"
+                  [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-dataView>
+
+      <p-paginator
+        [rows]="10"
+        [totalRecords]="totalRecords"
+        (onPageChange)="onPageChanged($event)"
+      ></p-paginator>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

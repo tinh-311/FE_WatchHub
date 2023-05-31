@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CategoryService } from 'src/service/category.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ export class HomeComponent implements OnInit {
   banners: any;
   responsiveOptions: any;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.banners = [
@@ -17,7 +19,7 @@ export class HomeComponent implements OnInit {
       'https://cdn3.dhht.vn/wp-content/uploads/2019/02/dong-ho-nu-1.jpg',
       'https://cdn3.dhht.vn/wp-content/uploads/2019/03/banner-doi.jpg',
       'https://cdn3.dhht.vn/wp-content/uploads/2019/03/G-shock.jpg',
-      'https://cdn3.dhht.vn/wp-content/uploads/2019/02/banner-CITIZEN.jpg'
+      'https://cdn3.dhht.vn/wp-content/uploads/2019/02/banner-CITIZEN.jpg',
     ];
 
     this.responsiveOptions = [
