@@ -40,7 +40,13 @@ import { SplitterModule } from 'primeng/splitter';
 import { AdminDashboardHomeComponent } from './admin/admin-dashboard-home/admin-dashboard-home.component';
 import { ImageModule } from 'primeng/image';
 import { VerifyComponent } from './verify/verify.component';
-
+import { SubCategoryComponent } from './sub-category/sub-category.component';
+import { NewProductComponent } from './new-product/new-product.component';
+import { ProductsComponent } from './products/products.component';
+import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
+import { RatingModule } from 'primeng/rating';
+import { TagModule } from 'primeng/tag';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -55,7 +61,10 @@ import { VerifyComponent } from './verify/verify.component';
     AdminUserComponent,
     AdminDasboardComponent,
     AdminDashboardHomeComponent,
-    VerifyComponent
+    VerifyComponent,
+    SubCategoryComponent,
+    NewProductComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +90,11 @@ import { VerifyComponent } from './verify/verify.component';
     CalendarModule,
     TableModule,
     SplitterModule,
-    ImageModule
+    ImageModule,
+    DataViewModule,
+    RatingModule,
+    TagModule,
+    PaginatorModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

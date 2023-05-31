@@ -1,24 +1,9 @@
 <app-header></app-header>
 <section class="section-intro padding-top-sm">
   <div class="container">
-    <main class="card p-3 mt-2">
-      <div class="row">
-        <aside class="col-lg-3">
-          <nav class="nav flex-column nav-pills">
-            <a class="nav-link active" aria-current="page" href="#"
-              >Electronics</a
-            >
-            <a class="nav-link" href="#">Clothes and wear</a>
-            <a class="nav-link" href="#">Home interiors</a>
-            <a class="nav-link" href="#">Computer and tech</a>
-            <a class="nav-link" href="#">Tools, equipments</a>
-            <a class="nav-link" href="#">Sports and outdoor</a>
-            <a class="nav-link" href="#">Animal and pets</a>
-            <a class="nav-link" href="#">Machinery tools</a>
-            <a class="nav-link" href="#">Other products</a>
-          </nav>
-        </aside>
-        <div class="col-lg-9">
+    <main class="card py-3 mt-2">
+      <div class="row w-100">
+        <div class="w-100">
           <article class="card-banner p-1">
             <p-carousel
               [value]="banners"
@@ -30,10 +15,7 @@
             >
               <ng-template let-src pTemplate="item">
                 <div class="image-container">
-                  <img
-                    [src]="src"
-                    alt=""
-                  />
+                  <img [src]="src" alt="" />
                 </div>
               </ng-template>
             </p-carousel>

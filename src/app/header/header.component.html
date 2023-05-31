@@ -130,12 +130,20 @@
       <div class="collapse navbar-collapse" id="navbar_main">
         <ul class="navbar-nav d-flex justify-content-between w-100">
           <li class="nav-item d-flex">
-            <ul class="navbar-nav d-flex justify-content-between w-100">
+            <ul
+              *ngFor="let category of categories"
+              class="navbar-nav d-flex justify-content-between w-100"
+            >
               <li>
-                <a class="nav-link ps-0 text-white" href="#"> Sản Phẩm </a>
-              </li>
-              <li>
-                <a class="nav-link ps-0 text-white" href="#"> Liên Hệ </a>
+                <a
+                  (click)="onClickCategory(category)"
+                  class="nav-link ps-0 text-white item-header"
+                  [class.active]="
+                    selectedItemHeader === category?.category_name
+                  "
+                >
+                  {{ category?.category_name }}
+                </a>
               </li>
             </ul>
           </li>

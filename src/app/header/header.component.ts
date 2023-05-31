@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { getAuth, signOut } from 'firebase/auth';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FullScreenService } from 'src/service/full-screen.service';
 import jwt_decode from 'jwt-decode';
 import * as LR from '@uploadcare/blocks';
 import type { UploadcareFile } from '@uploadcare/upload-client';
+import { CategoryService } from 'src/service/category.service';
+import { LoadingService } from 'src/service/loading.service';
 
 LR.registerBlocks(LR);
 
@@ -23,10 +25,15 @@ export class HeaderComponent implements OnInit {
   searchInput: string = '';
   isFullScreen: boolean = false;
   currentUser: any;
+  categories: any = [];
+  selectedItemHeader: any;
 
   constructor(
     private router: Router,
-    private fullScreenService: FullScreenService
+    private fullScreenService: FullScreenService,
+    private categoryService: CategoryService,
+    private loadingService: LoadingService,
+    private route: ActivatedRoute
   ) {
     const token = localStorage.getItem('token');
     if (token) {
@@ -36,11 +43,25 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      const categoryName = params['categoryName'];
+      this.selectedItemHeader = categoryName;
+    });
+
     this.updateLRImgElementWithUuid(this.currentUser?.avatar);
+    this.loadingService.showLoading();
+    this.categoryService.getAll().subscribe(
+      (res) => {
+        this.categories = res;
+        this.loadingService.hideLoading();
+      },
+      (err) => {
+        this.loadingService.hideLoading();
+      }
+    );
   }
 
   updateLRImgElementWithUuid(uploadedUuid: string) {
-    console.log('🏍️ ~ uploadedUuid: ', uploadedUuid);
     const lrImgElement = document.getElementById('user-avatar') as HTMLElement;
     if (lrImgElement) {
       lrImgElement.setAttribute('uuid', uploadedUuid);
@@ -74,5 +95,13 @@ export class HeaderComponent implements OnInit {
         // Xảy ra lỗi khi đăng xuất
         console.error('Lỗi đăng xuất:', error);
       });
+  }
+
+  onClickCategory(data: any) {
+    const categoryId = data.id;
+    const categoryName = data.category_name;
+    this.router.navigate(['/subcategory'], {
+      queryParams: { categoryName, categoryId },
+    });
   }
 }
