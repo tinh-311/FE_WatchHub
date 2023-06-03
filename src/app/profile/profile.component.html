@@ -2,23 +2,25 @@
 <div class="container rounded bg-white mt-5 mb-5">
   <div class="row pb-md-3">
     <div class="col-md-3 border-right">
-      <div
-        class="d-flex flex-column align-items-center text-center p-3 py-5"
-      >
-        <lr-img
-          class="rounded-circle mt-5 position-relative  mb-2"
-          width="200px"
-          height="200px"
-          id="user-avatar-profile"
-          uuid="e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c"
-        >
-          <lr-file-uploader-regular
-            css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
-            ctx-name="my-uploader"
-            class="my-config position-absolute top-50 z-5 d-none"
-            style="left: 20%"
-          ></lr-file-uploader-regular>
-        </lr-img>
+      <div class="d-flex flex-column align-items-center text-centerpt-0">
+        <div class="d-flex justify-content-center align-items-center mt-5">
+          <lr-img
+            class="rounded-circle"
+            width="200px"
+            height="200px"
+            id="user-avatar-profile"
+            uuid="e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c"
+          >
+          </lr-img>
+        </div>
+
+        <lr-file-uploader-regular
+          css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
+          ctx-name="my-uploader"
+          class="my-config my-2"
+          style="left: 20%"
+        ></lr-file-uploader-regular>
+
         <span class="font-weight-bold">{{ currentUser?.fullname }}</span
         ><span class="text-black-50">{{ currentUser?.email }}</span
         ><span> </span>

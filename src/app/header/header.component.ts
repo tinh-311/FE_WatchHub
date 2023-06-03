@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { getAuth, signOut } from 'firebase/auth';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,57 +13,61 @@ import * as LR from '@uploadcare/blocks';
 import type { UploadcareFile } from '@uploadcare/upload-client';
 import { CategoryService } from 'src/service/category.service';
 import { LoadingService } from 'src/service/loading.service';
+import { BreadcrumbService } from 'src/service/breadcrumb.service';
 
 LR.registerBlocks(LR);
-
-type UploadcareBlocksFile = UploadcareFile & {
-  cdnUrlModifiers: string | null;
-};
-
-const auth = getAuth();
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   searchInput: string = '';
   isFullScreen: boolean = false;
   currentUser: any;
   categories: any = [];
   selectedItemHeader: any;
+  breadcrumbItems: any;
 
   constructor(
     private router: Router,
     private fullScreenService: FullScreenService,
     private categoryService: CategoryService,
     private loadingService: LoadingService,
-    private route: ActivatedRoute
-  ) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.currentUser = jwt_decode(token);
-      console.log('🏍️ ~ this.currentUser: ', this.currentUser);
-    }
-  }
+    private route: ActivatedRoute,
+    private cdRef: ChangeDetectorRef,
+    private breadcrumbService: BreadcrumbService
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       const categoryName = params['categoryName'];
       this.selectedItemHeader = categoryName;
+      this.breadcrumbItems = { label: categoryName };
+      this.breadcrumbService.onChange(this.breadcrumbItems);
     });
+  }
 
-    this.updateLRImgElementWithUuid(this.currentUser?.avatar);
-    this.loadingService.showLoading();
-    this.categoryService.getAll().subscribe(
-      (res) => {
-        this.categories = res;
-        this.loadingService.hideLoading();
-      },
-      (err) => {
-        this.loadingService.hideLoading();
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.currentUser = jwt_decode(token);
       }
-    );
+
+      this.updateLRImgElementWithUuid(this.currentUser?.avatar);
+      this.loadingService.showLoading();
+      this.categoryService.getAll().subscribe(
+        (res) => {
+          this.categories = res;
+          this.loadingService.hideLoading();
+        },
+        (err) => {
+          this.loadingService.hideLoading();
+        }
+      );
+      this.cdRef.detectChanges();
+    });
   }
 
   updateLRImgElementWithUuid(uploadedUuid: string) {

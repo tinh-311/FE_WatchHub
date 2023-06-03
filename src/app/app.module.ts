@@ -47,6 +47,8 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { PaginatorModule } from 'primeng/paginator';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { PaginatorModule } from 'primeng/paginator';
     VerifyComponent,
     SubCategoryComponent,
     NewProductComponent,
-    ProductsComponent
+    ProductsComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +97,8 @@ import { PaginatorModule } from 'primeng/paginator';
     DataViewModule,
     RatingModule,
     TagModule,
-    PaginatorModule
+    PaginatorModule,
+    BreadcrumbModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

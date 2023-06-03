@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { BreadcrumbService } from 'src/service/breadcrumb.service';
 import { CategoryService } from 'src/service/category.service';
 import { LoadingService } from 'src/service/loading.service';
 import { ProductsService } from 'src/service/products.service';
@@ -9,25 +16,33 @@ import { ProductsService } from 'src/service/products.service';
   templateUrl: './sub-category.component.html',
   styleUrls: ['./sub-category.component.scss'],
 })
-export class SubCategoryComponent implements OnInit {
+export class SubCategoryComponent implements OnInit, AfterViewInit {
   subCategories: any = [];
   products: any = [];
   totalRecords: number = 50;
   selectedSubCategory: any;
-  layout: string = 'grid';
+  layout = 'grid';
+  items: MenuItem[] = [];
+  home: any;
 
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private productsService: ProductsService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private cdRef: ChangeDetectorRef,
+    private breadcrumbService: BreadcrumbService
   ) {}
 
   ngOnInit() {
-    console.log('🏍️ ~ this.totalRecords: ', this.totalRecords);
     this.route.queryParams.subscribe(
       (params) => {
         const categoryId = params['categoryId'];
+        const categoryName = params['categoryName'];
+        console.log('🏍️ ~ categoryName: ', categoryName)
+        this.home = { icon: 'pi pi-home', routerLink: '/' };
+        this.items = [{ label: categoryName }]
+
         this.loadingService.showLoading();
         this.categoryService.getAllSubCategories(categoryId).subscribe(
           (res) => {
@@ -47,12 +62,16 @@ export class SubCategoryComponent implements OnInit {
     );
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.cdRef.detectChanges();
+    });
+  }
+
   onPageChanged(event: any) {
     // Lấy thông tin trang hiện tại và số hàng trên mỗi trang từ sự kiện
     const currentPage = event.page + 1; // Vì trang đánh số từ 0, ta cộng thêm 1
     const rowsPerPage = event.rows;
-    console.log('🏍️ ~ currentPage: ', currentPage);
-    console.log('🏍️ ~ rowsPerPage: ', rowsPerPage);
 
     // Gọi API backend để lấy dữ liệu phân trang
     // Thay 'your-api-endpoint' bằng đường dẫn API backend của bạn
@@ -67,9 +86,17 @@ export class SubCategoryComponent implements OnInit {
   }
 
   onCliskSubCategory(subCategory: any) {
-    console.log('🏍️ ~ subCategory: ', subCategory);
     this.selectedSubCategory = subCategory;
     this.getProductTypes();
+  }
+
+  async getSubCategoryName(subCategoryId: any) {
+    // await this.categoryService.getSubCategoryById(subCategoryId).subscribe(res => {
+    //   console.log('🏍️ ~ res sub: ', res)
+    //   return res.sub_category_name;
+    // })
+
+    return 'gdg';
   }
 
   getProductTypes() {
@@ -81,7 +108,6 @@ export class SubCategoryComponent implements OnInit {
     this.productsService
       .getProductTypes(this.selectedSubCategory.id)
       .subscribe((res) => {
-        console.log('🏍️ ~ res: ', res);
         this.products = res;
       });
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { CategoryService } from 'src/service/category.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { CategoryService } from 'src/service/category.service';
 export class HomeComponent implements OnInit {
   banners: any;
   responsiveOptions: any;
+
 
   constructor(private router: Router) {}
 
