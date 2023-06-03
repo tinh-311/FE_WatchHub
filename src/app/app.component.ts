@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbService } from 'src/service/breadcrumb.service';
 import { LoadingService } from 'src/service/loading.service';
 
 @Component({
@@ -10,7 +11,11 @@ import { LoadingService } from 'src/service/loading.service';
 export class AppComponent {
   isLoading: boolean = false;
 
-  constructor(private loadingService: LoadingService) {
+  constructor(
+    private loadingService: LoadingService,
+    private route: ActivatedRoute,
+    private breadcrumbService: BreadcrumbService
+  ) {
     this.loadingService.isLoadingChanged.subscribe((isLoading: boolean) => {
       this.isLoading = isLoading;
     });

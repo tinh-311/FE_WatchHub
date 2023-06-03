@@ -1,0 +1,14 @@
+@import "src/style/variables.scss";
+
+@media (min-width: 1024px) {
+  .hide-on-laptop {
+    display: none;
+  }
+}
+
+.active-sub {
+  background-color: $primary-color;
+  color: $white-color;
+  padding: 6px;
+  border-radius: 0.25rem;
+}

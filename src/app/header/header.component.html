@@ -1,116 +1,107 @@
-<header class="section-header">
+<header class="section-header mb-2">
   <section class="header-main">
     <div class="container">
-      <div class="container">
-        <div class="row gy-3 align-items-center">
-          <div
-            [ngClass]="{
-              'w-100 d-flex justify-content-center': isMobileScreen()
-            }"
-            class="col-lg-2 col-md-4 col-6 w-100"
-          >
-            <a href="#" class="navbar-brand fw-bold text-primary h1">
-              <img
-                style="width: 130px; height: 100px"
-                src="assets/images/logo/logo4.png"
-                class="d-inline-block mb-1"
-              />
+      <div class="grid">
+        <div class="col-12 md:col-6 lg:col-3">
+          <a href="#" class="navbar-brand fw-bold text-primary h1">
+            <img
+              style="width: 130px; height: 100px"
+              src="assets/images/logo/logo4.png"
+              class="d-inline-block mb-1"
+            />
+          </a>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4"></div>
+        <div class="col-12 md:col-6 lg:col-5 mt-lg-3">
+          <span class="w100">
+            <a
+              (click)="navigateAdmin()"
+              class="btn mx-2 btn-primary clear-fix-ava"
+            >
+              <i class="fas fa-user-shield"></i>
+              <span class="ms-1 d-none d-sm-inline-block"> Admin </span>
             </a>
-          </div>
-          <div class="col-lg-5 col-md-8 col-6 order-lg-last d-lg-block">
-            <div class="d-flex justify-content-around">
-              <span>
-                <a
-                  (click)="navigateAdmin()"
-                  class="btn mx-2 btn-primary clear-fix-ava"
-                >
-                  <i class="fas fa-user-shield"></i>
-                  <span class="ms-1 d-none d-sm-inline-block"> Admin </span>
-                </a>
-                <a href="#" class="btn mx-2 btn-danger clear-fix-ava">
-                  <i class="fa fa-heart"></i>
-                  <span class="ms-1 d-none d-sm-inline-block"> Yêu Thích</span>
-                </a>
-                <a
-                  data-bs-toggle="offcanvas"
-                  href="#offcanvas_cart"
-                  class="btn mx-2 btn-success clear-fix-ava"
-                >
-                  <i class="fa fa-shopping-cart text-white"></i>
-                  <span class="ms-1 text-white"> Giỏ Hàng </span>
-                </a>
-
-                <a
-                  title="Toogle Full Screen"
-                  class="btn mx-2 btn-secondary clear-fix-ava"
-                  (click)="toggleFullscreen()"
-                >
-                  <i
-                    *ngIf="!isFullScreen"
-                    class="fas fa-expand cursor-pointer"
-                  ></i>
-                  <i *ngIf="isFullScreen" class="fas fa-compress"></i>
-                </a>
+            <a href="#" class="btn mx-2 btn-danger clear-fix-ava">
+              <i class="fa fa-heart"></i>
+              <span class="ms-1 d-none d-sm-inline-block"> Yêu Thích</span>
+            </a>
+            <a
+              data-bs-toggle="offcanvas"
+              href="#offcanvas_cart"
+              class="btn mx-2 btn-success clear-fix-ava"
+            >
+              <i class="fa fa-shopping-cart text-white"></i>
+              <span class="ms-1 d-none d-sm-inline-block text-white">
+                Giỏ Hàng
               </span>
+            </a>
 
-              <lr-img
-                (click)="op.toggle($event)"
-                pTooltip="{{ currentUser?.fullname }}"
-                tooltipPosition="bottom"
-                class="rounded-circle cursor-pointer"
-                width="50px"
-                height="50px"
-                id="user-avatar"
-                uuid="e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c"
-              ></lr-img>
+            <a
+              title="Toogle Full Screen"
+              class="btn mx-2 btn-secondary clear-fix-ava"
+              (click)="toggleFullscreen()"
+            >
+              <i *ngIf="!isFullScreen" class="fas fa-expand cursor-pointer"></i>
+              <i *ngIf="isFullScreen" class="fas fa-compress"></i>
+            </a>
+          </span>
 
-              <p-overlayPanel #op>
-                <ng-template pTemplate="content">
-                  <div class="list-unstyled info">
-                    <a
-                      [href]="'/profile'"
-                      class="text-decoration-none text-secondary"
-                    >
-                      <i class="fas fa-user-edit mr-2"></i>
-                      Thông tin cá nhân
-                    </a>
-                    <hr />
-                    <a
-                      [href]="'/profile'"
-                      class="text-decoration-none text-secondary"
-                    >
-                      <i class="fas fa-dolly mr-2"></i>
-                      Đơn đặt hàng
-                    </a>
-                    <hr />
-                    <a
-                      (click)="logout()"
-                      class="text-decoration-none text-secondary"
-                    >
-                      <i class="fas fa-sign-out-alt mr-2"></i>
-                      Đăng xuất
-                    </a>
-                  </div>
-                </ng-template>
-              </p-overlayPanel>
-            </div>
-          </div>
+          <lr-img
+            (click)="op.toggle($event)"
+            pTooltip="{{ currentUser?.fullname }}"
+            tooltipPosition="bottom"
+            class="rounded-circle cursor-pointer ml-4"
+            width="50px"
+            height="50px"
+            id="user-avatar"
+            uuid="e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c"
+          ></lr-img>
+
+          <p-overlayPanel #op>
+            <ng-template pTemplate="content">
+              <div class="list-unstyled info">
+                <a
+                  [href]="'/profile'"
+                  class="text-decoration-none text-secondary"
+                >
+                  <i class="fas fa-user-edit mr-2"></i>
+                  Thông tin cá nhân
+                </a>
+                <hr />
+                <a
+                  [href]="'/profile'"
+                  class="text-decoration-none text-secondary"
+                >
+                  <i class="fas fa-dolly mr-2"></i>
+                  Đơn đặt hàng
+                </a>
+                <hr />
+                <a
+                  (click)="logout()"
+                  class="text-decoration-none text-secondary"
+                >
+                  <i class="fas fa-sign-out-alt mr-2"></i>
+                  Đăng xuất
+                </a>
+              </div>
+            </ng-template>
+          </p-overlayPanel>
         </div>
       </div>
+    </div>
 
-      <div>
-        <div class="input-group my-3">
-          <input
-            type="text"
-            class="form-control h-3rem"
-            placeholder="Tìm kiếm sản phẩm..."
-            [(ngModel)]="searchInput"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-primary h-3rem w-3rem" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
+    <div class="container">
+      <div class="input-group my-3">
+        <input
+          type="text"
+          class="form-control h-3rem"
+          placeholder="Tìm kiếm sản phẩm..."
+          [(ngModel)]="searchInput"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-primary h-3rem w-3rem" type="button">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
       </div>
     </div>
