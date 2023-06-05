@@ -20,7 +20,7 @@ export class CategoryService {
     return this.http.get<any>(url, { headers });
   }
 
-  getAllSubCategories(categoryId: any) {
+  getAllSubCategories(categoryId: any, ) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });

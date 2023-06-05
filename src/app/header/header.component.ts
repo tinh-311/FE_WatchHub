@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FullScreenService } from 'src/service/full-screen.service';
 import jwt_decode from 'jwt-decode';
 import * as LR from '@uploadcare/blocks';
-import type { UploadcareFile } from '@uploadcare/upload-client';
 import { CategoryService } from 'src/service/category.service';
 import { LoadingService } from 'src/service/loading.service';
 import { BreadcrumbService } from 'src/service/breadcrumb.service';
@@ -53,6 +52,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       const token = localStorage.getItem('token');
       if (token) {
         this.currentUser = jwt_decode(token);
+        console.log('🏍️ ~ this.currentUser: ', this.currentUser)
       }
 
       this.updateLRImgElementWithUuid(this.currentUser?.avatar);
@@ -86,9 +86,25 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/admin']);
   }
 
+  navigateLogin() {
+    this.router.navigate(['/login']);
+  }
+
   toggleFullscreen() {
     this.isFullScreen = !this.isFullScreen;
     this.fullScreenService.toggleFullscreen();
+  }
+
+  onClickFavourite() {
+
+  }
+
+  onClickCart() {
+    if(!this.currentUser) {
+      return;
+    }
+
+    this.router.navigate(['/shopping-cart']);
   }
 
   logout() {

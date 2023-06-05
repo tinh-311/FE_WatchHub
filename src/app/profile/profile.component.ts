@@ -224,6 +224,11 @@ export class ProfileComponent implements OnInit {
             this.filterService.filters.contains(address.city, p?.name)
           );
 
+          if (!selectedCity) {
+            this.loadingService.hideLoading();
+            return;
+          }
+
           this.addressForm = this.formBuilder.group({
             city: [selectedCity, [Validators.required]],
             districts: ['', [Validators.required]],
@@ -235,12 +240,17 @@ export class ProfileComponent implements OnInit {
             (res: any) => {
               this.districts = res?.data?.data;
 
-              let selectedDistrict = this.districts.find((p) =>
+              let selectedDistrict = this.districts?.find((p) =>
                 this.filterService.filters.contains(
                   address.city_district,
                   p?.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 )
               );
+
+              if (!selectedDistrict) {
+                this.loadingService.hideLoading();
+                return;
+              }
 
               this.addressForm = this.formBuilder.group({
                 city: [selectedCity, [Validators.required]],
@@ -263,6 +273,11 @@ export class ProfileComponent implements OnInit {
                       n
                     );
                   });
+
+                  if (!selectedWards) {
+                    this.loadingService.hideLoading();
+                    return;
+                  }
 
                   this.addressForm = this.formBuilder.group({
                     city: [selectedCity, [Validators.required]],

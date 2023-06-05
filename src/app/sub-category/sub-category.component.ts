@@ -19,11 +19,14 @@ import { ProductsService } from 'src/service/products.service';
 export class SubCategoryComponent implements OnInit, AfterViewInit {
   subCategories: any = [];
   products: any = [];
-  totalRecords: number = 50;
+  totalRecords: number = 0;
   selectedSubCategory: any;
   layout = 'grid';
   items: MenuItem[] = [];
   home: any;
+  currentPage: any = 1;
+  rowsPerPage: any = 3;
+  isDataLoading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,15 +42,20 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       (params) => {
         const categoryId = params['categoryId'];
         const categoryName = params['categoryName'];
-        console.log('🏍️ ~ categoryName: ', categoryName)
         this.home = { icon: 'pi pi-home', routerLink: '/' };
-        this.items = [{ label: categoryName }]
+        this.items = [{ label: categoryName }];
 
         this.loadingService.showLoading();
         this.categoryService.getAllSubCategories(categoryId).subscribe(
           (res) => {
             this.subCategories = res;
             this.selectedSubCategory = this.subCategories[0];
+            this.productsService
+              .getTotalProductType(this.selectedSubCategory.id)
+              .subscribe((totalRecords) => {
+                this.totalRecords = totalRecords?.total;
+              });
+
             this.getProductTypes();
             this.loadingService.hideLoading();
           },
@@ -69,20 +77,9 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   }
 
   onPageChanged(event: any) {
-    // Lấy thông tin trang hiện tại và số hàng trên mỗi trang từ sự kiện
-    const currentPage = event.page + 1; // Vì trang đánh số từ 0, ta cộng thêm 1
-    const rowsPerPage = event.rows;
-
-    // Gọi API backend để lấy dữ liệu phân trang
-    // Thay 'your-api-endpoint' bằng đường dẫn API backend của bạn
-    // Ví dụ: this.http.get('your-api-endpoint?page=' + currentPage + '&rows=' + rowsPerPage)
-    // Khi nhận được phản hồi từ API backend, cập nhật dữ liệu và tổng số bản ghi
-    // Ví dụ:
-    // this.http.get('your-api-endpoint?page=' + currentPage + '&rows=' + rowsPerPage)
-    //   .subscribe((response: any) => {
-    //     this.products = response.data;
-    //     this.totalRecords = response.totalRecords;
-    //   });
+    this.currentPage = event.page + 1;
+    this.rowsPerPage = event.rows;
+    this.getProductTypes();
   }
 
   onCliskSubCategory(subCategory: any) {
@@ -105,10 +102,17 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    this.isDataLoading = true;
     this.productsService
-      .getProductTypes(this.selectedSubCategory.id)
-      .subscribe((res) => {
-        this.products = res;
+      .getProductTypes(
+        this.selectedSubCategory.id,
+        this.currentPage,
+        this.rowsPerPage
+      )
+      .subscribe((data) => {
+        this.products = data?.res;
+        console.log('🏍️ ~ this.products: ', this.products);
+        this.isDataLoading = false;
       });
   }
 
