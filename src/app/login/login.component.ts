@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
         );
         localStorage.setItem('token', res?.token);
         this.loadingService.hideLoading();
-        this.router.navigate(['']);
+        this.router.navigate(['/home']);
       },
       (err) => {
         this.toastService.showMessage(

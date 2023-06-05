@@ -18,6 +18,7 @@ import jwt_decode from 'jwt-decode';
 import * as LR from '@uploadcare/blocks';
 import type { UploadcareFile } from '@uploadcare/upload-client';
 import { UserService } from 'src/service/user.service';
+import { UtilService } from 'src/service/util.service';
 
 LR.registerBlocks(LR);
 
@@ -46,7 +47,7 @@ export class ProfileComponent implements OnInit {
 
   currentUser: any;
   address: any;
-  uploadedUuid: string = '';
+  uploadedUrl: string = '';
   readonly UUID_DEFAUL_AVATAR = UUID_DEFAUL_AVATAR;
 
   constructor(
@@ -57,13 +58,12 @@ export class ProfileComponent implements OnInit {
     private addressByGeoService: AddressService,
     private filterService: FilterService,
     private loadingService: LoadingService,
-    private userService: UserService
+    private userService: UserService,
+    private utilService: UtilService
   ) {
     const token = localStorage.getItem('token');
     if (token) {
       this.currentUser = jwt_decode(token);
-      console.log('🏍️ ~ this.currentUser: ', this.currentUser);
-      this.updateLRImgElementWithUuid(this.currentUser?.avatar);
       this.infoForm = this.formBuilder.group({
         fullName: [this.currentUser?.fullname, [Validators.required]],
         email: [
@@ -83,8 +83,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
       this.loadingService.showLoading();
-      this.uploadedUuid = e.detail?.data[0]?.uuid;
-      this.currentUser.avatar = this.uploadedUuid;
+      this.uploadedUrl = e.detail?.data[0]?.cdnUrl + e.detail?.data[0]?.name;
+      this.currentUser.avatar = this.uploadedUrl;
       let userUpdate = {
         id: this.currentUser?.id,
         username: this.currentUser?.username || '',
@@ -103,6 +103,7 @@ export class ProfileComponent implements OnInit {
             res?.message,
             ToastType.Success
           );
+          this.utilService.onChange(res?.token);
         },
         (err) => {
           this.toastService.showMessage(
@@ -113,10 +114,6 @@ export class ProfileComponent implements OnInit {
           this.loadingService.hideLoading();
         }
       );
-      this.uploadedUuid = this.uploadedUuid
-        ? this.uploadedUuid
-        : UUID_DEFAUL_AVATAR;
-      this.updateLRImgElementWithUuid(this.uploadedUuid);
     });
 
     this.loadingService.showLoading();
@@ -124,7 +121,6 @@ export class ProfileComponent implements OnInit {
       (res: any) => {
         this.provinces = res?.data?.data;
         this.loadingService.hideLoading();
-        this.updateLRImgElementWithUuid(this.currentUser?.avatar);
       },
       (err) => {
         this.loadingService.hideLoading();
@@ -133,31 +129,8 @@ export class ProfileComponent implements OnInit {
           err?.error?.message,
           ToastType.Error
         );
-        this.updateLRImgElementWithUuid(this.currentUser?.avatar);
       }
     );
-    this.updateLRImgElementWithUuid(this.currentUser?.avatar);
-  }
-
-  updateLRImgElementWithUuid(uploadedUuid: string) {
-    const lrImgElement = document.getElementById(
-      'user-avatar-profile'
-    ) as HTMLElement;
-    if (lrImgElement) {
-      lrImgElement.setAttribute('uuid', uploadedUuid);
-    }
-
-    const lrImgElement2 = document.getElementById('user-avatar') as HTMLElement;
-    if (lrImgElement) {
-      lrImgElement2.setAttribute('uuid', uploadedUuid);
-    }
-  }
-
-  files: UploadcareBlocksFile[] = [];
-
-  handleUploaderEvent(e: Event) {
-    const { data: files } = (e as CustomEvent).detail;
-    this.files = files;
   }
 
   onProvinceChange() {
@@ -224,6 +197,11 @@ export class ProfileComponent implements OnInit {
             this.filterService.filters.contains(address.city, p?.name)
           );
 
+          if (!selectedCity) {
+            this.loadingService.hideLoading();
+            return;
+          }
+
           this.addressForm = this.formBuilder.group({
             city: [selectedCity, [Validators.required]],
             districts: ['', [Validators.required]],
@@ -235,12 +213,17 @@ export class ProfileComponent implements OnInit {
             (res: any) => {
               this.districts = res?.data?.data;
 
-              let selectedDistrict = this.districts.find((p) =>
+              let selectedDistrict = this.districts?.find((p) =>
                 this.filterService.filters.contains(
                   address.city_district,
                   p?.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 )
               );
+
+              if (!selectedDistrict) {
+                this.loadingService.hideLoading();
+                return;
+              }
 
               this.addressForm = this.formBuilder.group({
                 city: [selectedCity, [Validators.required]],
@@ -263,6 +246,11 @@ export class ProfileComponent implements OnInit {
                       n
                     );
                   });
+
+                  if (!selectedWards) {
+                    this.loadingService.hideLoading();
+                    return;
+                  }
 
                   this.addressForm = this.formBuilder.group({
                     city: [selectedCity, [Validators.required]],

@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AdminGuard } from './guard/admin.guard';
 import { VerifyComponent } from './verify/verify.component';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent },
   {path: 'verify', component: VerifyComponent },
   {path: 'subcategory', component: SubCategoryComponent },
+  {path: 'shopping-cart', component: ShoppingCartComponent },
   {
     canActivate: [AdminGuard],
     path: 'admin',

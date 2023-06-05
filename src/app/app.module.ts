@@ -49,6 +49,7 @@ import { TagModule } from 'primeng/tag';
 import { PaginatorModule } from 'primeng/paginator';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     SubCategoryComponent,
     NewProductComponent,
     ProductsComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

@@ -4,14 +4,16 @@
     <div class="col-md-3 border-right">
       <div class="d-flex flex-column align-items-center text-centerpt-0">
         <div class="d-flex justify-content-center align-items-center mt-5">
-          <lr-img
+          <img
             class="rounded-circle"
             width="200px"
             height="200px"
             id="user-avatar-profile"
-            uuid="e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c"
-          >
-          </lr-img>
+            [src]="
+              currentUser?.avatar ||
+              'https://ucarecdn.com/e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c/user.webp'
+            "
+          />
         </div>
 
         <lr-file-uploader-regular

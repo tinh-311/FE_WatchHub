@@ -12,12 +12,21 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
-  getProductTypes(subCategoryId: any): Observable<any> {
+  getProductTypes(
+    subCategoryId: any,
+    pageNumber: number,
+    pageSize: number
+  ): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/ProductType/GetAllBySubCategoryId${subCategoryId}`;
+    const url = `${this.baseUrl}/ProductType/GetAllBySubCategoryId${subCategoryId}?PageNumber=${pageNumber}&PageSize=${pageSize}`;
     return this.http.get<any>(url, { headers });
+  }
+
+  getTotalProductType(subCategoryId: any): Observable<any> {
+    const url = `${this.baseUrl}/ProductType/GetTotalBySubCategoryId${subCategoryId}`;
+    return this.http.get<any>(url);
   }
 }
