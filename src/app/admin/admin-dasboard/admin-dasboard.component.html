@@ -24,6 +24,7 @@
         >
           <li class="nav-item ml-0">
             <a
+              [class.active-nav]='curentNavItem === navItem.name'
               class="nav-link py-3 px-2 text-white w-100 d-flex align-items-center cursor-pointer"
               (click)="onClickNavItem(navItem)"
             >
@@ -37,6 +38,7 @@
     <div class="col-sm p-3 min-vh-100">
       <app-admin-dashboard-home *ngIf="curentNavItem === SideNav.Dashboard"></app-admin-dashboard-home>
       <app-admin-user *ngIf="curentNavItem === SideNav.Users"></app-admin-user>
+      <app-category *ngIf="curentNavItem === SideNav.Categories"></app-category>
     </div>
   </div>
 </div>

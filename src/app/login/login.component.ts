@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
       name: result?.user?.displayName,
       picture: result?.user?.photoURL,
       email: result?.user?.email,
-      phone: result?.user?.phoneNumber || '000',
+      phone: result?.user?.phoneNumber || '',
     };
 
     this.authenService.registerWithGoogle(ggUser).subscribe(

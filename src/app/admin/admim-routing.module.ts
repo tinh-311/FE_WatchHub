@@ -13,6 +13,10 @@ const routes: Routes = [
     component: AdminDasboardComponent,
   },
   {
+    path: 'categories',
+    component: AdminDasboardComponent,
+  },
+  {
     path: 'dashboard',
     component: AdminDasboardComponent,
   },

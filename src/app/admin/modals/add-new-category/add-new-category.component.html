@@ -1,0 +1,12 @@
+<div class="flex flex-column gap-2">
+  <label htmlFor="username">Tên Danh Mục</label>
+  <input
+    pInputText
+    id="categoryName"
+    [(ngModel)]="categoryName"
+  />
+</div>
+<div class="mt-4 d-flex justify-content-end">
+  <p-button (onClick)="cancel()" label="Hủy" styleClass="p-button-warning"></p-button>
+  <p-button (onClick)="create()" class="ml-3" label="Tạo"></p-button>
+</div>
