@@ -29,6 +29,10 @@ export class AdminDasboardComponent implements OnInit {
         this.curentNavItem = SideNav.Users;
         break;
       }
+      case 'categories': {
+        this.curentNavItem = SideNav.Categories;
+        break;
+      }
       case 'order': {
         this.curentNavItem = SideNav.Order;
         break;
@@ -42,6 +46,7 @@ export class AdminDasboardComponent implements OnInit {
 
   onClickNavItem(navItem: any) {
     this.curentNavItem = navItem?.name;
+    console.log('🏍️ ~ this.curentNavItem: ', this.curentNavItem)
     let url = '';
     switch (this.curentNavItem) {
       case SideNav.Dashboard: {
@@ -50,6 +55,10 @@ export class AdminDasboardComponent implements OnInit {
       }
       case SideNav.Users: {
         url = 'user';
+        break;
+      }
+      case SideNav.Categories: {
+        url = 'categories';
         break;
       }
       case SideNav.Order: {

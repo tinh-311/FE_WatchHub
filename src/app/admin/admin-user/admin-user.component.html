@@ -1,11 +1,9 @@
 <p-table
   [value]="users"
   dataKey="id"
-  [rows]="10"
-  [showCurrentPageReport]="true"
-  [rowsPerPageOptions]="[10, 25, 50]"
-  [paginator]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [loading]="isLoading"
+  [lazy]="true"
+  [rows]="rowsPerPage"
   [globalFilterFields]="['fullname  ', 'email', 'phone', 'is_admin', 'is_deleted']"
 >
   <ng-template pTemplate="header">
@@ -84,3 +82,8 @@
     </tr>
   </ng-template>
 </p-table>
+<p-paginator
+  [rows]="rowsPerPage"
+  [totalRecords]="totalCount"
+  (onPageChange)="onPageChanged($event)"
+></p-paginator>

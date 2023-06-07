@@ -25,7 +25,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   items: MenuItem[] = [];
   home: any;
   currentPage: any = 1;
-  rowsPerPage: any = 3;
+  rowsPerPage: any = 6;
   isDataLoading: boolean = false;
 
   constructor(
@@ -85,15 +85,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   onCliskSubCategory(subCategory: any) {
     this.selectedSubCategory = subCategory;
     this.getProductTypes();
-  }
-
-  async getSubCategoryName(subCategoryId: any) {
-    // await this.categoryService.getSubCategoryById(subCategoryId).subscribe(res => {
-    //   console.log('🏍️ ~ res sub: ', res)
-    //   return res.sub_category_name;
-    // })
-
-    return 'gdg';
   }
 
   getProductTypes() {

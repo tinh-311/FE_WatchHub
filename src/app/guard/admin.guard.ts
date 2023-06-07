@@ -16,9 +16,8 @@ export class AdminGuard implements CanActivate {
       if (token) {
         this.currentUser = jwt_decode(token);
       }
-      console.log('🏍️ ~ this.currentUser?.is_admin: ', this.currentUser?.is_admin)
 
-    return this.currentUser.is_admin ? true : false;
+    return this.currentUser.is_admin === 'True' ? true : false;
   }
 
 }

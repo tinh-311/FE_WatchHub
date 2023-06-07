@@ -19,12 +19,18 @@ export class UserService {
     `);
   }
 
-  getUsers(): Observable<any> {
+  getUsers(pageNumber?: number, pageSize?: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/Users/GetAll`;
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/Users/GetAll`;
+
+    if(isPaging) {
+      url = `${this.baseUrl}/Users/GetAll?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
     return this.http.get<any>(url, { headers });
   }
 

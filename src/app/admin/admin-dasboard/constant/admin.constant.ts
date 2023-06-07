@@ -11,6 +11,11 @@ export const SIDE_NAV = [
   },
   {
     iconClass: 'fas fa-table fa-2x',
+    name: 'CATEGORIES',
+    displayName: 'Danh Mục',
+  },
+  {
+    iconClass: 'fas fa-table fa-2x',
     name: 'ORDER',
     displayName: 'Đơn đặt hàng',
   },
@@ -25,5 +30,6 @@ export enum SideNav {
   Dashboard = 'DASHBOARD',
   Users = 'USERS',
   Order = 'ORDER',
+  Categories = 'CATEGORIES',
   Profile = 'PROFILE',
 }

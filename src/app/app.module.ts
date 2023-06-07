@@ -50,6 +50,11 @@ import { PaginatorModule } from 'primeng/paginator';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CategoryComponent } from './admin/category/category.component';
+import { DialogModule } from 'primeng/dialog';
+import { AddNewCategoryComponent } from './admin/modals/add-new-category/add-new-category.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { EditCategoryComponent } from './admin/modals/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +74,10 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     NewProductComponent,
     ProductsComponent,
     BreadcrumbComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    CategoryComponent,
+    AddNewCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -100,9 +108,10 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     RatingModule,
     TagModule,
     PaginatorModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    DialogModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, DialogService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

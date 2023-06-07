@@ -63,8 +63,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     this.loadingService.showLoading();
     this.categoryService.getAll().subscribe(
-      (res) => {
-        this.categories = res;
+      (data) => {
+        this.categories = data.res;
         this.loadingService.hideLoading();
       },
       (err) => {
