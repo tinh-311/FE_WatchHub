@@ -55,6 +55,10 @@ import { DialogModule } from 'primeng/dialog';
 import { AddNewCategoryComponent } from './admin/modals/add-new-category/add-new-category.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EditCategoryComponent } from './admin/modals/edit-category/edit-category.component';
+import { ConfirmationComponent } from './modals/confirmation/confirmation.component';
+import { SubcategoriesComponent } from './subcategories/subcategories.component';
+import { AddNewSubCategoryComponent } from './modals/add-new-sub-category/add-new-sub-category.component';
+import { EditSubCategoryComponent } from './modals/edit-sub-category/edit-sub-category.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +81,11 @@ import { EditCategoryComponent } from './admin/modals/edit-category/edit-categor
     ShoppingCartComponent,
     CategoryComponent,
     AddNewCategoryComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ConfirmationComponent,
+    SubcategoriesComponent,
+    AddNewSubCategoryComponent,
+    EditSubCategoryComponent
   ],
   imports: [
     BrowserModule,

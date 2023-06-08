@@ -6,6 +6,7 @@ import { AddNewCategoryComponent } from '../modals/add-new-category/add-new-cate
 import { ToastService } from 'src/service/toast.service';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { EditCategoryComponent } from '../modals/edit-category/edit-category.component';
+import { ConfirmationComponent } from 'src/app/modals/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-category',
@@ -58,11 +59,13 @@ export class CategoryComponent implements OnInit {
       width: '70%',
       dismissableMask: true,
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
-      baseZIndex: 10000
+      baseZIndex: 10000,
     });
 
     ref.onClose.subscribe((data) => {
-      this.getCategories();
+      if (data) {
+        this.getCategories();
+      }
     });
   }
 
@@ -73,31 +76,53 @@ export class CategoryComponent implements OnInit {
       dismissableMask: true,
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
-      data: { category: category }
+      data: { category: category },
     });
 
     ref.onClose.subscribe((data) => {
-      this.getCategories();
+      if (data) {
+        this.getCategories();
+      }
     });
   }
 
-  deleteCategory(categoryId: any) {
-    this.idLoading = true;
-    this.categoryService.deleteCategory(categoryId).subscribe(res => {
-      if(res?.message === 'Category delete successful') {
-        console.log('🏍️ ~ res: ', res)
-        this.currentPage = 1;
-        this.idLoading = false;
-        this.getCategories();
-        this.toastService.showMessage(
-          ToasSumary.Success,
-          res?.message,
-          ToastType.Success
+  deleteCategory(category: any) {
+    const ref = this.dialogService.open(ConfirmationComponent, {
+      header: `Xác nhận xóa danh mục ${category?.category_name}`,
+      width: '70%',
+      dismissableMask: true,
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+      data: {
+        message: `
+      Nếu bạn xóa danh mục
+      ${category?.category_name}
+      thì tất cả các danh mục con
+      và sản phẩm cũng sẽ bị xóa. Bạn có chắc cnắn muốn xóa?`,
+      },
+    });
+
+    ref.onClose.subscribe((result) => {
+      if (result) {
+        this.idLoading = true;
+        this.categoryService.deleteCategory(category?.id).subscribe(
+          (res) => {
+            if (res?.message === 'Category delete successful') {
+              this.currentPage = 1;
+              this.idLoading = false;
+              this.getCategories();
+              this.toastService.showMessage(
+                ToasSumary.Success,
+                res?.message,
+                ToastType.Success
+              );
+            }
+          },
+          () => {
+            this.idLoading = false;
+          }
         );
       }
-
-    }, () => {
-      this.idLoading = false;
-    })
+    });
   }
 }

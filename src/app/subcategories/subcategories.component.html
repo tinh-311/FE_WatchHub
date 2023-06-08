@@ -1,0 +1,100 @@
+<div class="mb-2 d-flex justify-content-between">
+  <span>
+    <label class="fw-bold"> Danh Mục </label> <br />
+    <p-dropdown
+      [options]="categories"
+      optionLabel="category_name"
+      [(ngModel)]="selectedCategory"
+      (onChange)="onDropdownChange($event)"
+      placeholder="Chọn danh mục"
+      styleClass="custom-dropdown"
+    ></p-dropdown>
+  </span>
+  <p-button
+    class="mt-4"
+    (onClick)="showModalAddNew()"
+    label="Add New"
+  ></p-button>
+</div>
+<hr />
+<p-table
+  [value]="subCategories"
+  dataKey="id"
+  [loading]="isLoading"
+  [lazy]="true"
+  [rows]="rowsPerPage"
+  [globalFilterFields]="[
+    'id',
+    'sub_category_name  ',
+    'created_date',
+    'updated_date'
+  ]"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>
+        ID
+        <p-columnFilter
+          type="number"
+          field="id"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="sub_category_name">
+        Tên Danh mục con
+        <p-sortIcon field="sub_category_name"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="sub_category_name"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="created_date">
+        Ngày tạo
+        <p-sortIcon field="created_date"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="created_date"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="updated_date">
+        Ngày chỉnh sửa
+        <p-sortIcon field="updated_date"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="updated_date"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+
+      <th>Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-subcategory>
+    <tr>
+      <td>{{ subcategory?.id }}</td>
+      <td>{{ subcategory?.sub_category_name }}</td>
+      <td>{{ subcategory?.created_date | date }}</td>
+      <td>{{ subcategory?.updated_date | date }}</td>
+      <td>
+        <p-button
+          (onClick)="editSubCategory(subcategory)"
+          class="mr-4"
+          icon="pi pi-file-edit"
+          styleClass="p-button-rounded p-button-warning"
+        ></p-button>
+        <p-button
+          (onClick)="deleteSubCategory(subcategory)"
+          icon="pi pi-times"
+          styleClass="p-button-rounded p-button-danger"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator
+  [rows]="rowsPerPage"
+  [totalRecords]="totalCount"
+  (onPageChange)="onPageChanged($event)"
+></p-paginator>

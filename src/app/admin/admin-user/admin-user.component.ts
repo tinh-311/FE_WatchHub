@@ -10,7 +10,7 @@ import { UserService } from 'src/service/user.service';
 export class AdminUserComponent implements OnInit {
   users: any = [];
   currentPage: any = 1;
-  rowsPerPage: any = 1;
+  rowsPerPage: any = 5;
   totalCount: number = 0;
   isLoading: boolean = false;
 
@@ -29,7 +29,6 @@ export class AdminUserComponent implements OnInit {
     this.isLoading = true;
     this.userService.getUsers(this.currentPage, this.rowsPerPage).subscribe(
       (data: any) => {
-        console.log('🏍️ ~ data: ', data);
         this.totalCount = data?.totalCount;
         this.users = data?.res;
         this.isLoading = false;

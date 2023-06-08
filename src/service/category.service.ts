@@ -57,21 +57,50 @@ export class CategoryService {
     return this.http.get<any>(url, { headers });
   }
 
-  getAllSubCategories(categoryId: any) {
+  getAllSubCategories(categoryId: any, pageNumber?: number, pageSize?: number) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/SubCategory/GetAllById${categoryId}`;
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/SubCategory/GetAllById${categoryId}`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/SubCategory/GetAllById${categoryId}?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
     return this.http.get<any>(url, { headers });
   }
 
-  getSubCategoryById(id: any) {
+  createSubCategory(categoryId: any, subCategoryName: string) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/SubCategory/GetById${id}`;
-    return this.http.get<any>(url, { headers });
+    const url = `${this.baseUrl}/SubCategory/Create`;
+    return this.http.post<any>(
+      url,
+      {
+        sub_category_name: subCategoryName,
+        category_id: categoryId
+      },
+      { headers }
+    );
+  }
+
+  deleteSubCategory(subCategoryId: any) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    const url = `${this.baseUrl}/SubCategory/Delete${subCategoryId}`;
+    return this.http.delete<any>(url);
+  }
+
+  updateSubCategory(subCategoryId: any, subCategoryName: string) {
+    const url = `${this.baseUrl}/SubCategory/Update${subCategoryId}`;
+    return this.http.put<any>(url, {
+      sub_category_name: subCategoryName
+    });
   }
 }

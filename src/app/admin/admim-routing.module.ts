@@ -17,6 +17,10 @@ const routes: Routes = [
     component: AdminDasboardComponent,
   },
   {
+    path: 'subcategories',
+    component: AdminDasboardComponent,
+  },
+  {
     path: 'dashboard',
     component: AdminDasboardComponent,
   },
