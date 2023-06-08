@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { CategoryService } from 'src/service/category.service';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { LoadingService } from 'src/service/loading.service';
 import { ToastService } from 'src/service/toast.service';
 
 @Component({
-  selector: 'app-edit-category',
-  templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.scss'],
+  selector: 'app-edit-sub-category',
+  templateUrl: './edit-sub-category.component.html',
+  styleUrls: ['./edit-sub-category.component.scss']
 })
-export class EditCategoryComponent implements OnInit {
-  categoryName: string = '';
-  categoryId: any;
+export class EditSubCategoryComponent implements OnInit {
+  subCategoryName: string = '';
+  subCategoryId: any;
 
   constructor(
     private ref: DynamicDialogRef,
@@ -23,9 +23,9 @@ export class EditCategoryComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     if (this.config.data) {
-      const data = this.config.data.category;
-      this.categoryName = data?.category_name;
-      this.categoryId = data?.id;
+      const data = this.config.data.subCategory;
+      this.subCategoryName = data?.sub_category_name;
+      this.subCategoryId = data?.id;
     }
   }
 
@@ -34,12 +34,12 @@ export class EditCategoryComponent implements OnInit {
   }
 
   update() {
-    if (!this.categoryName) {
+    if (!this.subCategoryName) {
       return;
     }
 
     this.categoryService
-      .updateCategory(this.categoryId, this.categoryName)
+      .updateSubCategory(this.subCategoryId, this.subCategoryName)
       .subscribe(
         (res) => {
           if (res?.message) {

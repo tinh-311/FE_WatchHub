@@ -21,7 +21,7 @@ export class AddNewCategoryComponent {
   ) {}
 
   cancel() {
-    this.ref.close();
+    this.ref.close(false);
   }
 
   create() {
@@ -38,10 +38,19 @@ export class AddNewCategoryComponent {
             ToastType.Success
           );
 
-          this.ref.close();
+          this.ref.close(true);
         }
       },
-      () => {}
+      (err) => {
+        if (err?.error?.message.includes('is already existed in system')) {
+          this.toastService.showMessage(
+            ToasSumary.Error,
+            `Danh mục ${this.categoryName} đã tồn tại!`,
+            ToastType.Error
+          );
+        }
+        this.ref.close(false);
+      }
     );
   }
 }

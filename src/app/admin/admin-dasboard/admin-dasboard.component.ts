@@ -13,9 +13,7 @@ export class AdminDasboardComponent implements OnInit {
 
   curentNavItem: string = SideNav.Dashboard;
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
+  constructor(private router: Router) {
     const currentUrl = this.router.url;
     const segments = currentUrl.split('/');
     const lastSegment = segments[segments.length - 1];
@@ -33,6 +31,10 @@ export class AdminDasboardComponent implements OnInit {
         this.curentNavItem = SideNav.Categories;
         break;
       }
+      case 'subcategories': {
+        this.curentNavItem = SideNav.SubCategories;
+        break;
+      }
       case 'order': {
         this.curentNavItem = SideNav.Order;
         break;
@@ -44,9 +46,11 @@ export class AdminDasboardComponent implements OnInit {
     }
   }
 
+  ngOnInit(): void {}
+
   onClickNavItem(navItem: any) {
     this.curentNavItem = navItem?.name;
-    console.log('🏍️ ~ this.curentNavItem: ', this.curentNavItem)
+    console.log('🏍️ ~ this.curentNavItem: ', this.curentNavItem);
     let url = '';
     switch (this.curentNavItem) {
       case SideNav.Dashboard: {
@@ -59,6 +63,10 @@ export class AdminDasboardComponent implements OnInit {
       }
       case SideNav.Categories: {
         url = 'categories';
+        break;
+      }
+      case SideNav.SubCategories: {
+        url = 'subcategories';
         break;
       }
       case SideNav.Order: {

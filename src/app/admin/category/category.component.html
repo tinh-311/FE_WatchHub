@@ -60,7 +60,7 @@
       <td>{{ category?.updated_date | date }}</td>
       <td>
         <p-button (onClick)="editCategory(category)" class="mr-4" icon="pi pi-file-edit" styleClass="p-button-rounded p-button-warning"></p-button>
-        <p-button (onClick)="deleteCategory(category?.id)" icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+        <p-button (onClick)="deleteCategory(category)" icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
       </td>
     </tr>
   </ng-template>

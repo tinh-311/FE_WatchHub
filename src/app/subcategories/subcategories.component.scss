@@ -1,0 +1,10 @@
+.custom-dropdown {
+  width: 300px !important;
+}
+
+:host ::ng-deep {
+  .p-dropdown {
+    margin-top: 10px;
+    width: 200px !important;
+  }
+}

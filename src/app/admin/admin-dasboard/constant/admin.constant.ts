@@ -10,9 +10,14 @@ export const SIDE_NAV = [
     displayName: 'Người dùng',
   },
   {
-    iconClass: 'fas fa-table fa-2x',
+    iconClass: 'fas fa-box fa-2x',
     name: 'CATEGORIES',
     displayName: 'Danh Mục',
+  },
+  {
+    iconClass: 'fas fa-boxes fa-2x',
+    name: 'SUBCATEGORIES',
+    displayName: 'Danh Mục Con',
   },
   {
     iconClass: 'fas fa-table fa-2x',
@@ -31,5 +36,6 @@ export enum SideNav {
   Users = 'USERS',
   Order = 'ORDER',
   Categories = 'CATEGORIES',
+  SubCategories = 'SUBCATEGORIES',
   Profile = 'PROFILE',
 }
