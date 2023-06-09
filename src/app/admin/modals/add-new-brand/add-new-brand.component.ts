@@ -48,10 +48,6 @@ export class AddNewBrandComponent implements OnInit {
             res?.message,
             ToastType.Success
           );
-          let uploaderElement: any = document.querySelector(
-            'lr-file-uploader-regular'
-          );
-          uploaderElement.clear();
           this.ref.close(true);
         }
       },
