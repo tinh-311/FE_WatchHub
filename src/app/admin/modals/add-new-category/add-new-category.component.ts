@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CategoryService } from 'src/service/category.service';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
@@ -10,7 +10,7 @@ import { ToastService } from 'src/service/toast.service';
   templateUrl: './add-new-category.component.html',
   styleUrls: ['./add-new-category.component.scss'],
 })
-export class AddNewCategoryComponent {
+export class AddNewCategoryComponent implements OnInit {
   categoryName: string = '';
 
   constructor(
@@ -19,6 +19,10 @@ export class AddNewCategoryComponent {
     private loadingService: LoadingService,
     private toastService: ToastService
   ) {}
+
+  ngOnInit(): void {
+
+  }
 
   cancel() {
     this.ref.close(false);

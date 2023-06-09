@@ -2,12 +2,12 @@
   <p-button (onClick)="showModalAddNew()" label="Add New"></p-button>
 </div>
 <p-table
-  [value]="categories"
+  [value]="brands"
   dataKey="id"
-  [loading]="idLoading"
+  [loading]="isLoading"
   [lazy]="true"
   [rows]="rowsPerPage"
-  [globalFilterFields]="['id', 'category_name  ', 'created_date', 'updated_date']"
+  [globalFilterFields]="['id', 'brand_name  ', 'created_date', 'updated_date']"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -19,12 +19,13 @@
           display="menu"
         ></p-columnFilter>
       </th>
-      <th pSortableColumn="category_name">
+      <th>Logo</th>
+      <th pSortableColumn="brand_name">
         Name
-        <p-sortIcon field="category_name"></p-sortIcon>
+        <p-sortIcon field="brand_name"></p-sortIcon>
         <p-columnFilter
           type="text"
-          field="category_name"
+          field="brand_name"
           display="menu"
         ></p-columnFilter>
       </th>
@@ -47,20 +48,34 @@
         ></p-columnFilter>
       </th>
 
-      <th>
-        Action
-      </th>
+      <th>Action</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-category>
+  <ng-template pTemplate="body" let-brand>
     <tr>
-      <td>{{ category?.id }}</td>
-      <td>{{ category?.category_name }}</td>
-      <td>{{ category?.created_date | date }}</td>
-      <td>{{ category?.updated_date | date }}</td>
+      <td>{{ brand?.id }}</td>
       <td>
-        <p-button (onClick)="editCategory(category)" class="mr-4" icon="pi pi-file-edit" styleClass="p-button-rounded p-button-warning"></p-button>
-        <p-button (onClick)="deleteCategory(category)" icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+        <p-avatar
+          [image]="brand?.brand_logo || 'assets/images/user.webp'"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+      </td>
+      <td>{{ brand?.brand_name }}</td>
+      <td>{{ brand?.created_date | date }}</td>
+      <td>{{ brand?.updated_date | date }}</td>
+      <td>
+        <p-button
+          (onClick)="editBrands(brand)"
+          class="mr-4"
+          icon="pi pi-file-edit"
+          styleClass="p-button-rounded p-button-warning"
+        ></p-button>
+        <p-button
+          (onClick)="deleteBrands(brand)"
+          icon="pi pi-times"
+          styleClass="p-button-rounded p-button-danger"
+        ></p-button>
       </td>
     </tr>
   </ng-template>

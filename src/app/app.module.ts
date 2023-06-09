@@ -59,6 +59,10 @@ import { ConfirmationComponent } from './modals/confirmation/confirmation.compon
 import { SubcategoriesComponent } from './subcategories/subcategories.component';
 import { AddNewSubCategoryComponent } from './modals/add-new-sub-category/add-new-sub-category.component';
 import { EditSubCategoryComponent } from './modals/edit-sub-category/edit-sub-category.component';
+import { ProductTypesComponent } from './admin/product-types/product-types.component';
+import { BrandsComponent } from './admin/brands/brands.component';
+import { AddNewBrandComponent } from './admin/modals/add-new-brand/add-new-brand.component';
+import { EditBrandComponent } from './admin/modals/edit-brand/edit-brand.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +89,11 @@ import { EditSubCategoryComponent } from './modals/edit-sub-category/edit-sub-ca
     ConfirmationComponent,
     SubcategoriesComponent,
     AddNewSubCategoryComponent,
-    EditSubCategoryComponent
+    EditSubCategoryComponent,
+    ProductTypesComponent,
+    BrandsComponent,
+    AddNewBrandComponent,
+    EditBrandComponent
   ],
   imports: [
     BrowserModule,
