@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { getAuth, signOut } from 'firebase/auth';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { FullScreenService } from 'src/service/full-screen.service';
 import jwt_decode from 'jwt-decode';
 import * as LR from '@uploadcare/blocks';
@@ -14,6 +14,7 @@ import { CategoryService } from 'src/service/category.service';
 import { LoadingService } from 'src/service/loading.service';
 import { BreadcrumbService } from 'src/service/breadcrumb.service';
 import { UtilService } from 'src/service/util.service';
+import { finalize } from 'rxjs';
 
 LR.registerBlocks(LR);
 @Component({
@@ -25,7 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   searchInput: string = '';
   isFullScreen: boolean = false;
   currentUser: any;
-  categories: any = [];
+  categories: any;
   selectedItemHeader: any;
   breadcrumbItems: any;
 
@@ -37,49 +38,43 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
     private utilService: UtilService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.route.queryParams.subscribe((params) => {
       const categoryName = params['categoryName'];
+      console.log('🏍️ ~ categoryName: ', categoryName);
       this.selectedItemHeader = categoryName;
-      this.breadcrumbItems = { label: categoryName };
-      this.breadcrumbService.onChange(this.breadcrumbItems);
+      this.getCategories();
     });
 
     const token = localStorage.getItem('token');
+    console.log('🏍️ ~ token: ', token);
     if (token) {
       this.currentUser = jwt_decode(token);
-      console.log('🏍️ ~ this.currentUser: ', this.currentUser);
     }
 
     this.utilService.user$.subscribe((data) => {
       const token = localStorage.getItem('token');
       if (token) {
         this.currentUser = jwt_decode(token);
-        console.log('🏍️ ~ this.currentUser: ', this.currentUser);
       }
     });
+  }
 
+  ngOnInit() {}
+
+  ngAfterViewInit() {}
+
+  getCategories() {
     this.loadingService.showLoading();
     this.categoryService.getAll().subscribe(
-      (data) => {
-        this.categories = data.res;
+      (data: any) => {
+        this.categories = data?.res || [];
         this.loadingService.hideLoading();
       },
       (err) => {
         this.loadingService.hideLoading();
       }
     );
-  }
-
-  ngAfterViewInit() {}
-
-  updateLRImgElementWithUuid(uploadedUuid: string) {
-    const lrImgElement = document.getElementById('user-avatar') as HTMLElement;
-    if (lrImgElement) {
-      lrImgElement.setAttribute('uuid', uploadedUuid);
-    }
   }
 
   isMobileScreen(): boolean {
@@ -126,10 +121,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   onClickCategory(data: any) {
+    console.log('🏍️ ~ data: ', data);
     const categoryId = data.id;
     const categoryName = data.category_name;
-    this.router.navigate(['/subcategory'], {
+    const queryParams: NavigationExtras = {
       queryParams: { categoryName, categoryId },
-    });
+    };
+
+    this.router.navigate(['/subcategory'], queryParams);
   }
 }

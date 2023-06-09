@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-auto sticky-top" style="background-color: #5171FE;">
+    <div class="col-sm-auto sticky-top" style="background-color: #5171fe">
       <div
         class="d-flex flex-md-column flex-md-row flex-nowrap align-items-center sticky-top"
       >
@@ -12,11 +12,11 @@
           data-bs-original-title="Icon-only"
         >
           <img
-            style="height: 90px; border-radius: 0.5rem;"
+            style="height: 90px; border-radius: 0.5rem"
             src="assets/images/logo/logo5.png"
             class="d-inline-block mb-1"
           />
-          <hr class="text-white">
+          <hr class="text-white" />
         </a>
         <ul
           *ngFor="let navItem of SIDE_NAV"
@@ -24,22 +24,29 @@
         >
           <li class="nav-item ml-0">
             <a
-              [class.active-nav]='curentNavItem === navItem.name'
+              [class.active-nav]="curentNavItem === navItem.name"
               class="nav-link py-3 px-2 text-white w-100 d-flex align-items-center cursor-pointer"
               (click)="onClickNavItem(navItem)"
             >
               <i [class]="navItem?.iconClass"></i>
-              <span class="ml-3 d-none d-md-inline fw-light"> {{ navItem?.displayName | uppercase }} </span>
+              <span class="ml-3 d-none d-md-inline fw-light">
+                {{ navItem?.displayName | uppercase }}
+              </span>
             </a>
           </li>
         </ul>
       </div>
     </div>
     <div class="col-sm p-3 min-vh-100">
-      <app-admin-dashboard-home *ngIf="curentNavItem === SideNav.Dashboard"></app-admin-dashboard-home>
+      <app-admin-dashboard-home
+        *ngIf="curentNavItem === SideNav.Dashboard"
+      ></app-admin-dashboard-home>
       <app-admin-user *ngIf="curentNavItem === SideNav.Users"></app-admin-user>
       <app-category *ngIf="curentNavItem === SideNav.Categories"></app-category>
-      <app-subcategories *ngIf="curentNavItem === SideNav.SubCategories"></app-subcategories>
+      <app-subcategories
+        *ngIf="curentNavItem === SideNav.SubCategories"
+      ></app-subcategories>
+      <app-brands *ngIf="curentNavItem === SideNav.Brands"></app-brands>
     </div>
   </div>
 </div>

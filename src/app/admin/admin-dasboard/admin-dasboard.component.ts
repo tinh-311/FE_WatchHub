@@ -27,6 +27,10 @@ export class AdminDasboardComponent implements OnInit {
         this.curentNavItem = SideNav.Users;
         break;
       }
+      case 'brands': {
+        this.curentNavItem = SideNav.Brands;
+        break;
+      }
       case 'categories': {
         this.curentNavItem = SideNav.Categories;
         break;
@@ -61,6 +65,10 @@ export class AdminDasboardComponent implements OnInit {
         url = 'user';
         break;
       }
+      case SideNav.Brands: {
+        url = 'brands';
+        break;
+      }
       case SideNav.Categories: {
         url = 'categories';
         break;
@@ -78,6 +86,7 @@ export class AdminDasboardComponent implements OnInit {
         break;
       }
     }
+    console.log('🏍️ ~ url: ', url)
 
     this.router.navigate([`/admin/${url}`]);
   }

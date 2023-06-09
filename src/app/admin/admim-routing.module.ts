@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AdminDasboardComponent } from './admin-dasboard/admin-dasboard.component';
 import { NgModule } from '@angular/core';
-import { AdminUserComponent } from './admin-user/admin-user.component';
 
 const routes: Routes = [
   {
@@ -14,6 +13,10 @@ const routes: Routes = [
   },
   {
     path: 'categories',
+    component: AdminDasboardComponent,
+  },
+  {
+    path: 'brands',
     component: AdminDasboardComponent,
   },
   {

@@ -10,6 +10,11 @@ export const SIDE_NAV = [
     displayName: 'Người dùng',
   },
   {
+    iconClass: 'fas fa-warehouse fa-2x',
+    name: 'BRANDS',
+    displayName: 'Thương Hiệu',
+  },
+  {
     iconClass: 'fas fa-box fa-2x',
     name: 'CATEGORIES',
     displayName: 'Danh Mục',
@@ -18,6 +23,11 @@ export const SIDE_NAV = [
     iconClass: 'fas fa-boxes fa-2x',
     name: 'SUBCATEGORIES',
     displayName: 'Danh Mục Con',
+  },
+  {
+    iconClass: 'fas fa-list fa-2x',
+    name: 'PRODUCTTYPES',
+    displayName: 'Loại sản phẩm',
   },
   {
     iconClass: 'fas fa-table fa-2x',
@@ -34,8 +44,10 @@ export const SIDE_NAV = [
 export enum SideNav {
   Dashboard = 'DASHBOARD',
   Users = 'USERS',
+  Brands = 'BRANDS',
   Order = 'ORDER',
   Categories = 'CATEGORIES',
+  ProductTypes = 'PRODUCTTYPES',
   SubCategories = 'SUBCATEGORIES',
   Profile = 'PROFILE',
 }

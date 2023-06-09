@@ -1,0 +1,33 @@
+<div class="flex flex-column gap-2">
+  <div class="d-flex justify-content-center">
+    <div>
+      <div class="d-flex justify-content-center w-100">
+        <p-avatar
+          [image]="logo || 'assets/images/user.webp'"
+          size="xlarge"
+          shape="circle"
+        ></p-avatar>
+      </div>
+      <div>
+        <lr-file-uploader-regular
+          css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
+          ctx-name="my-uploader"
+          class="my-config my-2"
+          style="left: 20%"
+          [allowCanceling]="true"
+        ></lr-file-uploader-regular>
+      </div>
+    </div>
+  </div>
+
+  <label htmlFor="username">Tên Thương Hiệu</label>
+  <input pInputText id="brandName" [(ngModel)]="brandName" />
+</div>
+<div class="mt-4 d-flex justify-content-end">
+  <p-button
+    (onClick)="cancel()"
+    label="Hủy"
+    styleClass="p-button-warning"
+  ></p-button>
+  <p-button (onClick)="update()" class="ml-3" label="Cập nhật"></p-button>
+</div>
