@@ -1,1 +1,210 @@
-<p>product-types works!</p>
+<div class="mb-2 d-flex justify-content-between">
+  <span class="mr-3 d-flex justify-content-between">
+    <span class="mr-2">
+      <label class="fw-bold"> Danh Mục </label> <br />
+      <p-dropdown
+        [options]="categories"
+        optionLabel="category_name"
+        [(ngModel)]="selectedCategory"
+        (onChange)="onDropdownCategoryChange($event)"
+        placeholder="Chọn danh mục"
+        styleClass="custom-dropdown"
+      ></p-dropdown>
+    </span>
+
+    <span>
+      <label class="fw-bold"> Danh Mục Con </label> <br />
+      <p-dropdown
+        [options]="subCategories"
+        optionLabel="sub_category_name"
+        [(ngModel)]="selectedSubCategory"
+        (onChange)="onDropdownSubCategoryChange($event)"
+        placeholder="Chọn danh mục con"
+        styleClass="custom-dropdown"
+      ></p-dropdown>
+    </span>
+  </span>
+
+  <p-button
+    class="mt-4"
+    (onClick)="showModalAddNew()"
+    label="Add New"
+  ></p-button>
+</div>
+<hr />
+
+<div class="container-fluid" style="overflow: auto; min-height: 300px;">
+  <p-table
+    [value]="productTypes"
+    dataKey="id"
+    [loading]="isLoading"
+    [lazy]="true"
+    styleClass="p-datatable-striped p-datatable-sm"
+    [rows]="rowsPerPage"
+    responsiveLayout="stack"
+    [breakpoint]="'960px'"
+    [scrollable]="true"
+    scrollHeight="900px"
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="100"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Hình Ảnh</th>
+        <th pSortableColumn="product_type_name">
+          Tên Loại Sản Phẩm
+          <!-- <p-sortIcon field="product_type_name"></p-sortIcon> -->
+        </th>
+        <th>Mô Tả</th>
+        <th pSortableColumn="brand_name">
+          Thương Hiệu
+          <!-- <p-sortIcon field="brand_name"></p-sortIcon> -->
+        </th>
+        <th pSortableColumn="core_name">
+          Loại Máy
+          <!-- <p-sortIcon field="core_name"></p-sortIcon> -->
+        </th>
+        <th pSortableColumn="glass_name">
+          Loại Kính
+          <!-- <p-sortIcon field="core_name"></p-sortIcon> -->
+        </th>
+        <th pSortableColumn="alberts.albert_name">
+          Loại Dây
+          <!-- <p-sortIcon field="core_name"></p-sortIcon> -->
+        </th>
+        <th>Đường kính mặt số</th>
+        <th>Bề dày mặt số</th>
+        <th pSortableColumn="product_dial_color">
+          Màu Mặt đồng hồ
+          <!-- <p-sortIcon field="product_dial_color"></p-sortIcon> -->
+        </th>
+        <th>Chống Nước</th>
+        <th>Chức Năng</th>
+        <th>Bảo Hành</th>
+        <th>Xuất Sứ</th>
+        <th>Giá</th>
+        <th>Số Lượng</th>
+        <!-- <th pSortableColumn="created_date">
+        Ngày tạo
+        <p-sortIcon field="created_date"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="created_date"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="updated_date">
+        Ngày chỉnh sửa
+        <p-sortIcon field="updated_date"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="updated_date"
+          display="menu"
+        ></p-columnFilter>
+      </th> -->
+
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-productType>
+      <tr>
+        <td>{{ productType?.id }}</td>
+        <td>
+          <p-carousel
+            [value]="productType?.product_image_uuid"
+            [numVisible]="1"
+            [numScroll]="1"
+            [circular]="false"
+          >
+            <ng-template let-imgUrl pTemplate="item">
+              <span class="d-flex justify-content-center">
+                <p-image
+                  class="cursor-pointer"
+                  (click)="openImage(imgUrl)"
+                  [src]="imgUrl"
+                  alt="Image"
+                  width="50"
+                >
+                </p-image>
+              </span>
+            </ng-template>
+          </p-carousel>
+        </td>
+        <td>{{ productType?.product_type_name }}</td>
+        <td>
+          {{ formatText(productType?.product_additional_information) }}
+        </td>
+        <td>
+          <p-image
+            class="cursor-pointer"
+            (click)="openImage(productType?.brand_logo)"
+            [src]="productType?.brand_logo"
+            alt="Image"
+            width="50"
+          >
+          </p-image>
+          {{ productType?.brand_name }}
+        </td>
+        <td>
+          {{ productType?.cores.core_name }}
+        </td>
+        <td>
+          {{ productType?.glasses?.glass_name }}
+        </td>
+        <td>{{ productType?.alberts?.albert_name }}</td>
+        <td>
+          {{ productType?.product_dial_height }}
+        </td>
+        <td>
+          {{ productType?.product_dial_width }}
+        </td>
+        <td>
+          {{ productType?.product_dial_color }}
+        </td>
+        <td>
+          {{ productType?.product_waterproof }}
+        </td>
+        <td>
+          {{ productType?.product_features }}
+        </td>
+        <td>
+          {{ productType?.product_guarantee }}
+        </td>
+        <td>
+          {{ productType?.product_source }}
+        </td>
+        <td>
+          {{ productType?.price | currency : "VND" }}
+        </td>
+        <td>
+          {{ productType?.quantity }}
+        </td>
+        <!-- <td>{{ productType?.created_date | date }}</td>
+      <td>{{ productType?.updated_date | date }}</td> -->
+        <td>
+          <p-button
+            (onClick)="editProductTypes(productType)"
+            class="mr-4"
+            icon="pi pi-file-edit"
+            styleClass="p-button-rounded p-button-warning"
+          ></p-button>
+          <p-button
+            (onClick)="deleteProductTypes(productType)"
+            icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator
+    [rows]="rowsPerPage"
+    [totalRecords]="totalCount"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    (onPageChange)="onPageChanged($event)"
+  ></p-paginator>
+  <span class="d-flex justify-content-center text-secondary">
+    Tổng sản phẩm: {{ totalCount }}
+  </span>
+</div>

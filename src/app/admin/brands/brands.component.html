@@ -1,4 +1,4 @@
-<div class="mb-2">
+<div class="mb-2 d-flex justify-content-end">
   <p-button (onClick)="showModalAddNew()" label="Add New"></p-button>
 </div>
 <p-table
@@ -85,3 +85,4 @@
   [totalRecords]="totalCount"
   (onPageChange)="onPageChanged($event)"
 ></p-paginator>
+<span class="d-flex justify-content-center text-secondary"> Tổng thương hiệu: {{ totalCount }} </span>

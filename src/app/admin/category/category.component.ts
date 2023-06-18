@@ -98,7 +98,7 @@ export class CategoryComponent implements OnInit {
       Nếu bạn xóa danh mục
       ${category?.category_name}
       thì tất cả các danh mục con
-      và sản phẩm cũng sẽ bị xóa. Bạn có chắc cnắn muốn xóa?`,
+      và sản phẩm cũng sẽ bị xóa. Bạn có chắc chắn muốn xóa?`,
       },
     });
 

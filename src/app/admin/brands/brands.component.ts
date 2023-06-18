@@ -91,7 +91,7 @@ export class BrandsComponent implements OnInit {
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
       data: {
-        message: `Bạn có chắc cnắn muốn xóa?`,
+        message: `Bạn có chắc chắn muốn xóa?`,
       },
     });
     ref.onClose.subscribe((result) => {

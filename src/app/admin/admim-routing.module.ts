@@ -24,7 +24,23 @@ const routes: Routes = [
     component: AdminDasboardComponent,
   },
   {
+    path: 'productAlbert',
+    component: AdminDasboardComponent,
+  },
+  {
+    path: 'productCores',
+    component: AdminDasboardComponent,
+  },
+  {
+    path: 'productGlass',
+    component: AdminDasboardComponent,
+  },
+  {
     path: 'dashboard',
+    component: AdminDasboardComponent,
+  },
+  {
+    path: 'productTypes',
     component: AdminDasboardComponent,
   },
   {

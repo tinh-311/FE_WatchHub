@@ -1,0 +1,320 @@
+<form [formGroup]="addNewForm">
+  <div *ngIf="imgURLS?.length > 0" class="flex flex-column gap-2 mb-3">
+    <p-carousel
+      [value]="imgURLS"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="false"
+    >
+      <ng-template let-imgUrl pTemplate="item">
+        <span class="d-flex justify-content-center">
+          <p-image
+            class="cursor-pointer"
+            [src]="imgUrl"
+            (click)="openImage(imgUrl)"
+            alt="Image"
+            width="200"
+          >
+          </p-image>
+        </span>
+      </ng-template>
+    </p-carousel>
+  </div>
+  <div class="flex flex-column gap-2 mb-3">
+    <div>
+      <div class="w-100 d-flex justify-content-center">
+        <lr-file-uploader-regular
+            css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
+            ctx-name="add-new-productType"
+            id="myUploader"
+            #myUploader
+            class="add-new-config my-2 lr-wgt-common"
+            style="left: 20%"
+          ></lr-file-uploader-regular>
+      </div>
+    </div>
+    <small
+      class="mt-1"
+      *ngIf="imgURLS?.length <= 0 && imgDirty"
+      class="text-danger text-center"
+    >
+      <div>
+        Vui lòng tải lên hình ảnh của sản phẩm!
+      </div>
+    </small>
+  </div>
+  <div class="flex flex-column gap-2">
+    <div class="mr-3 d-flex justify-content-between mb-3">
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Tên sản phẩm</label><br />
+        <input
+          pInputText
+          id="productTypeName"
+          formControlName="productTypeName"
+        />
+
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productTypeName'].errors &&
+            addNewForm.controls['productTypeName'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productTypeName'].errors.required">
+            Vui lòng điền tên sản phẩm!
+          </div>
+        </small>
+      </div>
+
+      <div class="w-50">
+        <label class="fw-bold">Giá</label><br />
+        <p-inputNumber
+          inputId="integeronly"
+          formControlName="price"
+          class="w-100"
+          [min]="0"
+          [max]="999999999"
+        ></p-inputNumber>
+
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['price'].errors &&
+            addNewForm.controls['price'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['price'].errors.required">
+            Vui lòng nhập giá sản phẩm!
+          </div>
+        </small>
+      </div>
+    </div>
+
+    <div class="mr-3 d-flex justify-content-between mb-3">
+      <div class="mr-2">
+        <label class="fw-bold">Thương Hiệu</label><br />
+        <p-dropdown
+          [options]="brands"
+          optionLabel="brand_name"
+          formControlName="selectedBrand"
+          (onChange)="onDropdownBrandChange($event)"
+          placeholder="Chọn thương hiệu"
+          styleClass="custom-dropdown"
+        ></p-dropdown>
+      </div>
+
+      <div class="mr-2">
+        <label class="fw-bold">Loại Máy</label><br />
+        <p-dropdown
+          [options]="cores"
+          optionLabel="core_name"
+          formControlName="selectedCore"
+          (onChange)="onDropdownCoreChange($event)"
+          placeholder="Chọn loại máy"
+          styleClass="custom-dropdown"
+        ></p-dropdown>
+      </div>
+
+      <div class="mr-2">
+        <label class="fw-bold">Loại Dây</label><br />
+        <p-dropdown
+          [options]="alberts"
+          optionLabel="albert_name"
+          formControlName="selectedAlbert"
+          (onChange)="onDropdownAlbertChange($event)"
+          placeholder="Chọn loại dây"
+          styleClass="custom-dropdown"
+        ></p-dropdown>
+      </div>
+
+      <div class="mr-2">
+        <label class="fw-bold">Loại Kính</label><br />
+        <p-dropdown
+          [options]="glasses"
+          optionLabel="glass_name"
+          formControlName="selectedGlass"
+          (onChange)="onDropdownGlassChange($event)"
+          placeholder="Chọn loại kính"
+          styleClass="custom-dropdown"
+        ></p-dropdown>
+      </div>
+    </div>
+
+    <div class="mr-3 d-flex justify-content-between mb-3">
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Đường kính mặt số</label><br />
+        <input
+          pInputText
+          id="productDialHeight"
+          formControlName="productDialHeight"
+        />
+      </div>
+
+      <div class="w-50">
+        <label class="fw-bold">Bề dày mặt số</label><br />
+        <input
+          pInputText
+          id="productDialWidth"
+          formControlName="productDialWidth"
+        />
+      </div>
+    </div>
+
+    <div class="mr-3 d-flex justify-content-between mb-3">
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Màu mặt đồng hồ</label><br />
+        <input
+          pInputText
+          id="productDialColor"
+          formControlName="productDialColor"
+        />
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productDialColor'].errors &&
+            addNewForm.controls['productDialColor'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productDialColor'].errors.required">
+            Vui lòng điền màu mặt đồng hồ!
+          </div>
+        </small>
+      </div>
+
+      <div class="w-50">
+        <label class="fw-bold">Xuất xứ</label><br />
+        <input pInputText id="productSource" formControlName="productSource" />
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productSource'].errors &&
+            addNewForm.controls['productSource'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productSource'].errors.required">
+            Vui lòng điền Xuất xứ!
+          </div>
+        </small>
+      </div>
+    </div>
+
+    <div class="mr-3 d-flex justify-content-between mb-3">
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Chức năng</label><br />
+        <input
+          pInputText
+          id="productFeatures"
+          formControlName="productFeatures"
+        />
+
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productFeatures'].errors &&
+            addNewForm.controls['productFeatures'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productFeatures'].errors.required">
+            Vui lòng điền chức năng!
+          </div>
+        </small>
+      </div>
+
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Bảo hành</label><br />
+        <input
+          pInputText
+          id="productGuarantee"
+          formControlName="productGuarantee"
+        />
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productGuarantee'].errors &&
+            addNewForm.controls['productGuarantee'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productGuarantee'].errors.required">
+            Vui lòng điền chính sách bảo hành!
+          </div>
+        </small>
+      </div>
+
+      <div class="w-50">
+        <label class="fw-bold">Chống nước</label><br />
+        <input
+          pInputText
+          id="productWaterproof"
+          formControlName="productWaterproof"
+        />
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productWaterproof'].errors &&
+            addNewForm.controls['productWaterproof'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productWaterproof'].errors.required">
+            Vui lòng điền thông tin chống nước!
+          </div>
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="mr-3 d-flex justify-content-between mb-14">
+    <div class="w-100">
+      <label class="fw-bold">Mô tả</label><br />
+      <textarea
+        rows="5"
+        cols="30"
+        pInputTextarea
+        [autoResize]="true"
+        id="productAdditionalInformation"
+        formControlName="productAdditionalInformation"
+      ></textarea>
+
+      <small
+        class="mt-1"
+        *ngIf="
+          addNewForm.controls['productAdditionalInformation'].errors &&
+          addNewForm.controls['productAdditionalInformation'].dirty
+        "
+        class="text-danger"
+      >
+        <div
+          *ngIf="
+            addNewForm.controls['productAdditionalInformation'].errors.required
+          "
+        >
+          Vui lòng điền mô tả sản phẩm!
+        </div>
+      </small>
+    </div>
+  </div>
+</form>
+
+<div style="margin-bottom: 100px"></div>
+
+<div
+  class="bg-white mt-4 d-flex justify-content-end opacity-100 pr-3 py-3 fixed-bottom"
+>
+  <p-button
+    (onClick)="cancel()"
+    label="Hủy"
+    styleClass="p-button-warning"
+  ></p-button>
+  <p-button
+    (onClick)="create()"
+    [disabled]="addNewForm.invalid || imgURLS.length < 1"
+    class="ml-3"
+    label="Tạo"
+  ></p-button>
+</div>

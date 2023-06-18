@@ -25,8 +25,32 @@ export class ProductsService {
     return this.http.get<any>(url, { headers });
   }
 
+  getAllProductTypes(pageNumber: number, pageSize: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    const url = `${this.baseUrl}/ProductType/GetAll?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    return this.http.get<any>(url, { headers });
+  }
+
   getTotalProductType(subCategoryId: any): Observable<any> {
     const url = `${this.baseUrl}/ProductType/GetTotalBySubCategoryId${subCategoryId}`;
     return this.http.get<any>(url);
+  }
+
+  createProductType(data: any): Observable<any> {
+    const url = `${this.baseUrl}/ProductType/Create`;
+    return this.http.post<any>(url, data);
+  }
+
+  updateProductType(data: any): Observable<any> {
+    const url = `${this.baseUrl}/ProductType/Update${data?.id}`;
+    return this.http.put<any>(url, data);
+  }
+
+  deleteProductType(id: any): Observable<any> {
+    const url = `${this.baseUrl}/ProductType/Delete${id}`;
+    return this.http.delete<any>(url);
   }
 }

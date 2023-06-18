@@ -63,6 +63,20 @@ import { ProductTypesComponent } from './admin/product-types/product-types.compo
 import { BrandsComponent } from './admin/brands/brands.component';
 import { AddNewBrandComponent } from './admin/modals/add-new-brand/add-new-brand.component';
 import { EditBrandComponent } from './admin/modals/edit-brand/edit-brand.component';
+import { ImgReviewComponent } from './img-review/img-review.component';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { AddNewProductTypesComponent } from './admin/modals/add-new-product-types/add-new-product-types.component';
+import { ProductAlbertsComponent } from './admin/product-alberts/product-alberts.component';
+import { AddNewProductAlbertComponent } from './admin/modals/add-new-product-albert/add-new-product-albert.component';
+import { EditProductAlbertComponent } from './admin/modals/edit-product-albert/edit-product-albert.component';
+import { ProductCoresComponent } from './admin/product-cores/product-cores.component';
+import { AddNewProductCoreComponent } from './admin/modals/add-new-product-core/add-new-product-core.component';
+import { EditProductCoreComponent } from './admin/modals/edit-product-core/edit-product-core.component';
+import { ProductGlassComponent } from './admin/product-glass/product-glass.component';
+import { AddNewProductGlassComponent } from './admin/modals/add-new-product-glass/add-new-product-glass.component';
+import { EditProductGlassComponent } from './admin/modals/edit-product-glass/edit-product-glass.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { EditProductTypesComponent } from './admin/modals/edit-product-types/edit-product-types.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +107,19 @@ import { EditBrandComponent } from './admin/modals/edit-brand/edit-brand.compone
     ProductTypesComponent,
     BrandsComponent,
     AddNewBrandComponent,
-    EditBrandComponent
+    EditBrandComponent,
+    ImgReviewComponent,
+    AddNewProductTypesComponent,
+    ProductAlbertsComponent,
+    AddNewProductAlbertComponent,
+    EditProductAlbertComponent,
+    ProductCoresComponent,
+    AddNewProductCoreComponent,
+    EditProductCoreComponent,
+    ProductGlassComponent,
+    AddNewProductGlassComponent,
+    EditProductGlassComponent,
+    EditProductTypesComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +151,9 @@ import { EditBrandComponent } from './admin/modals/edit-brand/edit-brand.compone
     TagModule,
     PaginatorModule,
     BreadcrumbModule,
-    DialogModule
+    DialogModule,
+    NgxImageZoomModule,
+    InputTextareaModule
   ],
   providers: [MessageService, DialogService],
   bootstrap: [AppComponent],
