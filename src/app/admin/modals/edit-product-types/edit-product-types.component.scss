@@ -1,0 +1,20 @@
+.edit-config {
+  --cfg-pubkey: "c269e71c569cd0fc0baa";
+  --cfg-img-only: 1;
+  --cfg-multiple: 1;
+  --cfg-max-local-file-size-bytes: 10485760;
+  --cfg-multiple-max: 10;
+  --cfg-use-cloud-image-editor: 1;
+  --cfg-source-list: "local, url, camera, gdrive, gphotos";
+  --darkmode: 0;
+  --h-accent: 223;
+  --s-accent: 100%;
+  --l-accent: 61%;
+}
+
+:host ::ng-deep {
+  .p-inputnumber,
+  .p-inputtext {
+    width: 100% !important;
+  }
+}

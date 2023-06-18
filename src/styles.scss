@@ -9,9 +9,14 @@
   --cfg-multiple: 0;
   --cfg-max-local-file-size-bytes: 5242880;
   --cfg-multiple-max: 1;
-  --cfg-use-cloud-image-editor: 1;
   --cfg-source-list: "local, url, camera, gdrive, gphotos";
   --darkmode: 0;
+  --cfg-confirm-upload: 1;
+  --cfg-show-empty-list: 1;
+  --cfg-use-cloud-image-editor: 1;
+  --cfg-use-local-image-editor: 1;
+  --cfg-remove-copyright: 1;
+  --cfg-group-output: 1;
   --h-accent: 223;
   --s-accent: 100%;
   --l-accent: 61%;

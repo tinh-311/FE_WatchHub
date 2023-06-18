@@ -22,4 +22,9 @@ export function normalizeName(s: any) {
   return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-export const UUID_DEFAUL_AVATAR = 'https://ucarecdn.com/e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c/user.webp';
+export function formatText(text: any) {
+  return text.length > 25 ? text.substring(0, 25) + '...' : text;
+}
+
+export const UUID_DEFAUL_AVATAR =
+  'https://ucarecdn.com/e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c/user.webp';

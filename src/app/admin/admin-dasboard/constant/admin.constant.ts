@@ -25,6 +25,21 @@ export const SIDE_NAV = [
     displayName: 'Danh Mục Con',
   },
   {
+    iconClass: 'fas fa-minus fa-2x',
+    name: 'PRODUCTALBERT',
+    displayName: 'Loại dây',
+  },
+  {
+    iconClass: 'fas fa-grip-horizontal fa-2x',
+    name: 'PRODUCTCORES',
+    displayName: 'Loại máy',
+  },
+  {
+    iconClass: 'fab fa-perbyte fa-2x',
+    name: 'PRODUCTGLASS',
+    displayName: 'Loại Kính',
+  },
+  {
     iconClass: 'fas fa-list fa-2x',
     name: 'PRODUCTTYPES',
     displayName: 'Loại sản phẩm',
@@ -47,6 +62,9 @@ export enum SideNav {
   Brands = 'BRANDS',
   Order = 'ORDER',
   Categories = 'CATEGORIES',
+  ProductAlbert = 'PRODUCTALBERT',
+  ProductGlass = 'PRODUCTGLASS',
+  ProductCores = 'PRODUCTCORES',
   ProductTypes = 'PRODUCTTYPES',
   SubCategories = 'SUBCATEGORIES',
   Profile = 'PROFILE',

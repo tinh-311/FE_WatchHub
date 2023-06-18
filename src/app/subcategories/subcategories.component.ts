@@ -92,7 +92,7 @@ export class SubcategoriesComponent implements OnInit {
         message: `
         Nếu bạn xóa danh mục con
         ${data?.sub_category_name}
-        thì tất cả sản phẩm cũng sẽ bị xóa. Bạn có chắc cnắn muốn xóa?`,
+        thì tất cả sản phẩm cũng sẽ bị xóa. Bạn có chắc chắn muốn xóa?`,
       },
     });
 

@@ -31,12 +31,28 @@ export class AdminDasboardComponent implements OnInit {
         this.curentNavItem = SideNav.Brands;
         break;
       }
+      case 'productGlass': {
+        this.curentNavItem = SideNav.ProductGlass;
+        break;
+      }
       case 'categories': {
         this.curentNavItem = SideNav.Categories;
         break;
       }
+      case 'productAlbert': {
+        this.curentNavItem = SideNav.ProductAlbert;
+        break;
+      }
       case 'subcategories': {
         this.curentNavItem = SideNav.SubCategories;
+        break;
+      }
+      case 'productTypes': {
+        this.curentNavItem = SideNav.ProductTypes;
+        break;
+      }
+      case 'productCores': {
+        this.curentNavItem = SideNav.ProductCores;
         break;
       }
       case 'order': {
@@ -69,12 +85,28 @@ export class AdminDasboardComponent implements OnInit {
         url = 'brands';
         break;
       }
+      case SideNav.ProductAlbert: {
+        url = 'productAlbert';
+        break;
+      }
+      case SideNav.ProductGlass: {
+        url = 'productGlass';
+        break;
+      }
       case SideNav.Categories: {
         url = 'categories';
         break;
       }
       case SideNav.SubCategories: {
         url = 'subcategories';
+        break;
+      }
+      case SideNav.ProductTypes: {
+        url = 'productTypes';
+        break;
+      }
+      case SideNav.ProductCores: {
+        url = 'productCores';
         break;
       }
       case SideNav.Order: {
