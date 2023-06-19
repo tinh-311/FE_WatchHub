@@ -77,6 +77,9 @@ import { AddNewProductGlassComponent } from './admin/modals/add-new-product-glas
 import { EditProductGlassComponent } from './admin/modals/edit-product-glass/edit-product-glass.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { EditProductTypesComponent } from './admin/modals/edit-product-types/edit-product-types.component';
+import { ProductComponent } from './product/product.component';
+import { ManageProductsComponent } from './admin/manage-products/manage-products.component';
+
 
 @NgModule({
   declarations: [
@@ -119,7 +122,9 @@ import { EditProductTypesComponent } from './admin/modals/edit-product-types/edi
     ProductGlassComponent,
     AddNewProductGlassComponent,
     EditProductGlassComponent,
-    EditProductTypesComponent
+    EditProductTypesComponent,
+    ProductComponent,
+    ManageProductsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div class="mb-2 d-flex justify-content-between">
+  <span>
+    <label class="fw-bold"> Danh Mục </label> <br />
+    <p-dropdown
+      [options]="productTypes"
+      optionLabel="category_name"
+      [(ngModel)]="selectedProductTypes"
+      (onChange)="onDropdownChange($event)"
+      placeholder="Chọn loại sản phẩm"
+      styleClass="custom-dropdown"
+    ></p-dropdown>
+  </span>
+  <p-button
+    class="mt-4"
+    (onClick)="showModalAddNew()"
+    label="Add New"
+  ></p-button>
+</div>
+<hr />

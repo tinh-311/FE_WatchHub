@@ -106,18 +106,14 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   }
 
   getSeverity(product: any) {
-    switch (product.inventoryStatus) {
-      case 'INSTOCK':
-        return 'success';
-
-      case 'LOWSTOCK':
-        return 'warning';
-
-      case 'OUTOFSTOCK':
-        return 'danger';
-
-      default:
-        return null;
+    if (product.quantity <= 0) {
+      return 'danger';
     }
+
+    if (product.quantity <= 10) {
+      return 'warning';
+    }
+
+    return 'success';
   }
 }

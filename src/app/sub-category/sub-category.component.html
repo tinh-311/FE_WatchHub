@@ -242,7 +242,7 @@
                         }}</span>
                       </span>
                       <p-tag
-                        [value]="'INSTOCK'"
+                        [value]="'INSTOCccK'"
                         severity="{{ getSeverity(product) }}"
                       ></p-tag>
                     </div>
@@ -251,7 +251,7 @@
                     class="d-flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
                   >
                     <span class="text-lg font-semibold">{{
-                      "$" + product.price
+                      product.price | currency : "VND"
                     }}</span>
                     <button
                       pButton
@@ -277,7 +277,7 @@
                     </span>
                   </span>
                   <p-tag
-                    [value]="'INSTOCK'"
+                    [value]="product?.price > 0 ? 'Tạm Hết Hàng' : product?.price"
                     severity="{{ getSeverity(product) }}"
                   ></p-tag>
                 </div>
