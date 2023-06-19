@@ -25,12 +25,18 @@ export class ProductsService {
     return this.http.get<any>(url, { headers });
   }
 
-  getAllProductTypes(pageNumber: number, pageSize: number): Observable<any> {
+  getAllProductTypes(pageNumber?: number, pageSize?: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/ProductType/GetAll?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/ProductType/GetAll`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/ProductType/GetAll?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
     return this.http.get<any>(url, { headers });
   }
 

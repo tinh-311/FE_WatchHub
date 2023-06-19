@@ -2,6 +2,15 @@
   width: 300px !important;
 }
 
+th {
+  text-align: center !important;
+  min-width: 180px;
+}
+
+td {
+  text-align: center !important;
+}
+
 :host ::ng-deep {
   .p-dropdown {
     // margin-top: 10px;

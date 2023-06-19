@@ -44,6 +44,10 @@ const routes: Routes = [
     component: AdminDasboardComponent,
   },
   {
+    path: 'products',
+    component: AdminDasboardComponent,
+  },
+  {
     path: 'order',
     component: AdminDasboardComponent,
   },

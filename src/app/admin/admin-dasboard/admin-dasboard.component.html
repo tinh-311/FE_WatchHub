@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-auto sticky-top overflow-auto" style="background-color: #5171fe">
+    <div
+      class="col-sm-auto sticky-top overflow-auto"
+      style="background-color: #5171fe"
+    >
       <div
         class="d-flex flex-md-column flex-md-row flex-nowrap align-items-center sticky-top"
       >
@@ -53,8 +56,15 @@
       <app-product-alberts
         *ngIf="curentNavItem === SideNav.ProductAlbert"
       ></app-product-alberts>
-      <app-product-cores *ngIf="curentNavItem === SideNav.ProductCores"></app-product-cores>
-      <app-product-glass *ngIf="curentNavItem === SideNav.ProductGlass"></app-product-glass>
+      <app-product-cores
+        *ngIf="curentNavItem === SideNav.ProductCores"
+      ></app-product-cores>
+      <app-product-glass
+        *ngIf="curentNavItem === SideNav.ProductGlass"
+      ></app-product-glass>
+      <app-manage-products
+        *ngIf="curentNavItem === SideNav.Products"
+      ></app-manage-products>
     </div>
   </div>
 </div>

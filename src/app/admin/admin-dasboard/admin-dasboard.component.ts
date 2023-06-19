@@ -51,6 +51,10 @@ export class AdminDasboardComponent implements OnInit {
         this.curentNavItem = SideNav.ProductTypes;
         break;
       }
+      case 'products': {
+        this.curentNavItem = SideNav.Products;
+        break;
+      }
       case 'productCores': {
         this.curentNavItem = SideNav.ProductCores;
         break;
@@ -103,6 +107,10 @@ export class AdminDasboardComponent implements OnInit {
       }
       case SideNav.ProductTypes: {
         url = 'productTypes';
+        break;
+      }
+      case SideNav.Products: {
+        url = 'products';
         break;
       }
       case SideNav.ProductCores: {

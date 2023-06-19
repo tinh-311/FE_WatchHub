@@ -63,6 +63,7 @@ export class ProductTypesComponent implements OnInit {
 
   onDropdownSubCategoryChange(event: any) {
     this.selectedSubCategory = event?.value;
+    console.log('🏍️ ~ this.selectedSubCategory: ', this.selectedSubCategory);
     this.getProductTypes();
   }
 
@@ -108,7 +109,9 @@ export class ProductTypesComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          this.selectedSubCategory = this.subCategories[0];
+          this.selectedSubCategory = !this.selectedSubCategory
+            ? this.subCategories[0]
+            : this.selectedSubCategory;
           console.log('🏍️ ~ data: ', data);
           this.productTypes = data?.res;
           this.totalCount = data?.totalCount;
