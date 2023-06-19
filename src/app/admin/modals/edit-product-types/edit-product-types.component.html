@@ -23,13 +23,13 @@
   <div class="flex flex-column gap-2 mb-3">
     <div class="w-100 d-flex justify-content-center">
       <lr-file-uploader-regular
-          css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
-          ctx-name="edit-productType"
-          id="myUploader"
-          #myUploader
-          class="edit-config my-2 lr-wgt-common"
-          style="left: 20%"
-        ></lr-file-uploader-regular>
+        css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
+        ctx-name="edit-productType"
+        id="myUploader"
+        #myUploader
+        class="edit-config my-2 lr-wgt-common"
+        style="left: 20%"
+      ></lr-file-uploader-regular>
     </div>
     <small
       class="mt-1"
@@ -42,28 +42,6 @@
   <div class="flex flex-column gap-2">
     <div class="mr-3 d-flex justify-content-between mb-3">
       <div class="w-50 mr-4">
-        <label class="fw-bold">Tên sản phẩm</label><br />
-        <input
-          pInputText
-          id="productTypeName"
-          formControlName="productTypeName"
-        />
-
-        <small
-          class="mt-1"
-          *ngIf="
-            addNewForm.controls['productTypeName'].errors &&
-            addNewForm.controls['productTypeName'].dirty
-          "
-          class="text-danger"
-        >
-          <div *ngIf="addNewForm.controls['productTypeName'].errors.required">
-            Vui lòng điền tên sản phẩm!
-          </div>
-        </small>
-      </div>
-
-      <div class="w-50">
         <label class="fw-bold">Giá</label><br />
         <p-inputNumber
           inputId="integeronly"
@@ -83,6 +61,27 @@
         >
           <div *ngIf="addNewForm.controls['price'].errors.required">
             Vui lòng nhập giá sản phẩm!
+          </div>
+        </small>
+      </div>
+
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Bảo hành</label><br />
+        <input
+          pInputText
+          id="productGuarantee"
+          formControlName="productGuarantee"
+        />
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productGuarantee'].errors &&
+            addNewForm.controls['productGuarantee'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productGuarantee'].errors.required">
+            Vui lòng điền chính sách bảo hành!
           </div>
         </small>
       </div>
@@ -217,27 +216,6 @@
         >
           <div *ngIf="addNewForm.controls['productFeatures'].errors.required">
             Vui lòng điền chức năng!
-          </div>
-        </small>
-      </div>
-
-      <div class="w-50 mr-4">
-        <label class="fw-bold">Bảo hành</label><br />
-        <input
-          pInputText
-          id="productGuarantee"
-          formControlName="productGuarantee"
-        />
-        <small
-          class="mt-1"
-          *ngIf="
-            addNewForm.controls['productGuarantee'].errors &&
-            addNewForm.controls['productGuarantee'].dirty
-          "
-          class="text-danger"
-        >
-          <div *ngIf="addNewForm.controls['productGuarantee'].errors.required">
-            Vui lòng điền chính sách bảo hành!
           </div>
         </small>
       </div>

@@ -15,6 +15,7 @@ import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { LoadingService } from 'src/service/loading.service';
 import { ProductsService } from 'src/service/products.service';
 import { ToastService } from 'src/service/toast.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-edit-product-types',
@@ -42,7 +43,6 @@ export class EditProductTypesComponent implements OnInit {
   originalProductType: any;
 
   addNewForm: any = this.fb.group({
-    productTypeName: ['', Validators.required],
     price: [0, Validators.required],
     selectedBrand: ['', Validators.required],
     selectedCore: ['', Validators.required],
@@ -94,7 +94,6 @@ export class EditProductTypesComponent implements OnInit {
       this.imgURLS = this.originalProductType?.product_image_uuid;
       this.subCategoryId = this.originalProductType?.sub_category_id;
       this.addNewForm.patchValue({
-        productTypeName: this.originalProductType?.product_type_name,
         price: this.originalProductType?.price,
         productDialHeight: this.originalProductType?.product_dial_height,
         productDialWidth: this.originalProductType?.product_dial_width,
@@ -188,12 +187,35 @@ export class EditProductTypesComponent implements OnInit {
     this.ref.close(false);
   }
 
+  generateProductCode(): string {
+    const uuid = uuidv4().toUpperCase();
+    const code = `${uuid.substr(0, 3)}-${uuid.substr(9, 4)}-${uuid.substr(
+      19,
+      5
+    )}`;
+    return code;
+  }
+
   update() {
     const formData = this.addNewForm.getRawValue();
+    const productCode = this.generateProductCode();
 
     let p = {
       id: this.originalProductType?.id,
-      product_type_name: formData?.productTypeName,
+      product_type_name:
+        formData?.selectedBrand?.brand_name +
+        ' - ' +
+        productCode +
+        ' - ' +
+        formData?.selectedGlass?.glass_name +
+        ' - ' +
+        formData?.selectedCore?.core_name +
+        ' - ' +
+        'Mặt Số ' +
+        formData?.productDialWidth +
+        ' - ' +
+        'Chống Nước ' +
+        formData?.productWaterproof,
       product_image_uuid: this.imgURLS,
       price: formData?.price,
       brand_id: formData?.selectedBrand?.id,

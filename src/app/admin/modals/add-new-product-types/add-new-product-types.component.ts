@@ -13,6 +13,7 @@ import { CategoryService } from 'src/service/category.service';
 import { LoadingService } from 'src/service/loading.service';
 import { ProductsService } from 'src/service/products.service';
 import { ToastService } from 'src/service/toast.service';
+import { v4 as uuidv4 } from 'uuid';
 import * as LR from '@uploadcare/blocks';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { ImgReviewComponent } from 'src/app/img-review/img-review.component';
@@ -42,7 +43,6 @@ export class AddNewProductTypesComponent implements OnInit {
   imgDirty: boolean = false;
 
   addNewForm: any = this.fb.group({
-    productTypeName: ['', Validators.required],
     price: [0, Validators.required],
     selectedBrand: ['', Validators.required],
     selectedCore: ['', Validators.required],
@@ -160,11 +160,34 @@ export class AddNewProductTypesComponent implements OnInit {
     this.ref.close(false);
   }
 
+  generateProductCode(): string {
+    const uuid = uuidv4().toUpperCase();
+    const code = `${uuid.substr(0, 3)}-${uuid.substr(9, 4)}-${uuid.substr(
+      19,
+      5
+    )}`;
+    return code;
+  }
+
   create() {
     const formData = this.addNewForm.getRawValue();
+    const productCode = this.generateProductCode();
 
     let p = {
-      product_type_name: formData?.productTypeName,
+      product_type_name:
+        formData?.selectedBrand?.brand_name +
+        ' - ' +
+        productCode +
+        ' - ' +
+        formData?.selectedGlass?.glass_name +
+        ' - ' +
+        formData?.selectedCore?.core_name +
+        ' - ' +
+        'Mặt Số ' +
+        formData?.productDialWidth +
+        ' - ' +
+        'Chống Nước ' +
+        formData?.productWaterproof,
       product_image_uuid: this.imgURLS,
       price: formData?.price,
       brand_id: formData?.selectedBrand?.id,
@@ -181,14 +204,14 @@ export class AddNewProductTypesComponent implements OnInit {
       product_features: formData?.productFeatures,
       product_additional_information: formData?.productAdditionalInformation,
     };
-    console.log('🏍️ ~ p: ', p)
+    console.log('🏍️ ~ p: ', p);
 
     if (!formData) {
       return;
     }
     this.productsService.createProductType(p).subscribe(
       (res) => {
-        console.log('🏍️ ~ res: ', res)
+        console.log('🏍️ ~ res: ', res);
         if (res?.message) {
           this.toastService.showMessage(
             ToasSumary.Success,
@@ -199,7 +222,7 @@ export class AddNewProductTypesComponent implements OnInit {
         }
       },
       (err) => {
-      console.log('🏍️ ~ err: ', err)
+        console.log('🏍️ ~ err: ', err);
 
         if (err?.error?.message) {
           this.toastService.showMessage(
