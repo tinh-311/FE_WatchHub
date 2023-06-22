@@ -8,6 +8,7 @@ import { AdminGuard } from './guard/admin.guard';
 import { VerifyComponent } from './verify/verify.component';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'verify', component: VerifyComponent },
   {path: 'subcategory', component: SubCategoryComponent },
   {path: 'shopping-cart', component: ShoppingCartComponent },
+  {path: 'product-details', component: ProductDetailsComponent },
   {
     canActivate: [AdminGuard],
     path: 'admin',

@@ -40,6 +40,15 @@ export class ProductsService {
     return this.http.get<any>(url, { headers });
   }
 
+  getAllProductTypesById(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    let url = `${this.baseUrl}/ProductType/GetById${id}`;
+
+    return this.http.get<any>(url, { headers });
+  }
+
   getTotalProductType(subCategoryId: any): Observable<any> {
     const url = `${this.baseUrl}/ProductType/GetTotalBySubCategoryId${subCategoryId}`;
     return this.http.get<any>(url);

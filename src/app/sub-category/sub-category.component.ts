@@ -4,7 +4,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbService } from 'src/service/breadcrumb.service';
 import { CategoryService } from 'src/service/category.service';
@@ -32,7 +32,8 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private productsService: ProductsService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private router: Router
   ) {
     this.isDataLoading = false;
     this.route.queryParams.subscribe(
@@ -115,5 +116,9 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     }
 
     return 'success';
+  }
+
+  onClickProduct(product: any) {
+    this.router.navigate(['/product-details'], { queryParams: { id: product?.id } });
   }
 }

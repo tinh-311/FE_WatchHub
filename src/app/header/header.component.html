@@ -2,7 +2,7 @@
   <section class="header-main">
     <div class="container">
       <div class="grid">
-        <div class="col-12 md:col-6 lg:col-3">
+        <div class="col-12 md:col-6 lg:col-3 d-none d-sm-block">
           <a href="#" class="navbar-brand fw-bold text-primary h1">
             <img
               style="width: 130px; height: 100px"
@@ -111,18 +111,41 @@
     </div>
 
     <div class="container">
-      <div class="input-group my-3">
-        <input
-          type="text"
-          class="form-control h-3rem"
-          placeholder="Tìm kiếm sản phẩm..."
+      <div class="my-3">
+        <p-autoComplete
           [(ngModel)]="searchInput"
-        />
-        <div class="input-group-append">
-          <button class="btn btn-primary h-3rem w-3rem" type="button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
+          [suggestions]="filteredProducts"
+          field="name"
+          [placeholder]="'Tìm kiếm sản phẩm...'"
+          (completeMethod)="searchProducts($event)"
+          [minLength]="2"
+          [lazy]="true"
+          [showClear]="true"
+          [autoHighlight]="true"
+          [showEmptyMessage]="true"
+          class="w-100"
+        >
+          <ng-template
+            let-product
+            pTemplate="item"
+            class="text-truncate"
+          >
+            <div class="d-flex" (click)="onClickItemSearch(product)">
+              <div class="mr-4">
+                <p-image
+                  class="cursor-pointer"
+                  [src]="product?.product_image_uuid[0]"
+                  alt="Image"
+                  width="40"
+                >
+                </p-image>
+              </div>
+              <div class="my-auto text-truncate">
+                {{ product?.product_type_name }}
+              </div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
       </div>
     </div>
   </section>
