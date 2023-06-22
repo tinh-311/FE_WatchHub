@@ -79,6 +79,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { EditProductTypesComponent } from './admin/modals/edit-product-types/edit-product-types.component';
 import { ProductComponent } from './product/product.component';
 import { ManageProductsComponent } from './admin/manage-products/manage-products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 
 @NgModule({
@@ -124,7 +126,8 @@ import { ManageProductsComponent } from './admin/manage-products/manage-products
     EditProductGlassComponent,
     EditProductTypesComponent,
     ProductComponent,
-    ManageProductsComponent
+    ManageProductsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -158,7 +161,8 @@ import { ManageProductsComponent } from './admin/manage-products/manage-products
     BreadcrumbModule,
     DialogModule,
     NgxImageZoomModule,
-    InputTextareaModule
+    InputTextareaModule,
+    AutoCompleteModule
   ],
   providers: [MessageService, DialogService],
   bootstrap: [AppComponent],
