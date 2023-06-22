@@ -45,6 +45,7 @@ export class ManageProductsComponent implements OnInit {
       this.productTypes = data.res;
       console.log('🏍️ ~ this.productTypes: ', this.productTypes);
       this.selectedProductTypes = this.productTypes[0];
+      console.log('🏍️ ~ this.selectedProductTypes: ', this.selectedProductTypes)
     });
   }
 

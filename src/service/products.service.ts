@@ -68,4 +68,9 @@ export class ProductsService {
     const url = `${this.baseUrl}/ProductType/Delete${id}`;
     return this.http.delete<any>(url);
   }
+
+  search(searchTerm: string) {
+    const url = `${this.baseUrl}/ProductType/Search?searchTerm=${searchTerm}`;
+    return this.http.post<any>(url, {});
+  }
 }
