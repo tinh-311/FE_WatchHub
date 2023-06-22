@@ -81,6 +81,7 @@ import { ProductComponent } from './product/product.component';
 import { ManageProductsComponent } from './admin/manage-products/manage-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AllProductsComponent } from './all-products/all-products.component';
 
 
 @NgModule({
@@ -127,7 +128,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     EditProductTypesComponent,
     ProductComponent,
     ManageProductsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    AllProductsComponent
   ],
   imports: [
     BrowserModule,

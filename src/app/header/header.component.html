@@ -125,11 +125,7 @@
           [showEmptyMessage]="true"
           class="w-100"
         >
-          <ng-template
-            let-product
-            pTemplate="item"
-            class="text-truncate"
-          >
+          <ng-template let-product pTemplate="item" class="text-truncate">
             <div class="d-flex" (click)="onClickItemSearch(product)">
               <div class="mr-4">
                 <p-image
@@ -164,11 +160,24 @@
       <div class="collapse navbar-collapse" id="navbar_main">
         <ul class="navbar-nav d-flex justify-content-between w-100">
           <li class="nav-item d-flex">
-            <ul
-              *ngFor="let category of categories"
-              class="navbar-nav d-flex justify-content-between w-100"
-            >
-              <li>
+            <ul class="navbar-nav d-flex justify-content-between w-100">
+              <li
+                class="navbar-nav d-flex justify-content-between w-100"
+              >
+                <a
+                  (click)="onClickCategory('ALL')"
+                  class="nav-link ps-0 text-white item-header"
+                  [class.active]="
+                    selectedItemHeader === 'ALL'
+                  "
+                >
+                  Tất Cả
+                </a>
+              </li>
+              <li
+                *ngFor="let category of categories"
+                class="navbar-nav d-flex justify-content-between w-100"
+              >
                 <a
                   (click)="onClickCategory(category)"
                   class="nav-link ps-0 text-white item-header"

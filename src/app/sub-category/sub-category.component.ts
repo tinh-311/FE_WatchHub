@@ -27,6 +27,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   currentPage: any = 1;
   rowsPerPage: any = 6;
   isDataLoading: boolean = false;
+  isShowCategories: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,8 +41,25 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       async (params) => {
         const categoryId = await params['categoryId'];
         const categoryName = params['categoryName'];
-        this.home = { icon: 'pi pi-home', routerLink: '/' };
-        this.items = [{ label: categoryName }];
+        console.log('🏍️ ~ categoryName: ', categoryName);
+        if (categoryName === 'ALL') {
+          this.isDataLoading = true;
+          this.isShowCategories = false;
+          this.productsService
+            .getAllProductTypes(this.currentPage, this.rowsPerPage)
+            .subscribe(
+              (data) => {
+                console.log('🏍️ ~ data sas: ', data);
+                this.products = data?.res;
+                this.totalRecords = data?.totalCount;
+                this.isDataLoading = false;
+              },
+              (err) => {
+                this.isDataLoading = false;
+              }
+            );
+          return;
+        }
         this.getAllSubCategories(categoryId);
       },
       (err) => {
@@ -119,6 +137,8 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   }
 
   onClickProduct(product: any) {
-    this.router.navigate(['/product-details'], { queryParams: { id: product?.id } });
+    this.router.navigate(['/product-details'], {
+      queryParams: { id: product?.id },
+    });
   }
 }
