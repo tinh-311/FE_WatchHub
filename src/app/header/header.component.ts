@@ -16,6 +16,7 @@ import { BreadcrumbService } from 'src/service/breadcrumb.service';
 import { UtilService } from 'src/service/util.service';
 import { finalize } from 'rxjs';
 import { ProductsService } from 'src/service/products.service';
+import { CartService } from '../service/cart.service';
 
 LR.registerBlocks(LR);
 @Component({
@@ -33,6 +34,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   filteredProducts: any = [];
 
+  cartItems: any;
+
   constructor(
     private router: Router,
     private fullScreenService: FullScreenService,
@@ -41,11 +44,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
     private utilService: UtilService,
-    private productService: ProductsService
+    private productService: ProductsService,
+    private cartService: CartService
   ) {
+    this.cartItems = this.cartService.getCartItems();
+
     this.route.queryParams.subscribe((params) => {
       const categoryName = params['categoryName'];
-      console.log('🏍️ ~ categoryName: ', categoryName);
       this.selectedItemHeader = categoryName;
       if (categoryName === 'ALL') {
         this.selectedItemHeader = 'ALL';
@@ -67,7 +72,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cartService.cartItemsChanged.subscribe(() => {
+      this.cartItems = this.cartService.getCartItems();
+    });
+  }
 
   ngAfterViewInit() {}
 

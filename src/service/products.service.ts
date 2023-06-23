@@ -40,7 +40,7 @@ export class ProductsService {
     return this.http.get<any>(url, { headers });
   }
 
-  getAllProductTypesById(id: any): Observable<any> {
+  getProductTypesById(id: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
@@ -72,5 +72,25 @@ export class ProductsService {
   search(searchTerm: string) {
     const url = `${this.baseUrl}/ProductType/Search?searchTerm=${searchTerm}`;
     return this.http.post<any>(url, {});
+  }
+
+  getAllProduct(pageNumber?: number, pageSize?: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/Product/GetAll`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/Product/GetAll?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
+    return this.http.get<any>(url, { headers });
+  }
+
+  createProduct(data: any): Observable<any> {
+    const url = `${this.baseUrl}/ProductType/Create`;
+    return this.http.post<any>(url, data);
   }
 }

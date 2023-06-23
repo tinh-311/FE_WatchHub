@@ -10,6 +10,7 @@ import { BreadcrumbService } from 'src/service/breadcrumb.service';
 import { CategoryService } from 'src/service/category.service';
 import { LoadingService } from 'src/service/loading.service';
 import { ProductsService } from 'src/service/products.service';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-sub-category',
@@ -29,35 +30,26 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   isDataLoading: boolean = false;
   isShowCategories: boolean = true;
 
+  cartItems: any = [];
+
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private productsService: ProductsService,
     private loadingService: LoadingService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {
     this.isDataLoading = false;
     this.route.queryParams.subscribe(
       async (params) => {
         const categoryId = await params['categoryId'];
         const categoryName = params['categoryName'];
+        this.isShowCategories = true;
         console.log('🏍️ ~ categoryName: ', categoryName);
         if (categoryName === 'ALL') {
-          this.isDataLoading = true;
           this.isShowCategories = false;
-          this.productsService
-            .getAllProductTypes(this.currentPage, this.rowsPerPage)
-            .subscribe(
-              (data) => {
-                console.log('🏍️ ~ data sas: ', data);
-                this.products = data?.res;
-                this.totalRecords = data?.totalCount;
-                this.isDataLoading = false;
-              },
-              (err) => {
-                this.isDataLoading = false;
-              }
-            );
+          this.getAllPT();
           return;
         }
         this.getAllSubCategories(categoryId);
@@ -68,19 +60,46 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cartItems = this.cartService.getCartItems();
+  }
 
   ngAfterViewInit() {}
+
+  getAllPT() {
+    this.isDataLoading = true;
+    this.productsService
+      .getAllProductTypes(this.currentPage, this.rowsPerPage)
+      .subscribe(
+        (data) => {
+          console.log('🏍️ ~ data sas: ', data);
+          this.products = data?.res;
+          this.totalRecords = data?.totalCount;
+          this.isDataLoading = false;
+        },
+        (err) => {
+          this.isDataLoading = false;
+        }
+      );
+  }
 
   onPageChanged(event: any) {
     this.currentPage = event.page + 1;
     this.rowsPerPage = event.rows;
-    this.getProductTypes();
+    if (this.isShowCategories) {
+      this.getProductTypes();
+    } else {
+      this.getAllPT();
+    }
   }
 
   onCliskSubCategory(subCategory: any) {
     this.selectedSubCategory = subCategory;
-    this.getProductTypes();
+    if (this.isShowCategories) {
+      this.getProductTypes();
+    } else {
+      this.getAllPT();
+    }
   }
 
   getAllSubCategories(categoryId: any) {
@@ -89,12 +108,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       (data) => {
         this.subCategories = data?.res;
         this.selectedSubCategory = this.subCategories[0];
-        this.productsService
-          .getTotalProductType(this.selectedSubCategory.id)
-          .subscribe((totalRecords) => {
-            this.totalRecords = totalRecords?.total;
-          });
-
         this.getProductTypes();
         this.loadingService.hideLoading();
       },
@@ -120,6 +133,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       .subscribe((data) => {
         this.products = data?.res;
         console.log('🏍️ ~ this.products: ', this.products);
+        this.totalRecords = data?.totalCount;
         this.isDataLoading = false;
       });
   }
@@ -136,9 +150,41 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     return 'success';
   }
 
+  getSeverityString(product: any) {
+    if (product.quantity <= 0) {
+      return 'Tạm hết hàng';
+    }
+
+    if (product.quantity <= 10) {
+      return 'Chỉ còn ' + product.quantity + ' sản phẩm';
+    }
+
+    return 'Còn ' + product.quantity + ' sản phẩm';
+  }
+
   onClickProduct(product: any) {
     this.router.navigate(['/product-details'], {
       queryParams: { id: product?.id },
     });
+  }
+
+  addToCart(product: any) {
+    this.cartService.addToCart({
+      ...product
+    });
+  }
+
+  removeFromCart(item: any) {
+    this.cartService.removeFromCart(item);
+    this.cartItems = this.cartService.getCartItems();
+  }
+
+  updateQuantity(item: any, quantity: number) {
+    this.cartService.updateQuantity(item, quantity);
+  }
+
+  clearCart() {
+    this.cartService.clearCart();
+    this.cartItems = this.cartService.getCartItems();
   }
 }

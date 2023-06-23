@@ -39,6 +39,52 @@
       <div>Vui lòng tải lên hình ảnh của sản phẩm!</div>
     </small>
   </div>
+  <div class="flex flex-column gap-2 mb-3">
+    <div class="mr-3 d-flex justify-content-between mb-3">
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Mã loại sản phẩm</label><br />
+        <div class="d-flex">
+          <input
+            pInputText
+            id="productTypeCode"
+            formControlName="productTypeCode"
+          />
+          <span
+            (click)="autoGenerateCode()"
+            title="Tự động tạo mã"
+            class="bg-success my-auto ml-4 rounded btn"
+          >
+            <i class="fas fa-random text-white p-1"></i>
+          </span>
+        </div>
+        <small
+          class="mt-1"
+          *ngIf="
+            addNewForm.controls['productTypeCode'].errors &&
+            addNewForm.controls['productTypeCode'].dirty
+          "
+          class="text-danger"
+        >
+          <div *ngIf="addNewForm.controls['productGuarantee'].errors.required">
+            Vui lòng điền mã loại sản phẩm (Bạn có thể tạo mã tự động)
+          </div>
+        </small>
+      </div>
+
+      <div class="w-50 mr-4">
+        <label class="fw-bold">Giới tính</label><br />
+        <p-dropdown
+          [options]="genderOptions"
+          optionLabel="name"
+          formControlName="gender"
+          (onChange)="onDropdownAlbertChange($event)"
+          placeholder="Chọn Giới tính"
+          styleClass="custom-dropdown"
+          class="w-100"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
   <div class="flex flex-column gap-2">
     <div class="mr-3 d-flex justify-content-between mb-3">
       <div class="w-50 mr-4">

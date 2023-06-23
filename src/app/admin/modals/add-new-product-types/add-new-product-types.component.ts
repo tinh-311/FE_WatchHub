@@ -42,6 +42,11 @@ export class AddNewProductTypesComponent implements OnInit {
   imgURLS: any = [];
   imgDirty: boolean = false;
 
+  genderOptions: any = [
+    { val: 'male', name: 'Nam' },
+    { val: 'female', name: 'Nữ' },
+  ];
+
   addNewForm: any = this.fb.group({
     price: [0, Validators.required],
     selectedBrand: ['', Validators.required],
@@ -56,6 +61,8 @@ export class AddNewProductTypesComponent implements OnInit {
     productSource: ['', Validators.required],
     productFeatures: ['', Validators.required],
     productAdditionalInformation: ['', Validators.required],
+    gender: [this.genderOptions[0], Validators.required],
+    productTypeCode: ['', Validators.required],
   });
 
   constructor(
@@ -162,22 +169,29 @@ export class AddNewProductTypesComponent implements OnInit {
 
   generateProductCode(): string {
     const uuid = uuidv4().toUpperCase();
+    const formData = this.addNewForm.getRawValue();
     const code = `${uuid.substr(0, 3)}-${uuid.substr(9, 4)}-${uuid.substr(
       19,
-      5
+      4
     )}`;
     return code;
   }
 
+  autoGenerateCode() {
+    this.addNewForm.patchValue({
+      productTypeCode: this.generateProductCode(),
+    });
+  }
+
   create() {
     const formData = this.addNewForm.getRawValue();
-    const productCode = this.generateProductCode();
-
     let p = {
       product_type_name:
         formData?.selectedBrand?.brand_name +
+        '-' +
+        formData?.productTypeCode +
         ' - ' +
-        productCode +
+        formData?.gender?.name +
         ' - ' +
         formData?.selectedGlass?.glass_name +
         ' - ' +
@@ -203,6 +217,8 @@ export class AddNewProductTypesComponent implements OnInit {
       product_waterproof: formData?.productWaterproof,
       product_features: formData?.productFeatures,
       product_additional_information: formData?.productAdditionalInformation,
+      product_type_code: formData?.productTypeCode,
+      gender: formData?.gender?.name,
     };
     console.log('🏍️ ~ p: ', p);
 

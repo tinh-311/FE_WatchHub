@@ -31,7 +31,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
-import {NgxWebstorageModule} from 'ngx-webstorage';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { CalendarModule } from 'primeng/calendar';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { TableModule } from 'primeng/table';
@@ -82,7 +82,7 @@ import { ManageProductsComponent } from './admin/manage-products/manage-products
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AllProductsComponent } from './all-products/all-products.component';
-
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   declarations: [
@@ -129,7 +129,7 @@ import { AllProductsComponent } from './all-products/all-products.component';
     ProductComponent,
     ManageProductsComponent,
     ProductDetailsComponent,
-    AllProductsComponent
+    AllProductsComponent,
   ],
   imports: [
     BrowserModule,
@@ -164,11 +164,11 @@ import { AllProductsComponent } from './all-products/all-products.component';
     DialogModule,
     NgxImageZoomModule,
     InputTextareaModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    BadgeModule,
   ],
   providers: [MessageService, DialogService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {
-}
+export class AppModule {}

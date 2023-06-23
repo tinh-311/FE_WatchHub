@@ -31,13 +31,15 @@
             </a>
             <a
               (click)="onClickCart()"
-              data-bs-toggle="offcanvas"
-              href="#offcanvas_cart"
               class="btn mx-2 btn-success clear-fix-ava"
             >
               <i class="fa fa-shopping-cart text-white"></i>
               <span class="ms-1 d-none d-sm-inline-block text-white">
                 Giỏ Hàng
+                <p-badge
+                  [value]="cartItems?.length"
+                  severity="success"
+                ></p-badge>
               </span>
             </a>
 
@@ -161,15 +163,11 @@
         <ul class="navbar-nav d-flex justify-content-between w-100">
           <li class="nav-item d-flex">
             <ul class="navbar-nav d-flex justify-content-between w-100">
-              <li
-                class="navbar-nav d-flex justify-content-between w-100"
-              >
+              <li class="navbar-nav d-flex justify-content-between w-100">
                 <a
                   (click)="onClickCategory('ALL')"
                   class="nav-link ps-0 text-white item-header"
-                  [class.active]="
-                    selectedItemHeader === 'ALL'
-                  "
+                  [class.active]="selectedItemHeader === 'ALL'"
                 >
                   Tất Cả
                 </a>

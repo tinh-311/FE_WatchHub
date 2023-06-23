@@ -51,12 +51,14 @@
     <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
+        <th>Mã Sản Phẩm</th>
         <th>Hình Ảnh</th>
         <th pSortableColumn="product_type_name">
           Tên Loại Sản Phẩm
           <!-- <p-sortIcon field="product_type_name"></p-sortIcon> -->
         </th>
         <th>Mô Tả</th>
+        <th>Giới Tính</th>
         <th pSortableColumn="brand_name">
           Thương Hiệu
           <!-- <p-sortIcon field="brand_name"></p-sortIcon> -->
@@ -110,6 +112,7 @@
     <ng-template pTemplate="body" let-productType>
       <tr>
         <td>{{ productType?.id }}</td>
+        <td>{{ productType?.product_type_code }}</td>
         <td>
           <p-carousel
             [value]="productType?.product_image_uuid"
@@ -135,6 +138,7 @@
         <td>
           {{ formatText(productType?.product_additional_information) }}
         </td>
+        <td>{{ productType?.gender }}</td>
         <td>
           <p-image
             class="cursor-pointer"
