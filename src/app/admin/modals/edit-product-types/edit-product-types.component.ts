@@ -42,11 +42,17 @@ export class EditProductTypesComponent implements OnInit {
 
   originalProductType: any;
 
+  genderOptions: any = [
+    { val: 'male', name: 'Nam' },
+    { val: 'female', name: 'Nữ' },
+  ];
+
   addNewForm: any = this.fb.group({
     price: [0, Validators.required],
     selectedBrand: ['', Validators.required],
     selectedCore: ['', Validators.required],
     selectedAlbert: ['', Validators.required],
+    productTypeCode: ['', Validators.required],
     selectedGlass: ['', Validators.required],
     productDialHeight: ['', Validators.required],
     productDialWidth: ['', Validators.required],
@@ -56,6 +62,7 @@ export class EditProductTypesComponent implements OnInit {
     productSource: ['', Validators.required],
     productFeatures: ['', Validators.required],
     productAdditionalInformation: ['', Validators.required],
+    gender: [this.genderOptions[0], Validators.required],
   });
 
   constructor(
@@ -99,7 +106,9 @@ export class EditProductTypesComponent implements OnInit {
         productDialWidth: this.originalProductType?.product_dial_width,
         productDialColor: this.originalProductType?.product_dial_color,
         productGuarantee: this.originalProductType?.product_guarantee,
+        productTypeCode: this.originalProductType?.product_type_code,
         productWaterproof: this.originalProductType?.product_waterproof,
+        gender: this.originalProductType?.gender,
         productSource: this.originalProductType?.product_source,
         productFeatures: this.originalProductType?.product_features,
         productAdditionalInformation:
@@ -189,23 +198,31 @@ export class EditProductTypesComponent implements OnInit {
 
   generateProductCode(): string {
     const uuid = uuidv4().toUpperCase();
+    const formData = this.addNewForm.getRawValue();
     const code = `${uuid.substr(0, 3)}-${uuid.substr(9, 4)}-${uuid.substr(
       19,
-      5
+      4
     )}`;
     return code;
   }
 
+  autoGenerateCode() {
+    this.addNewForm.patchValue({
+      productTypeCode: this.generateProductCode(),
+    });
+  }
+
   update() {
     const formData = this.addNewForm.getRawValue();
-    const productCode = this.generateProductCode();
 
     let p = {
       id: this.originalProductType?.id,
       product_type_name:
         formData?.selectedBrand?.brand_name +
+        '-' +
+        formData?.productTypeCode +
         ' - ' +
-        productCode +
+        formData?.gender?.name +
         ' - ' +
         formData?.selectedGlass?.glass_name +
         ' - ' +
@@ -231,6 +248,8 @@ export class EditProductTypesComponent implements OnInit {
       product_waterproof: formData?.productWaterproof,
       product_features: formData?.productFeatures,
       product_additional_information: formData?.productAdditionalInformation,
+      product_type_code: formData?.productTypeCode,
+      gender: formData?.gender?.name,
     };
     console.log('🏍️ ~ p: ', p);
 
