@@ -1,0 +1,21 @@
+<div class="flex flex-column gap-2">
+  <label htmlFor="ma">Mã</label>
+  <input pInputText id="ma" [(ngModel)]="ma" />
+  <div class="d-flex justify-content-center w-100 mt-3">
+    <div
+      (click)="autoGenerateCode()"
+      title="Tự động tạo mã"
+      class="bg-success rounded btn w-50"
+    >
+      <i class="fas fa-random text-white p-1"></i>
+    </div>
+  </div>
+</div>
+<div class="mt-4 d-flex justify-content-end">
+  <p-button
+    (onClick)="cancel()"
+    label="Hủy"
+    styleClass="p-button-warning"
+  ></p-button>
+  <p-button (onClick)="create()" class="ml-3" label="Tạo"></p-button>
+</div>

@@ -9,6 +9,7 @@ import { formatText } from 'src/app/constant/util.constant';
 import { EditProductTypesComponent } from '../modals/edit-product-types/edit-product-types.component';
 import { ConfirmationComponent } from 'src/app/modals/confirmation/confirmation.component';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
+import { ProductsComponent } from 'src/app/products/products.component';
 
 @Component({
   selector: 'app-product-types',
@@ -197,6 +198,29 @@ export class ProductTypesComponent implements OnInit {
       baseZIndex: 10000,
       data: {
         subCategoryId: this.selectedSubCategory?.id,
+      },
+    });
+    ref.onClose.subscribe((data) => {
+      if (data) {
+        this.getProductTypes();
+      }
+    });
+  }
+
+  manageProducts(productType: any) {
+    const ref = this.dialogService.open(ProductsComponent, {
+      header: 'Danh sách sản phẩm',
+      footer: '',
+      width: '70%',
+      dismissableMask: true,
+      rtl: true,
+      keepInViewport: true,
+      maximizable: true,
+      modal: true,
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      data: {
+        productType: productType,
       },
     });
     ref.onClose.subscribe((data) => {
