@@ -22,6 +22,7 @@ export class ProductDetailsComponent {
       const id = params.get('id');
       this.productService.getProductTypesById(id).subscribe((data: any) => {
         this.product = data;
+        this.changeSelectedImg(this.product?.product_image_uuid[0]);
         console.log('🏍️ ~ this.product: ', this.product);
       });
     });

@@ -5,7 +5,7 @@
         <div class="col-12 md:col-6 lg:col-3 d-none d-sm-block">
           <a href="#" class="navbar-brand fw-bold text-primary h1">
             <img
-              style="width: 130px; height: 100px"
+              style="width: 90px; height: 70px"
               src="assets/images/logo/logo4.png"
               class="d-inline-block mb-1"
             />
@@ -27,7 +27,6 @@
               class="btn mx-2 btn-danger clear-fix-ava"
             >
               <i class="fa fa-heart"></i>
-              <span class="ms-1 d-none d-sm-inline-block"> Yêu Thích</span>
             </a>
             <a
               (click)="onClickCart()"
@@ -35,21 +34,11 @@
             >
               <i class="fa fa-shopping-cart text-white"></i>
               <span class="ms-1 d-none d-sm-inline-block text-white">
-                Giỏ Hàng
                 <p-badge
                   [value]="cartItems?.length"
                   severity="success"
                 ></p-badge>
               </span>
-            </a>
-
-            <a
-              title="Toogle Full Screen"
-              class="btn mx-2 btn-secondary clear-fix-ava"
-              (click)="toggleFullscreen()"
-            >
-              <i *ngIf="!isFullScreen" class="fas fa-expand cursor-pointer"></i>
-              <i *ngIf="isFullScreen" class="fas fa-compress"></i>
             </a>
           </span>
 

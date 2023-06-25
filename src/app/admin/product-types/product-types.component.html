@@ -50,8 +50,9 @@
   >
     <ng-template pTemplate="header">
       <tr>
+        <th>Quản Lý Sản Phẩm</th>
         <th>ID</th>
-        <th>Mã Sản Phẩm</th>
+        <th>Mã Loại Sản Phẩm</th>
         <th>Hình Ảnh</th>
         <th pSortableColumn="product_type_name">
           Tên Loại Sản Phẩm
@@ -87,30 +88,22 @@
         <th>Xuất Sứ</th>
         <th>Giá</th>
         <th>Số Lượng</th>
-        <!-- <th pSortableColumn="created_date">
-        Ngày tạo
-        <p-sortIcon field="created_date"></p-sortIcon>
-        <p-columnFilter
-          type="text"
-          field="created_date"
-          display="menu"
-        ></p-columnFilter>
-      </th>
-      <th pSortableColumn="updated_date">
-        Ngày chỉnh sửa
-        <p-sortIcon field="updated_date"></p-sortIcon>
-        <p-columnFilter
-          type="text"
-          field="updated_date"
-          display="menu"
-        ></p-columnFilter>
-      </th> -->
+        <th>Ngày tạo</th>
+        <th>Ngày chỉnh sửa</th>
 
         <th>Action</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-productType>
       <tr>
+        <td>
+          <p-button
+            (onClick)="manageProducts(productType)"
+            class="mr-4"
+            icon="pi pi-list"
+            styleClass="p-button-rounded p-button-secondary"
+          ></p-button>
+        </td>
         <td>{{ productType?.id }}</td>
         <td>{{ productType?.product_type_code }}</td>
         <td>
@@ -184,8 +177,8 @@
         <td>
           {{ productType?.quantity }}
         </td>
-        <!-- <td>{{ productType?.created_date | date }}</td>
-      <td>{{ productType?.updated_date | date }}</td> -->
+        <td>{{ productType?.created_date | date }}</td>
+        <td>{{ productType?.updated_date | date }}</td>
         <td>
           <p-button
             (onClick)="editProductTypes(productType)"

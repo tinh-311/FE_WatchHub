@@ -65,7 +65,7 @@ export class ProductsService {
   }
 
   deleteProductType(id: any): Observable<any> {
-    const url = `${this.baseUrl}/ProductType/Delete${id}`;
+    const url = `${this.baseUrl}/ProductType/SoftDelete${id}`;
     return this.http.delete<any>(url);
   }
 
@@ -89,8 +89,37 @@ export class ProductsService {
     return this.http.get<any>(url, { headers });
   }
 
+  getProductByProductTypeId(
+    pageNumber?: number,
+    pageSize?: number,
+    id: any = 0
+  ): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/Product/GetByProductTypeId${id}`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/Product/GetByProductTypeId${id}?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
+    return this.http.get<any>(url, { headers });
+  }
+
   createProduct(data: any): Observable<any> {
-    const url = `${this.baseUrl}/ProductType/Create`;
+    const url = `${this.baseUrl}/Product/Create?product_type_id=${data?.product_type_id}&product_code=${data?.product_code}`;
     return this.http.post<any>(url, data);
+  }
+
+  deleteProduct(id: any): Observable<any> {
+    const url = `${this.baseUrl}/Product/Delete${id}`;
+    return this.http.delete<any>(url);
+  }
+
+  softDeleteProduct(id: any): Observable<any> {
+    const url = `${this.baseUrl}/Product/SoftDelete${id}`;
+    return this.http.delete<any>(url);
   }
 }

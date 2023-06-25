@@ -83,6 +83,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AllProductsComponent } from './all-products/all-products.component';
 import { BadgeModule } from 'primeng/badge';
+import { AddNewProductComponent } from './admin/modals/add-new-product/add-new-product.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +131,7 @@ import { BadgeModule } from 'primeng/badge';
     ManageProductsComponent,
     ProductDetailsComponent,
     AllProductsComponent,
+    AddNewProductComponent
   ],
   imports: [
     BrowserModule,

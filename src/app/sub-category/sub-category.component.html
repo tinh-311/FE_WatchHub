@@ -241,7 +241,7 @@
                       <span class="d-flex align-items-center gap-2">
                         <i class="pi pi-tag"></i>
                         <span class="font-semibold">{{
-                          product.category
+                          product?.sub_category_name
                         }}</span>
                       </span>
                     </div>
@@ -254,9 +254,7 @@
                     }}</span>
                     <button
                       pButton
-                      (click)="
-                        addToCart(product)
-                      "
+                      (click)="addToCart(product)"
                       icon="pi pi-shopping-cart"
                       class="md:align-self-end text-sm mb-2 p-button-rounded text-sm"
                     ></button>
@@ -307,9 +305,7 @@
                   }}</span>
                   <button
                     pButton
-                    (click)="
-                      addToCart(product)
-                    "
+                    (click)="addToCart(product)"
                     icon="pi pi-shopping-cart"
                     class="p-button-rounded text-sm"
                   ></button>

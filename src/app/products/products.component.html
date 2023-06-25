@@ -1,1 +1,59 @@
-<p>products works!</p>
+<div class="mb-2 d-flex justify-content-end">
+  <p-button
+    class="mt-4"
+    (onClick)="showModalAddNew()"
+    label="Add New"
+  ></p-button>
+</div>
+<hr />
+
+<div class="container-fluid">
+  <p-table
+    [value]="products"
+    dataKey="id"
+    [loading]="isLoading"
+    [lazy]="true"
+    styleClass="p-datatable-striped p-datatable-sm"
+    [rows]="rowsPerPage"
+    responsiveLayout="stack"
+    [breakpoint]="'960px'"
+    [scrollable]="true"
+    scrollHeight="900px"
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="200"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Mã Sản Phẩm</th>
+        <th>Ngày tạo</th>
+        <th>Ngày chỉnh sửa</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product?.id }}</td>
+        <td>{{ product?.product_code }}</td>
+        <td>{{ product?.created_date | date }}</td>
+        <td>{{ product?.updated_date | date }}</td>
+        <td>
+          <p-button
+            (onClick)="deleteProduct(product)"
+            icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-paginator
+  [rows]="rowsPerPage"
+  [totalRecords]="totalCount"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  (onPageChange)="onPageChanged($event)"
+></p-paginator>
+<span class="d-flex justify-content-center text-secondary">
+  Tổng sản phẩm: {{ totalCount }}
+</span>

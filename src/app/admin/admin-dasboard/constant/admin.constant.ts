@@ -45,11 +45,6 @@ export const SIDE_NAV = [
     displayName: 'Loại sản phẩm',
   },
   {
-    iconClass: 'far fa-clock fa-2x',
-    name: 'PRODUCTS',
-    displayName: 'Sản phẩm',
-  },
-  {
     iconClass: 'fas fa-table fa-2x',
     name: 'ORDER',
     displayName: 'Đơn đặt hàng',
@@ -71,7 +66,6 @@ export enum SideNav {
   ProductGlass = 'PRODUCTGLASS',
   ProductCores = 'PRODUCTCORES',
   ProductTypes = 'PRODUCTTYPES',
-  Products = 'PRODUCTS',
   SubCategories = 'SUBCATEGORIES',
   Profile = 'PROFILE',
 }
