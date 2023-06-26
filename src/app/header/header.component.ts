@@ -17,6 +17,7 @@ import { UtilService } from 'src/service/util.service';
 import { finalize } from 'rxjs';
 import { ProductsService } from 'src/service/products.service';
 import { CartService } from '../service/cart.service';
+import { UserService } from 'src/service/user.service';
 
 LR.registerBlocks(LR);
 @Component({
@@ -45,7 +46,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private breadcrumbService: BreadcrumbService,
     private utilService: UtilService,
     private productService: ProductsService,
-    private cartService: CartService
+    private cartService: CartService,
+    private userService: UserService
   ) {
     this.cartItems = this.cartService.getCartItems();
 
@@ -61,7 +63,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     const token = localStorage.getItem('token');
     console.log('🏍️ ~ token: ', token);
     if (token) {
-      this.currentUser = jwt_decode(token);
+      const user: any = jwt_decode(token);
+      console.log('🏍️ ~ user: ', user);
+      this.userService.getUserByID(user?.id).subscribe((data: any) => {
+        this.currentUser = data;
+        console.log('🏍️ ~ this.currentUser: ', this.currentUser);
+      });
     }
 
     this.utilService.user$.subscribe((data) => {
@@ -127,8 +134,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       .then(() => {
         // Đăng xuất thành công
         console.log('Đăng xuất thành công');
+        localStorage.clear();
         this.router.navigate(['/login']);
-        localStorage.removeItem('token');
+        setTimeout(() => {
+          location.href = location.href;
+        }, 100);
       })
       .catch((error) => {
         // Xảy ra lỗi khi đăng xuất

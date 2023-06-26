@@ -1,0 +1,86 @@
+<div class="w-100">
+  <form [formGroup]="addressForm" class="p-3 py-5">
+    <div class="d-flex justify-content-end align-items-center mb-3">
+      <div *ngIf="isLoading" class="spinner">
+        <i class="fa fa-spinner fa-spin fa-2"></i>
+      </div>
+
+      <span
+        (click)="getCurrenAddress()"
+        *ngIf="!isLoading"
+        class="icon-wrapper cursor-pointer d-flex"
+      >
+        <div class="my-auto mr-2"> Vị trí hiện tại </div>
+        <i class="fas fa-map-marker-alt fa-2x text-danger"></i
+      ></span>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <label class="labels">Tỉnh/Thành phố</label><br />
+        <p-dropdown
+          [options]="provinces"
+          formControlName="city"
+          optionLabel="name_with_type"
+          [filter]="true"
+          filterBy="name_with_type"
+          [showClear]="true"
+          placeholder="Chọn Tỉnh/Thành phố"
+          (onChange)="onProvinceChange()"
+        ></p-dropdown>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="labels">Quận/Huyện</label><br />
+        <p-dropdown
+          [options]="districts"
+          formControlName="districts"
+          optionLabel="name_with_type"
+          [filter]="true"
+          filterBy="name_with_type"
+          [showClear]="true"
+          placeholder="Chọn Quận/Huyện"
+          (onChange)="onDistrictChange()"
+        ></p-dropdown>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="labels">Phường/Xã</label><br />
+        <p-dropdown
+          [options]="wards"
+          formControlName="wards"
+          optionLabel="name_with_type"
+          [filter]="true"
+          filterBy="name_with_type"
+          [showClear]="true"
+          placeholder="Chọn Phường/Xã"
+          (onChange)="onWardsChange()"
+        ></p-dropdown>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="labels">Tên đường, Tòa nhà, Số nhà</label><br />
+        <input
+          formControlName="road"
+          pInputText
+          placeholder="Nhập Tên đường, Tòa nhà, Số nhà"
+        />
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button
+        (click)="onSubmitAddress()"
+        class="btn btn-primary profile-button"
+        type="button"
+      >
+        Lưu Địa Chỉ
+      </button>
+    </div>
+  </div>
+</div>

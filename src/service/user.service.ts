@@ -34,6 +34,16 @@ export class UserService {
     return this.http.get<any>(url, { headers });
   }
 
+  getUserByID(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Users/GetById${id}`;
+
+    return this.http.get<any>(url, { headers });
+  }
+
   updateUser(user: User): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
