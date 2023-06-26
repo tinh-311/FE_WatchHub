@@ -84,6 +84,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AllProductsComponent } from './all-products/all-products.component';
 import { BadgeModule } from 'primeng/badge';
 import { AddNewProductComponent } from './admin/modals/add-new-product/add-new-product.component';
+import { AddAddressComponent } from './modals/add-address/add-address.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { AddNewProductComponent } from './admin/modals/add-new-product/add-new-p
     ManageProductsComponent,
     ProductDetailsComponent,
     AllProductsComponent,
-    AddNewProductComponent
+    AddNewProductComponent,
+    AddAddressComponent
   ],
   imports: [
     BrowserModule,

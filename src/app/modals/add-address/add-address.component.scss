@@ -1,0 +1,94 @@
+:host ::ng-deep {
+  .p-dropdown, .p-inputtext {
+    width: 100% !important;
+  }
+}
+
+body {
+  background: rgb(99, 39, 120);
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.profile-button {
+  box-shadow: none;
+  border: none;
+}
+
+.profile-button:hover {
+}
+
+.profile-button:focus {
+  box-shadow: none;
+}
+
+.profile-button:active {
+  box-shadow: none;
+}
+
+.back:hover {
+  cursor: pointer;
+}
+
+.labels {
+  font-size: 11px;
+}
+
+.add-experience:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+:host ::ng-deep {
+  .p-dropdown {
+    width: 100%;
+  }
+  .p-inputtext {
+    width: 100%;
+  }
+}
+
+.icon-wrapper {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover {
+  transform: scale(1.2); /* Phóng to biểu tượng khi hover */
+}
+
+@keyframes icon-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.icon-wrapper:hover i {
+  animation: icon-animation 0.6s infinite; /* Thêm animation cho biểu tượng khi hover */
+}
+
+lr-img {
+  --lr-img-lazy: 0;
+}
+
+.rounded-circle {
+  img {
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+  }
+
+  &:hover {
+    lr-file-uploader-regular {
+      display: block !important;
+    }
+  }
+}
+
