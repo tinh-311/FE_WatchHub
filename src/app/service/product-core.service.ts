@@ -46,7 +46,7 @@ export class ProductCoreService {
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/ProductCore/Delete${productAlbertId}`;
+    const url = `${this.baseUrl}/ProductCore/SoftDelete${productAlbertId}`;
     return this.http.delete<any>(url);
   }
 

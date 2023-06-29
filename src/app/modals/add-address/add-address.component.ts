@@ -59,11 +59,14 @@ export class AddAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.addressService.getProvinces().subscribe(
       (res: any) => {
         this.provinces = res?.data?.data;
+        this.isLoading = false;
       },
       (err) => {
+        this.isLoading = false;
         this.toastService.showMessage(
           ToastType.Error,
           err?.error?.message,
@@ -121,10 +124,7 @@ export class AddAddressComponent implements OnInit {
     if (!this.address) {
       return;
     }
-
-    console.log(
-      this.addressForm?.value?.districts
-    );
+    console.log('🏍️ ~ this.addressForm?.value: ', this.addressForm?.value)
 
     this.ref.close({
       province: this.addressForm?.value?.city?.name_with_type,

@@ -18,6 +18,10 @@ import { finalize } from 'rxjs';
 import { ProductsService } from 'src/service/products.service';
 import { CartService } from '../service/cart.service';
 import { UserService } from 'src/service/user.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
+import { ToastService } from 'src/service/toast.service';
+import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
 
 LR.registerBlocks(LR);
 @Component({
@@ -47,7 +51,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private utilService: UtilService,
     private productService: ProductsService,
     private cartService: CartService,
-    private userService: UserService
+    private userService: UserService,
+    private dialogService: DialogService,
+    private toastService: ToastService
   ) {
     this.cartItems = this.cartService.getCartItems();
 
@@ -63,25 +69,44 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     const token = localStorage.getItem('token');
     console.log('🏍️ ~ token: ', token);
     if (token) {
-      const user: any = jwt_decode(token);
-      console.log('🏍️ ~ user: ', user);
-      this.userService.getUserByID(user?.id).subscribe((data: any) => {
-        this.currentUser = data;
-        console.log('🏍️ ~ this.currentUser: ', this.currentUser);
-      });
-    }
+      console.log('🏍️ ~ token: ', token);
+      this.currentUser = jwt_decode(token);
+      console.log('🏍️ ~ this.currentUser: ', this.currentUser);
 
-    this.utilService.user$.subscribe((data) => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        this.currentUser = jwt_decode(token);
-      }
+      this.getUserById(this.currentUser?.id)
+        .then((data: any) => {
+          this.currentUser = data;
+          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
+        })
+        .catch((error: any) => {
+          console.error('🔥 ~ error:', error);
+        });
+    }
+  }
+
+  getUserById(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.userService.getUserByID(id).subscribe(
+        (data: any) => {
+          resolve(data);
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
     });
   }
 
   ngOnInit() {
     this.cartService.cartItemsChanged.subscribe(() => {
       this.cartItems = this.cartService.getCartItems();
+    });
+
+    this.utilService.user$.subscribe((data) => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.currentUser = jwt_decode(token);
+      }
     });
   }
 
@@ -122,6 +147,21 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   onClickCart() {
     if (!this.currentUser) {
+      const ref = this.dialogService.open(ConfirmationComponent, {
+        header: `Vui lòng đăng nhập trước khi đến giỏ hàng của bạn`,
+        width: '30%',
+        dismissableMask: true,
+        contentStyle: { 'max-height': '500px', overflow: 'auto' },
+        baseZIndex: 10000,
+        data: {
+          message: `Bạn có muốn đăng nhập không?`,
+        },
+      });
+      ref.onClose.subscribe((result) => {
+        if (result) {
+          this.router.navigate(['/login']);
+        }
+      });
       return;
     }
 
@@ -144,6 +184,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         // Xảy ra lỗi khi đăng xuất
         console.error('Lỗi đăng xuất:', error);
       });
+  }
+
+  clearCache() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        localStorage.clear();
+      })
+      .catch((error) => {});
   }
 
   onClickCategory(data: any) {

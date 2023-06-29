@@ -26,8 +26,8 @@
         <lr-file-uploader-regular
           css-src="https://esm.sh/@uploadcare/blocks@0.22.3/web/file-uploader-regular.min.css"
           ctx-name="add-new-productType"
-          id="myUploader"
-          #myUploader
+          id="add-new-productType"
+          #addnewproductType
           class="add-new-config my-2 lr-wgt-common"
           style="left: 20%"
         ></lr-file-uploader-regular>
@@ -210,23 +210,14 @@
     <div class="mr-3 d-flex justify-content-between mb-3">
       <div class="w-50 mr-4">
         <label class="fw-bold">Màu mặt đồng hồ</label><br />
-        <input
-          pInputText
-          id="productDialColor"
+        <p-dropdown
+          [options]="colorOptions"
+          optionLabel="name"
           formControlName="productDialColor"
-        />
-        <small
-          class="mt-1"
-          *ngIf="
-            addNewForm.controls['productDialColor'].errors &&
-            addNewForm.controls['productDialColor'].dirty
-          "
-          class="text-danger"
-        >
-          <div *ngIf="addNewForm.controls['productDialColor'].errors.required">
-            Vui lòng điền màu mặt đồng hồ!
-          </div>
-        </small>
+          placeholder="Chọn màu mặt đồng hồ"
+          styleClass="custom-dropdown"
+          class="w-100"
+        ></p-dropdown>
       </div>
 
       <div class="w-50">

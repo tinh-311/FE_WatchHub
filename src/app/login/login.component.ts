@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase/auth';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from 'src/environments/environment';
 import { User } from '../model/user.model';
@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       const currentUser = jwt_decode(token);
+      console.log('🏍️ ~ currentUser: ', currentUser)
       if (currentUser) {
         this.router.navigate(['']);
       }
@@ -74,6 +75,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
       },
       (err) => {
+        console.log('🏍️ ~ err: ', err)
         this.toastService.showMessage(
           ToasSumary.Error,
           err?.error?.message,
@@ -82,6 +84,19 @@ export class LoginComponent implements OnInit {
         this.loadingService.hideLoading();
       }
     );
+  }
+
+  logout() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        localStorage.clear();
+        setTimeout(() => {
+          location.href = location.href;
+        }, 100);
+      })
+      .catch((error) => {
+      });
   }
 
   async loginWithGoogle() {
@@ -114,6 +129,7 @@ export class LoginComponent implements OnInit {
           err?.error?.message,
           ToastType.Error
         );
+        this.logout();
         this.loadingService.hideLoading();
       }
     );

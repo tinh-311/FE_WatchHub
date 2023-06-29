@@ -6,6 +6,11 @@ import {
   DialogService,
 } from 'primeng/dynamicdialog';
 import { BrandsService } from 'src/app/brands.service';
+import {
+  DIAL_COLOR,
+  GENDER,
+  getKeyByValue,
+} from 'src/app/constant/util.constant';
 import { ImgReviewComponent } from 'src/app/img-review/img-review.component';
 import { ProductAlbertService } from 'src/app/service/product-albert.service';
 import { ProductCoreService } from 'src/app/service/product-core.service';
@@ -41,10 +46,66 @@ export class EditProductTypesComponent implements OnInit {
   imgDirty: boolean = false;
 
   originalProductType: any;
+  selectedGender: any;
 
   genderOptions: any = [
-    { val: 'male', name: 'Nam' },
-    { val: 'female', name: 'Nữ' },
+    { val: getKeyByValue(GENDER, GENDER.MALE), name: GENDER.MALE },
+    { val: getKeyByValue(GENDER, GENDER.FEMALE), name: GENDER.FEMALE },
+    { val: getKeyByValue(GENDER, GENDER.COUPLE), name: GENDER.COUPLE },
+    { val: getKeyByValue(GENDER, GENDER.UNISEX), name: GENDER.UNISEX },
+  ];
+
+  colorOptions: any = [
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLACK),
+      name: DIAL_COLOR.BLACK,
+    },
+    { val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLUE), name: DIAL_COLOR.BLUE },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.BROWN),
+      name: DIAL_COLOR.BROWN,
+    },
+    { val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.CYAN), name: DIAL_COLOR.CYAN },
+    { val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.GOLD), name: DIAL_COLOR.GOLD },
+    { val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.GRAY), name: DIAL_COLOR.GRAY },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.GREEN),
+      name: DIAL_COLOR.GREEN,
+    },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.INDIGO),
+      name: DIAL_COLOR.GREEN,
+    },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.MAGENTA),
+      name: DIAL_COLOR.MAGENTA,
+    },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.ORANGE),
+      name: DIAL_COLOR.ORANGE,
+    },
+    { val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.PINK), name: DIAL_COLOR.PINK },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.PURPLE),
+      name: DIAL_COLOR.PURPLE,
+    },
+    { val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.RED), name: DIAL_COLOR.RED },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.SILVER),
+      name: DIAL_COLOR.SILVER,
+    },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.VIOLET),
+      name: DIAL_COLOR.VIOLET,
+    },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.WHITE),
+      name: DIAL_COLOR.WHITE,
+    },
+    {
+      val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.YELLOW),
+      name: DIAL_COLOR.YELLOW,
+    },
   ];
 
   addNewForm: any = this.fb.group({
@@ -56,7 +117,7 @@ export class EditProductTypesComponent implements OnInit {
     selectedGlass: ['', Validators.required],
     productDialHeight: ['', Validators.required],
     productDialWidth: ['', Validators.required],
-    productDialColor: ['', Validators.required],
+    productDialColor: [this.colorOptions[0], Validators.required],
     productGuarantee: ['', Validators.required],
     productWaterproof: ['', Validators.required],
     productSource: ['', Validators.required],
@@ -98,17 +159,25 @@ export class EditProductTypesComponent implements OnInit {
     if (this.config.data) {
       const data = this.config.data;
       this.originalProductType = data?.productType;
+      console.log(
+        '🏍️ ~ this.originalProductType?.gender: ',
+        getKeyByValue(GENDER, GENDER.MALE)
+      );
       this.imgURLS = this.originalProductType?.product_image_uuid;
       this.subCategoryId = this.originalProductType?.sub_category_id;
       this.addNewForm.patchValue({
         price: this.originalProductType?.price,
         productDialHeight: this.originalProductType?.product_dial_height,
         productDialWidth: this.originalProductType?.product_dial_width,
-        productDialColor: this.originalProductType?.product_dial_color,
+        productDialColor: this.colorOptions.find(
+          (c: any) => c.val === this.originalProductType?.product_dial_color
+        ),
         productGuarantee: this.originalProductType?.product_guarantee,
         productTypeCode: this.originalProductType?.product_type_code,
         productWaterproof: this.originalProductType?.product_waterproof,
-        gender: this.originalProductType?.gender,
+        gender: this.genderOptions.find(
+          (g: any) => g.val === this.originalProductType?.gender
+        ),
         productSource: this.originalProductType?.product_source,
         productFeatures: this.originalProductType?.product_features,
         productAdditionalInformation:
@@ -158,6 +227,11 @@ export class EditProductTypesComponent implements OnInit {
         selectedAlbert: this.selectedAlbert,
       });
     });
+  }
+
+  onDropdownGenderChange(event: any) {
+    this.selectedGender = event?.value;
+    console.log('🏍️ ~ this.selectedGender: ', this.selectedGender);
   }
 
   onDropdownAlbertChange(event: any) {}
@@ -244,12 +318,12 @@ export class EditProductTypesComponent implements OnInit {
       product_guarantee: formData?.productGuarantee,
       product_dial_width: formData?.productDialWidth,
       product_dial_height: formData?.productDialHeight,
-      product_dial_color: formData?.productDialColor,
+      product_dial_color: formData?.productDialColor.val,
       product_waterproof: formData?.productWaterproof,
       product_features: formData?.productFeatures,
       product_additional_information: formData?.productAdditionalInformation,
       product_type_code: formData?.productTypeCode,
-      gender: formData?.gender?.name,
+      gender: formData?.gender?.val,
     };
     console.log('🏍️ ~ p: ', p);
 

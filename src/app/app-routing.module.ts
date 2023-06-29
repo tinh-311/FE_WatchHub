@@ -9,26 +9,34 @@ import { VerifyComponent } from './verify/verify.component';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { AuthenGuard } from './authen.guard';
+import { MyOrderComponent } from './my-order/my-order.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent },
-  {path: 'login', component: LoginComponent },
-  {path: 'register', component: RegisterComponent },
-  {path: 'home', component: HomeComponent },
-  {path: 'profile', component: ProfileComponent },
-  {path: 'verify', component: VerifyComponent },
-  {path: 'subcategory', component: SubCategoryComponent },
-  {path: 'shopping-cart', component: ShoppingCartComponent },
-  {path: 'product-details', component: ProductDetailsComponent },
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'verify', component: VerifyComponent },
+  { path: 'subcategory', component: SubCategoryComponent },
+  { path: 'orders', component: MyOrderComponent },
+  {
+    path: 'shopping-cart',
+    component: ShoppingCartComponent,
+    canActivate: [AuthenGuard],
+  },
+  { path: 'product-details', component: ProductDetailsComponent },
   {
     canActivate: [AdminGuard],
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule)
+    loadChildren: () =>
+      import('./admin/admin.module').then((module) => module.AdminModule),
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

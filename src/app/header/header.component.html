@@ -15,7 +15,10 @@
         <div class="col-12 md:col-6 lg:col-5 mt-lg-3">
           <span class="w100">
             <a
-              *ngIf="this.currentUser?.is_admin"
+              *ngIf="
+                this.currentUser?.is_admin === 'True' ||
+                this.currentUser?.is_admin === true
+              "
               (click)="navigateAdmin()"
               class="btn mx-2 btn-primary clear-fix-ava"
             >
@@ -80,7 +83,7 @@
                 </a>
                 <hr />
                 <a
-                  [href]="'/profile'"
+                  [href]="'/orders'"
                   class="text-decoration-none text-secondary"
                 >
                   <i class="fas fa-dolly mr-2"></i>

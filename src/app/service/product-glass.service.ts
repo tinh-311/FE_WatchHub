@@ -46,7 +46,7 @@ export class ProductGlassService {
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/ProductGlass/Delete${productAlbertId}`;
+    const url = `${this.baseUrl}/ProductGlass/SoftDelete${productAlbertId}`;
     return this.http.delete<any>(url);
   }
 

@@ -5,16 +5,14 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, map } from 'rxjs';
-import jwt_decode from 'jwt-decode';
+import { Observable } from 'rxjs';
 import { UserService } from 'src/service/user.service';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AdminGuard implements CanActivate {
-  currentUser: any;
-
+export class AuthenGuard implements CanActivate {
   constructor(private userService: UserService) {}
 
   canActivate(
@@ -28,15 +26,9 @@ export class AdminGuard implements CanActivate {
     const token = localStorage.getItem('token');
     if (token) {
       const user: any = jwt_decode(token);
-      return this.userService
-        .getUserByID(user?.id)
-        .pipe(
-          map((data: any) => {
-            this.currentUser = data;
-            return this.currentUser.is_admin;
-          })
-        )
-        .toPromise();
+      if (user) {
+        return true;
+      }
     }
 
     return false;
