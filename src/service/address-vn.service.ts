@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Provinces } from './constant/provide.constant';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AddressVNService {
 
   getProvinces() {
     return this.http.get(`${this.baseUrl}/provinces/getAll?limit=-1`);
+    // return Provinces;
   }
 
   getDistricts(provinceCode: string) {

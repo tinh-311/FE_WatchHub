@@ -85,6 +85,8 @@ import { AllProductsComponent } from './all-products/all-products.component';
 import { BadgeModule } from 'primeng/badge';
 import { AddNewProductComponent } from './admin/modals/add-new-product/add-new-product.component';
 import { AddAddressComponent } from './modals/add-address/add-address.component';
+import { MyOrderComponent } from './my-order/my-order.component';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @NgModule({
   declarations: [
@@ -133,7 +135,8 @@ import { AddAddressComponent } from './modals/add-address/add-address.component'
     ProductDetailsComponent,
     AllProductsComponent,
     AddNewProductComponent,
-    AddAddressComponent
+    AddAddressComponent,
+    MyOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -170,6 +173,7 @@ import { AddAddressComponent } from './modals/add-address/add-address.component'
     InputTextareaModule,
     AutoCompleteModule,
     BadgeModule,
+    TabMenuModule
   ],
   providers: [MessageService, DialogService],
   bootstrap: [AppComponent],

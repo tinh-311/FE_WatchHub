@@ -31,7 +31,7 @@ export class CategoryService {
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/Category/Delete${categoryId}`;
+    const url = `${this.baseUrl}/Category/SoftDelete${categoryId}`;
     return this.http.delete<any>(url);
   }
 
@@ -93,7 +93,7 @@ export class CategoryService {
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/SubCategory/Delete${subCategoryId}`;
+    const url = `${this.baseUrl}/SubCategory/SoftDelete${subCategoryId}`;
     return this.http.delete<any>(url);
   }
 

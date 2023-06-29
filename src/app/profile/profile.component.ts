@@ -82,49 +82,82 @@ export class ProfileComponent implements OnInit {
       });
       this.infoForm.get('email').disable();
 
-      this.userService
-        .getUserByID(this.currentUser?.id)
-        .subscribe((data: any) => {
+      this.getUserById(this.currentUser?.id)
+        .then((data: any) => {
           this.currentUser = data;
           this.addresses = JSON.parse(this.currentUser?.addresses);
+
+          this.infoForm = this.formBuilder.group({
+            fullName: [this.currentUser?.fullname, [Validators.required]],
+            email: [this.currentUser?.email],
+            phoneNumber: [
+              this.currentUser?.phone,
+              [Validators.required, Validators.pattern(/^\d{10}$/)],
+            ],
+            createdDate: [this.currentUser?.created_date],
+            totalOrder: [0, [Validators.required]],
+          });
+          this.infoForm.get('email').disable();
+          console.log('🏍️ ~ this.addresses: ', this.addresses);
+        })
+        .catch((error: any) => {
+          console.error('🔥 ~ error:', error);
         });
     }
   }
 
-  ngOnInit() {
-    window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
-      this.loadingService.showLoading();
-      this.uploadedUrl = e.detail?.data[0]?.cdnUrl + e.detail?.data[0]?.name;
-      this.currentUser.avatar = this.uploadedUrl;
-      let userUpdate = {
-        id: this.currentUser?.id,
-        username: this.currentUser?.username || '',
-        fullname: this.currentUser?.fullname || '',
-        phone: this.currentUser?.phone || '',
-        userAddresses: this.currentUser?.address || [],
-        avatar: this.currentUser?.avatar || '',
-      };
-
-      this.userService.updateUser({ ...userUpdate }).subscribe(
-        (res) => {
-          localStorage.setItem('token', res?.token);
-          this.loadingService.hideLoading();
-          this.toastService.showMessage(
-            ToasSumary.Success,
-            res?.message,
-            ToastType.Success
-          );
-          this.utilService.onChange(res?.token);
+  getUserById(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.userService.getUserByID(id).subscribe(
+        (data: any) => {
+          resolve(data);
         },
-        (err) => {
-          this.toastService.showMessage(
-            ToasSumary.Error,
-            err?.error?.message,
-            ToastType.Error
-          );
-          this.loadingService.hideLoading();
+        (error: any) => {
+          reject(error);
         }
       );
+    });
+  }
+
+  ngOnInit() {
+    window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
+      if (e.detail.ctx === 'profile') {
+        this.loadingService.showLoading();
+        this.uploadedUrl = e.detail?.data[0]?.cdnUrl + e.detail?.data[0]?.name;
+        this.currentUser.avatar = this.uploadedUrl;
+        console.log('🏍️ ~ this.currentUser: ', this.currentUser);
+        let userUpdate = {
+          id: this.currentUser?.id,
+          username: this.currentUser?.username || '',
+          fullname: this.currentUser?.fullname || '',
+          phone: this.currentUser?.phone || '',
+          userAddresses: JSON.parse(this.currentUser?.addresses) || [],
+          avatar: this.currentUser?.avatar || '',
+        };
+        console.log('🏍️ ~ userUpdate: ', userUpdate);
+
+        this.userService.updateUser({ ...userUpdate }).subscribe(
+          (res) => {
+            console.log('🏍️ ~ res: ', res);
+            localStorage.setItem('token', res?.token);
+            this.loadingService.hideLoading();
+            this.toastService.showMessage(
+              ToasSumary.Success,
+              res?.message,
+              ToastType.Success
+            );
+            this.utilService.onChange(res?.token);
+          },
+          (err) => {
+            this.toastService.showMessage(
+              ToasSumary.Error,
+              err?.error?.message,
+              ToastType.Error
+            );
+            this.loadingService.hideLoading();
+          }
+        );
+      }
     });
   }
 

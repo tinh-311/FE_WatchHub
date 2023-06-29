@@ -34,8 +34,10 @@ export class EditBrandComponent implements OnInit {
     }
 
     window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
-      const uploadedUrl = e.detail?.data[0]?.cdnUrl + e.detail?.data[0]?.name;
-      this.logo = uploadedUrl;
+      if (e.detail.ctx === 'edit-branch') {
+        const uploadedUrl = e.detail?.data[0]?.cdnUrl + e.detail?.data[0]?.name;
+        this.logo = uploadedUrl;
+      }
     });
   }
 

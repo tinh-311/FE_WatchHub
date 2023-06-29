@@ -47,7 +47,7 @@ export class BrandsService {
       Authorization: `Bearer ${this.token}`,
     });
 
-    const url = `${this.baseUrl}/Brand/Delete${brandId}`;
+    const url = `${this.baseUrl}/Brand/SoftDelete${brandId}`;
     return this.http.delete<any>(url);
   }
 

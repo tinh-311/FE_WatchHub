@@ -2,56 +2,61 @@
 <section class="padding-y bg-light">
   <div class="container">
     <div class="row">
-      <div class="col-lg-9">
+      <div class="col-lg-8">
         <div class="card">
-          <div class="content-body">
-            <h4 class="card-title mb-4">Giỏ Hàng Của Bạn</h4>
-            <article *ngFor="let cart of cartItems" class="row gy-3 mb-4">
-              <div class="col-lg-10">
-                <figure class="itemside me-lg-5">
-                  <div class="aside">
-                    <img
-                      [src]="cart?.product_image_uuid[0]"
-                      class="img-sm img-thumbnail"
-                    />
-                  </div>
-                  <figcaption class="info">
-                    <a
-                      (click)="onClickProduct(cart)"
-                      class="title text-decoration-none cursor-pointer"
-                      >{{ cart?.product_type_name }}</a
-                    >
-                    <p class="text-muted">{{ cart?.product_dial_color }}</p>
-                  </figcaption>
-                </figure>
-              </div>
-              <div class="col-8">
-                Số lượng:
-                <p-inputNumber
-                  [(ngModel)]="cart.orderQty"
-                  [showButtons]="true"
-                  inputId="minmax-buttons"
-                  [min]="1"
-                  [max]="99"
-                  [allowEmpty]="false"
-                  (onInput)="onChangeQty(cart)"
-                >
-                </p-inputNumber>
-              </div>
-              <br />
-              <div class="d-flex w-100 justify-content-between">
-                <div>
-                  <var class="price h6">
-                    {{ cart?.price | currency : "VND" }}
-                  </var>
-                  <small>/ 1 Sản phẩm (Đầy đủ phụ kiện)</small>
+          <content-body>
+            <h4 class="card-title p-4">Giỏ Hàng Của Bạn</h4>
+          </content-body>
+          <div class="content-body overflow-auto" style="height: 800px">
+            <div>
+              <article *ngFor="let cart of cartItems" class="row gy-3 mb-4">
+                <div class="col-lg-10">
+                  <figure class="itemside me-lg-5">
+                    <div class="aside">
+                      <img
+                        [src]="cart?.product_image_uuid[0]"
+                        class="img-sm img-thumbnail"
+                      />
+                    </div>
+                    <figcaption class="info">
+                      <a
+                        (click)="onClickProduct(cart)"
+                        class="title text-decoration-none cursor-pointer"
+                        >{{ cart?.product_type_name }}</a
+                      >
+                      <p class="text-muted">{{ cart?.product_dial_color }}</p>
+                    </figcaption>
+                  </figure>
                 </div>
+                <div class="col-8">
+                  Số lượng:
+                  <p-inputNumber
+                    [(ngModel)]="cart.orderQty"
+                    [showButtons]="true"
+                    inputId="minmax-buttons"
+                    [min]="1"
+                    [max]="99"
+                    [allowEmpty]="false"
+                    (onInput)="onChangeQty(cart)"
+                  >
+                  </p-inputNumber>
+                </div>
+                <br />
+                <div class="d-flex w-100 justify-content-between">
+                  <div>
+                    <var class="price h6">
+                      {{ cart?.price | currency : "VND" }}
+                    </var>
+                    <small>/ 1 Sản phẩm (Đầy đủ phụ kiện)</small>
+                  </div>
 
-                <a (click)="removeCart(cart)" class="btn btn-light text-danger">
-                  Remove</a
-                >
-              </div>
-            </article>
+                  <a (click)="removeCart(cart)" class="btn btn-light text-danger">
+                    Remove</a
+                  >
+                </div>
+                <hr />
+              </article>
+            </div>
           </div>
 
           <div class="content-body border-top">
@@ -62,7 +67,7 @@
           </div>
         </div>
       </div>
-      <aside class="col-lg-3">
+      <aside class="col-lg-4">
         <div class="card">
           <div class="card-body">
             <dl class="dlist-align">
@@ -71,9 +76,33 @@
                 {{ getTotalPrice() | currency : "VND" }}
               </dd>
             </dl>
-
+            <div class="mr-2 mt-3">
+              <span> Phương thức thanh toán </span> <br />
+              <p-dropdown
+                [options]="paymentMenthods"
+                optionLabel="payment_method_name"
+                [(ngModel)]="selectedPaymentMethod"
+                (onChange)="onDropdownPaymentMethodChange($event)"
+                styleClass="custom-dropdown"
+                class="w-100"
+              ></p-dropdown>
+            </div>
+            <div class="mr-2 mt-3">
+              <span> Địa chỉ nhận hàng</span> <br />
+              <p-dropdown
+                [options]="addressOptions"
+                optionLabel="displayName"
+                [(ngModel)]="selectedAddress"
+                (onChange)="onDropdownAddressChange($event)"
+                styleClass="custom-dropdown"
+                class="w-100"
+              ></p-dropdown>
+            </div>
+            <hr />
             <div class="d-grid gap-2 my-3">
-              <a href="#" class="btn btn-success w-100"> Thanh Toán </a>
+              <a (click)="payment()" class="btn btn-success w-100">
+                Thanh Toán
+              </a>
               <a href="/home" class="btn btn-light w-100"> Tiếp tục mua sắm </a>
             </div>
           </div>

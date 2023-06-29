@@ -28,3 +28,37 @@ export function formatText(text: any) {
 
 export const UUID_DEFAUL_AVATAR =
   'https://ucarecdn.com/e9c59ff0-2a37-4c58-840f-b2c4d1f1ed2c/user.webp';
+
+export enum DIAL_COLOR {
+  RED = 'Đỏ',
+  ORANGE = 'Cam',
+  YELLOW = 'Vàng',
+  GREEN = 'Xanh lá',
+  BLUE = 'Xanh dương',
+  INDIGO = 'Indigo',
+  VIOLET = 'Violet',
+  PURPLE = 'Tím',
+  PINK = 'Hồng',
+  BROWN = 'Nâu',
+  GRAY = 'Xám',
+  BLACK = 'Đen',
+  WHITE = 'Trăng',
+  CYAN = 'Cyan',
+  MAGENTA = 'Magenta',
+  SILVER = 'Bạc',
+  GOLD = 'Vàng đồng',
+}
+
+export enum GENDER {
+  MALE = 'Nam',
+  FEMALE = 'Nữ',
+  COUPLE = 'Cặp đôi',
+  UNISEX = 'Unisex',
+}
+
+export function getKeyByValue<T extends string | number>(
+  enumObject: Record<string, T>,
+  enumValue: T
+): keyof typeof enumObject | undefined {
+  return Object.keys(enumObject).find((key) => enumObject[key] === enumValue);
+}

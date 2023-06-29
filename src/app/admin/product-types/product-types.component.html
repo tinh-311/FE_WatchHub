@@ -131,7 +131,7 @@
         <td>
           {{ formatText(productType?.product_additional_information) }}
         </td>
-        <td>{{ productType?.gender }}</td>
+        <td>{{ getGender(productType?.gender) }}</td>
         <td>
           <p-image
             class="cursor-pointer"
@@ -157,7 +157,7 @@
           {{ productType?.product_dial_width }}
         </td>
         <td>
-          {{ productType?.product_dial_color }}
+          {{ getColor(productType?.product_dial_color) }}
         </td>
         <td>
           {{ productType?.product_waterproof }}

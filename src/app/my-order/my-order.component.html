@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="container" style="min-height: 80vh">
+  <p-tabMenu
+    [model]="tabMenuModel"
+    [activeItem]="activeTab"
+    (activeItemChange)="onActiveItemChange($event)"
+  ></p-tabMenu>
+
+  <div *ngFor="let tab of tabMenuModel">
+    <p-table *ngIf="activeTab.id == tab.id" [value]="getOrdersByStatus(tab.id)">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Mã đơn hàng</th>
+          <!-- <th>Trạng thái</th> -->
+          <th>Thành tiền</th>
+          <th>Thời gian đặt hàng</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr class="cursor-pointer">
+          <td>{{ order?.id }}</td>
+          <!-- <td>{{ getStatusName(order.order_status) }}</td> -->
+          <td>{{ order.total_amount | currency : "VND" }}</td>
+          <td>{{ order.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<app-footer></app-footer>

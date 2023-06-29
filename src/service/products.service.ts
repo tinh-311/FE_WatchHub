@@ -114,7 +114,7 @@ export class ProductsService {
   }
 
   deleteProduct(id: any): Observable<any> {
-    const url = `${this.baseUrl}/Product/Delete${id}`;
+    const url = `${this.baseUrl}/Product/SoftDelete${id}`;
     return this.http.delete<any>(url);
   }
 
