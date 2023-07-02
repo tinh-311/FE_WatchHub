@@ -11,6 +11,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { AuthenGuard } from './authen.guard';
 import { MyOrderComponent } from './my-order/my-order.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'verify', component: VerifyComponent },
   { path: 'subcategory', component: SubCategoryComponent },
   { path: 'orders', component: MyOrderComponent },
+  { path: 'thank-you', component: ThankYouComponent },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent,

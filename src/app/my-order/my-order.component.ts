@@ -6,7 +6,7 @@ import {
 import { MenuItem } from 'primeng/api';
 import { OrderService } from '../service/order.service';
 import jwt_decode from 'jwt-decode';
-import { getKeyByValue } from '../constant/util.constant';
+import { getKeyByValue, parseJSON } from '../constant/util.constant';
 
 @Component({
   selector: 'app-my-order',
@@ -19,6 +19,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   activeTab: any;
   orderStatusValues: any;
   currentUser: any;
+  orderInfo: any;
 
   constructor(private orderService: OrderService) {
     const token = localStorage.getItem('token');
@@ -33,7 +34,10 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
     this.orderService
       .getAllOrderById(this.currentUser?.id)
       .subscribe((data: any) => {
+        console.log('🏍️ ~ data: ', data);
         this.orders = data?.res;
+        this.orderInfo = parseJSON(this.orders[1].order_info);
+        console.log('🏍️ ~ this.orderInfo: ', this.orderInfo);
         this.orderStatusValues = Object.entries(ORDER_STATUS_DISPLAY).map(
           ([key, value]) => ({ key, value })
         );
@@ -42,6 +46,72 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         });
         this.activeTab = this.tabMenuModel[0];
       });
+  }
+
+  getTotalByStatus(id: any) {
+    let data: any;
+    switch (id) {
+      case getKeyByValue(
+        ORDER_STATUS_DISPLAY,
+        ORDER_STATUS_DISPLAY.AWAITING_CONFIRMATION
+      ): {
+        data = this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+            getKeyByValue(
+              ORDER_STATUS_DISPLAY,
+              ORDER_STATUS_DISPLAY.AWAITING_CONFIRMATION
+            )
+        );
+        break;
+      }
+      case getKeyByValue(
+        ORDER_STATUS_DISPLAY,
+        ORDER_STATUS_DISPLAY.CANCELLED
+      ): {
+        data = this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+            getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.CANCELLED)
+        );
+        break;
+      }
+      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+        data = this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION) ||
+            order.order_status ===
+              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+        );
+        break;
+      }
+      case getKeyByValue(
+        ORDER_STATUS_DISPLAY,
+        ORDER_STATUS_DISPLAY.DELIVERED
+      ): {
+        data = this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+            getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.DELIVERED)
+        );
+
+        break;
+      }
+      case getKeyByValue(
+        ORDER_STATUS_DISPLAY,
+        ORDER_STATUS_DISPLAY.IN_TRANSIT
+      ): {
+        data = this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+            getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.IN_TRANSIT)
+        );
+        break;
+      }
+    }
+
+    return data.length;
   }
 
   getStatus(status: any) {
@@ -79,13 +149,11 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         );
       }
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        console.log('🏍️ ~ this.orders: ', this.orders);
         const f = this.orders.filter(
           (order: any) =>
             order.order_status ===
             getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
         );
-        console.log('🏍️ ~ f: ', f)
 
         return f;
       }

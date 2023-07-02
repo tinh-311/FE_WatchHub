@@ -2,12 +2,72 @@
 <section class="padding-y bg-light">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8">
-        <div class="card">
+      <div class="col">
+        <div class="card d-flex justify-content-center">
           <content-body>
             <h4 class="card-title p-4">Giỏ Hàng Của Bạn</h4>
           </content-body>
-          <div class="content-body overflow-auto" style="height: 800px">
+
+          <div class="drag-column card p-4 overflow-auto max-h-24rem">
+            <div *ngFor="let cart of cartItems">
+              <div class="d-flex justify-content-between m-auto">
+                <div
+                  class="product-item"
+                  pDraggable="products"
+                  (onDragStart)="dragStart(cart)"
+                  (onDragEnd)="dragEnd()"
+                >
+                  <div class="image-container d-flex">
+                    <img
+                      [src]="cart?.product_image_uuid[0]"
+                      class="img-sm img-thumbnail"
+                    />
+                    <div
+                      class="product-list-detail text-truncate m-auto ml-4 w-60"
+                    >
+                      <span class="m-auto">{{ cart?.product_type_name }}</span>
+                    </div>
+                  </div>
+                  <div class="product-list-action">
+                    <h6 class="mb-2">{{ cart?.price | currency : "VND" }}</h6>
+                  </div>
+                  <div>
+                    Số lượng:
+                    <p-inputNumber
+                      [(ngModel)]="cart.orderQty"
+                      [showButtons]="true"
+                      inputId="minmax-buttons"
+                      [min]="1"
+                      [max]="99"
+                      [allowEmpty]="false"
+                      (onInput)="onChangeQty(cart)"
+                    >
+                    </p-inputNumber>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    (click)="addSelectedCart(cart)"
+                    class="btn btn-success my-auto"
+                    title="Thêm vào danh sách đặt hàng"
+                  >
+                    Thêm
+                  </button>
+                  <br>
+                  <button
+                    (click)="removeCart(cart)"
+                    class="btn btn-danger mt-2"
+                    title="Xóa khỏi giỏ hàng"
+                  >
+                    Xóa
+                  </button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+
+          <!-- <div class="content-body overflow-auto" style="height: 800px">
             <div>
               <article *ngFor="let cart of cartItems" class="row gy-3 mb-4">
                 <div class="col-lg-10">
@@ -50,64 +110,123 @@
                     <small>/ 1 Sản phẩm (Đầy đủ phụ kiện)</small>
                   </div>
 
-                  <a (click)="removeCart(cart)" class="btn btn-light text-danger">
+                  <a
+                    (click)="removeCart(cart)"
+                    class="btn btn-light text-danger"
+                  >
                     Remove</a
                   >
                 </div>
                 <hr />
               </article>
             </div>
-          </div>
-
-          <div class="content-body border-top">
-            <p>
-              <i class="me-2 text-muted fa-lg fa fa-truck"></i> Miễn phí giao
-              hàng, thời gian giao hàng từ 1 đến 2 tuần
-            </p>
-          </div>
+          </div> -->
         </div>
       </div>
-      <aside class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <dl class="dlist-align">
-              <dt>Tổng:</dt>
-              <dd class="text-end text-dark h5">
-                {{ getTotalPrice() | currency : "VND" }}
-              </dd>
-            </dl>
-            <div class="mr-2 mt-3">
-              <span> Phương thức thanh toán </span> <br />
-              <p-dropdown
-                [options]="paymentMenthods"
-                optionLabel="payment_method_name"
-                [(ngModel)]="selectedPaymentMethod"
-                (onChange)="onDropdownPaymentMethodChange($event)"
-                styleClass="custom-dropdown"
-                class="w-100"
-              ></p-dropdown>
-            </div>
-            <div class="mr-2 mt-3">
-              <span> Địa chỉ nhận hàng</span> <br />
-              <p-dropdown
-                [options]="addressOptions"
-                optionLabel="displayName"
-                [(ngModel)]="selectedAddress"
-                (onChange)="onDropdownAddressChange($event)"
-                styleClass="custom-dropdown"
-                class="w-100"
-              ></p-dropdown>
-            </div>
-            <hr />
-            <div class="d-grid gap-2 my-3">
-              <a (click)="payment()" class="btn btn-success w-100">
-                Thanh Toán
-              </a>
-              <a href="/home" class="btn btn-light w-100"> Tiếp tục mua sắm </a>
-            </div>
-          </div>
+    </div>
+
+    <div class="card d-flex justify-content-center">
+      <content-body>
+        <h4 class="card-title p-4">Danh sách đặt hàng của bạn</h4>
+      </content-body>
+      <div
+        class="drop-column overflow-auto max-h-24rem"
+        style="min-height: 200px"
+        pDroppable="products"
+        (onDrop)="drop()"
+      >
+        <p-table [value]="selectedProducts">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Hình ảnh</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-cart>
+            <tr>
+              <td>
+                <img
+                  [src]="cart?.product_image_uuid[0]"
+                  class="img-sm img-thumbnail"
+                />
+              </td>
+              <td>
+                <span>
+                  {{ cart.product_type_name }}
+                </span>
+              </td>
+              <td>{{ cart.price }}</td>
+              <td>
+                <p-inputNumber
+                  [(ngModel)]="cart.orderQty"
+                  [showButtons]="true"
+                  inputId="minmax-buttons"
+                  [min]="1"
+                  [max]="99"
+                  [allowEmpty]="false"
+                  (onInput)="onChangeQty(cart)"
+                >
+                </p-inputNumber>
+              </td>
+              <td>
+                <a
+                  (click)="removeSelectedCart(cart)"
+                  class="btn btn-light text-danger"
+                >
+                  Xóa</a
+                >
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <div class="w-100 card mt-2">
+      <div class="card-body">
+        <dl class="d-flex justify-content-center">
+          <dd>Tổng:</dd>
+          <dd class="text-end text-dark h5 ml-2">
+            {{ getTotalPrice() | currency : "VND" }}
+          </dd>
+        </dl>
+        <div class="mr-2 mt-3">
+          <span> Phương thức thanh toán </span> <br />
+          <p-dropdown
+            [options]="paymentMenthods"
+            optionLabel="payment_method_name"
+            [(ngModel)]="selectedPaymentMethod"
+            (onChange)="onDropdownPaymentMethodChange($event)"
+            styleClass="custom-dropdown"
+            class="w-100"
+          ></p-dropdown>
         </div>
-      </aside>
+        <div class="mr-2 mt-3">
+          <span> Địa chỉ nhận hàng</span> <br />
+          <p-dropdown
+            [options]="addressOptions"
+            optionLabel="displayName"
+            [(ngModel)]="selectedAddress"
+            (onChange)="onDropdownAddressChange($event)"
+            styleClass="custom-dropdown"
+            class="w-100"
+          ></p-dropdown>
+        </div>
+        <hr />
+        <div class="d-grid gap-2 my-3">
+          <button
+            [disabled]="selectedProducts.length <= 0"
+            (click)="payment()"
+            class="btn btn-success w-100"
+          >
+            Thanh Toán
+          </button>
+          <a href="/home" class="btn btn-light w-100"> Tiếp tục mua sắm </a>
+        </div>
+      </div>
     </div>
 
     <br /><br />
