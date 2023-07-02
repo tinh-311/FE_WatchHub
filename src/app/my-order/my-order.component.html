@@ -3,13 +3,27 @@
   <p-tabMenu
     [model]="tabMenuModel"
     [activeItem]="activeTab"
+    [scrollable]="true"
     (activeItemChange)="onActiveItemChange($event)"
-  ></p-tabMenu>
+  >
+    <ng-template pTemplate="item" let-item let-i="index">
+      {{ item.label }}
+      <span
+        *ngIf="getTotalByStatus(item.id) > 0"
+        class="ui-badge custom-badge mb-3 text-white bg-danger"
+      >
+        <span class="m-auto">
+          {{ getTotalByStatus(item.id) }}
+        </span>
+      </span>
+    </ng-template>
+  </p-tabMenu>
 
-  <div *ngFor="let tab of tabMenuModel">
+  <div class="mt-4" *ngFor="let tab of tabMenuModel">
     <p-table *ngIf="activeTab.id == tab.id" [value]="getOrdersByStatus(tab.id)">
       <ng-template pTemplate="header">
         <tr>
+          <th></th>
           <th>Mã đơn hàng</th>
           <!-- <th>Trạng thái</th> -->
           <th>Thành tiền</th>
@@ -18,6 +32,15 @@
       </ng-template>
       <ng-template pTemplate="body" let-order>
         <tr class="cursor-pointer">
+          <td>
+            <p-image
+              class="cursor-pointer"
+              [src]="order?.product_image_uuid[0]"
+              alt="Image"
+              width="50"
+            >
+            </p-image>
+          </td>
           <td>{{ order?.id }}</td>
           <!-- <td>{{ getStatusName(order.order_status) }}</td> -->
           <td>{{ order.total_amount | currency : "VND" }}</td>

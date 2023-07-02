@@ -87,6 +87,9 @@ import { AddNewProductComponent } from './admin/modals/add-new-product/add-new-p
 import { AddAddressComponent } from './modals/add-address/add-address.component';
 import { MyOrderComponent } from './my-order/my-order.component';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ThankYouComponent } from './thank-you/thank-you.component';
+import { DragDropModule } from 'primeng/dragdrop';
+import { OrderListModule } from 'primeng/orderlist';
 
 @NgModule({
   declarations: [
@@ -136,7 +139,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
     AllProductsComponent,
     AddNewProductComponent,
     AddAddressComponent,
-    MyOrderComponent
+    MyOrderComponent,
+    ThankYouComponent
   ],
   imports: [
     BrowserModule,
@@ -173,7 +177,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
     InputTextareaModule,
     AutoCompleteModule,
     BadgeModule,
-    TabMenuModule
+    TabMenuModule,
+    DragDropModule,
+    OrderListModule
   ],
   providers: [MessageService, DialogService],
   bootstrap: [AppComponent],

@@ -67,16 +67,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     });
 
     const token = localStorage.getItem('token');
-    console.log('🏍️ ~ token: ', token);
     if (token) {
-      console.log('🏍️ ~ token: ', token);
       this.currentUser = jwt_decode(token);
-      console.log('🏍️ ~ this.currentUser: ', this.currentUser);
 
       this.getUserById(this.currentUser?.id)
         .then((data: any) => {
           this.currentUser = data;
-          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
         })
         .catch((error: any) => {
           console.error('🔥 ~ error:', error);

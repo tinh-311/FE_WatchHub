@@ -21,6 +21,11 @@ export class CartService {
     }
   }
 
+  updateCart(carts: any) {
+    this.cartItems = carts;
+    this.saveCartItems();
+  }
+
   addToCart(item: any, isHidenIn?: boolean) {
     const existingItem = this.cartItems.find(
       (cartItem) => cartItem.id === item.id
