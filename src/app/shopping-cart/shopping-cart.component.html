@@ -53,7 +53,7 @@
                   >
                     Thêm
                   </button>
-                  <br>
+                  <br />
                   <button
                     (click)="removeCart(cart)"
                     class="btn btn-danger mt-2"
@@ -215,14 +215,39 @@
             class="w-100"
           ></p-dropdown>
         </div>
+        <div class="mr-2 mt-3">
+          <form [formGroup]="phoneNumberForm">
+            <div class="mr-2 mt-3">
+              <span>Số điện thoại liên lạc</span> <br />
+              <input
+                placeholder="Số điện thoại"
+                formControlName="phoneNumber"
+                type="text"
+                class="form-control"
+                id="floatingPassword"
+              />
+            </div>
+            <div
+              *ngIf="phoneNumber.touched && phoneNumber.invalid"
+              class="error-message text-danger"
+            >
+              <small *ngIf="phoneNumber.errors.required">
+                Số điện thoại là bắt buộc.
+              </small>
+              <small *ngIf="phoneNumber.errors.pattern">
+                Số điện thoại không đúng định dạng.
+              </small>
+            </div>
+          </form>
+        </div>
         <hr />
         <div class="d-grid gap-2 my-3">
           <button
-            [disabled]="selectedProducts.length <= 0"
+            [disabled]="selectedProducts.length <= 0 || phoneNumber.invalid"
             (click)="payment()"
             class="btn btn-success w-100"
           >
-            Thanh Toán
+            Thanh Toán - {{ selectedProducts.length }}
           </button>
           <a href="/home" class="btn btn-light w-100"> Tiếp tục mua sắm </a>
         </div>

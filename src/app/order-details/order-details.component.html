@@ -1,0 +1,65 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row d-none d-sm-block">
+    <div class="col-sm-12">
+      <p-steps [model]="items" [(activeIndex)]="currentStep"> </p-steps>
+    </div>
+  </div>
+</div>
+<hr class="py-4" />
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h4><strong>Thông tin đơn hàng</strong></h4>
+      <hr />
+      <p><strong>Mã đơn hàng:</strong> {{ orderData.id }}</p>
+      <p>
+        <strong>Thời gian đặt hàng:</strong>
+        {{ formatDate(orderData.created_date) }}
+      </p>
+      <p>
+        <strong>Trạng thái:</strong>
+        {{ convertToDisPlayName(orderData.order_status) }}
+      </p>
+      <p>
+        <strong>Địa chỉ giao hàng:</strong>
+        {{ orderData.street }}, {{ orderData.ward }}, {{ orderData.district }},
+        {{ orderData.province }}
+      </p>
+
+      <p>
+        <strong>Tổng số tiền:</strong>
+        {{ orderData.total_amount | currency : "VND" }}
+      </p>
+      <p><strong>Số điện thoại:</strong> {{ orderData.phone }}</p>
+
+      <hr />
+      <h4><strong> Sản phẩm </strong></h4>
+      <ul class="list-unstyled overflow-auto mt-4" style="max-height: 800px">
+        <li *ngFor="let product of orderInfo">
+          <div class="d-flex">
+            <p-image
+              [src]="product?.product_image_uuid[0]"
+              alt="Image"
+              width="150"
+            >
+            </p-image>
+
+            <span>
+              <p>
+                <strong>Tên sản phẩm:</strong> {{ product.product_type_name }}
+              </p>
+              <p><strong>Số lượng:</strong> {{ product.quantity }}</p>
+              <p>
+                <strong>Giá:</strong> {{ product.price | currency : "VND" }}
+              </p>
+            </span>
+          </div>
+          <hr>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

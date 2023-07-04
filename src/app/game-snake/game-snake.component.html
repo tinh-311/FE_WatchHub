@@ -1,0 +1,59 @@
+<app-header *ngIf="!isFullscreen"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <h4>Snake Game</h4>
+      <p>Source: {{ source }}</p>
+      <h4>Điểm thưởng của bạn: 50</h4>
+      <canvas
+        id="gameCanvas"
+        [attr.width]="canvasWidths"
+        [attr.height]="canvasHeight"
+      ></canvas>
+
+      <div class="controls d-md-none">
+        <button class="control-button" (click)="changeDirection('up')">
+          <i class="fas fa-chevron-up"></i>
+        </button>
+        <div class="horizontal-controls">
+          <button class="control-button" (click)="changeDirection('left')">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="control-button" (click)="changeDirection('right')">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <button class="control-button" (click)="changeDirection('down')">
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+
+      <div class="mt-3">
+        <div class="d-flex justify-content-center">
+          <button
+            class="btn btn-primary"
+            *ngIf="!gameOver"
+            (click)="startGame()"
+          >
+            Bắt đầu
+          </button>
+          <button
+            class="btn btn-primary"
+            *ngIf="gameOver"
+            (click)="startGame()"
+          >
+            Chơi lại
+          </button>
+          <button
+            *ngIf="isFullscreen"
+            class="btn btn-danger ml-3"
+            (click)="exit()"
+          >
+            Thoát
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer *ngIf="!isFullscreen"></app-footer>

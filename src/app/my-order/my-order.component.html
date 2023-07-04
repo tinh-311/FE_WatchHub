@@ -31,7 +31,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-order>
-        <tr class="cursor-pointer">
+        <tr (click)="onClickOrder(order)" class="cursor-pointer">
           <td>
             <p-image
               class="cursor-pointer"

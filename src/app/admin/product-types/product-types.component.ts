@@ -9,6 +9,7 @@ import {
   DIAL_COLOR,
   GENDER,
   formatText,
+  getColor,
   getKeyByValue,
 } from 'src/app/constant/util.constant';
 import { EditProductTypesComponent } from '../modals/edit-product-types/edit-product-types.component';
@@ -232,61 +233,7 @@ export class ProductTypesComponent implements OnInit {
   }
 
   getColor(data: any) {
-    switch (data) {
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLACK): {
-        return DIAL_COLOR.BLACK;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLUE): {
-        return DIAL_COLOR.BLUE;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.BROWN): {
-        return DIAL_COLOR.BROWN;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.CYAN): {
-        return DIAL_COLOR.CYAN;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.GOLD): {
-        return DIAL_COLOR.GOLD;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.GRAY): {
-        return DIAL_COLOR.GRAY;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.GREEN): {
-        return DIAL_COLOR.GREEN;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.INDIGO): {
-        return DIAL_COLOR.INDIGO;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.MAGENTA): {
-        return DIAL_COLOR.MAGENTA;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.ORANGE): {
-        return DIAL_COLOR.ORANGE;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.PINK): {
-        return DIAL_COLOR.PINK;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.PURPLE): {
-        return DIAL_COLOR.PURPLE;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.RED): {
-        return DIAL_COLOR.RED;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.SILVER): {
-        return DIAL_COLOR.SILVER;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.VIOLET): {
-        return DIAL_COLOR.VIOLET;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.WHITE): {
-        return DIAL_COLOR.WHITE;
-      }
-      case getKeyByValue(DIAL_COLOR, DIAL_COLOR.YELLOW): {
-        return DIAL_COLOR.WHITE;
-      }
-    }
-
-    return '';
+    return getColor(data);
   }
 
   manageProducts(productType: any) {

@@ -12,6 +12,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { AuthenGuard } from './authen.guard';
 import { MyOrderComponent } from './my-order/my-order.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { GameSnakeComponent } from './game-snake/game-snake.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,12 +25,14 @@ const routes: Routes = [
   { path: 'subcategory', component: SubCategoryComponent },
   { path: 'orders', component: MyOrderComponent },
   { path: 'thank-you', component: ThankYouComponent },
+  { path: 'games/snake', component: GameSnakeComponent },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent,
     canActivate: [AuthenGuard],
   },
   { path: 'product-details', component: ProductDetailsComponent },
+  { path: 'order-details', component: OrderDetailsComponent },
   {
     canActivate: [AdminGuard],
     path: 'admin',

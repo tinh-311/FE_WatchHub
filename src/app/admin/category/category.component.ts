@@ -107,16 +107,14 @@ export class CategoryComponent implements OnInit {
         this.idLoading = true;
         this.categoryService.deleteCategory(category?.id).subscribe(
           (res) => {
-            if (res?.message === 'Category delete successful') {
-              this.currentPage = 1;
-              this.idLoading = false;
-              this.getCategories();
-              this.toastService.showMessage(
-                ToasSumary.Success,
-                res?.message,
-                ToastType.Success
-              );
-            }
+            this.currentPage = 1;
+            this.getCategories();
+            this.toastService.showMessage(
+              ToasSumary.Success,
+              res?.message,
+              ToastType.Success
+            );
+            this.idLoading = false;
           },
           () => {
             this.idLoading = false;

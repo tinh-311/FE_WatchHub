@@ -1,0 +1,56 @@
+.d-flex {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.snake-head {
+  fill: yellow;
+}
+
+.btn-start {
+  height: 40px;
+
+  button {
+    background-color: rgb(67, 67, 243);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.2rem;
+  }
+}
+
+canvas {
+  border: 1px solid black;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+.fullscreen-container {
+  height: 100vh;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.horizontal-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.control-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin: 4px;
+}
+
+.control-button i {
+  color: #333;
+}

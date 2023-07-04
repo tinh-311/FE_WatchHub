@@ -121,7 +121,7 @@ export class AddAddressComponent implements OnInit {
   onWardsChange() {}
 
   onSubmitAddress() {
-    if (!this.address) {
+    if (!this.addressForm?.value) {
       return;
     }
     console.log('🏍️ ~ this.addressForm?.value: ', this.addressForm?.value)
@@ -199,7 +199,6 @@ export class AddAddressComponent implements OnInit {
 
                     return suburb == n.trim();
                   });
-                  console.log('🏍️ ~ selectedWards: ', selectedWards);
 
                   if (!selectedWards) {
                     this.isLoading = false;

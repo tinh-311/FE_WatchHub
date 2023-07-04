@@ -7,6 +7,7 @@ import { MenuItem } from 'primeng/api';
 import { OrderService } from '../service/order.service';
 import jwt_decode from 'jwt-decode';
 import { getKeyByValue, parseJSON } from '../constant/util.constant';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-order',
@@ -21,7 +22,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   currentUser: any;
   orderInfo: any;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService, private router: Router) {
     const token = localStorage.getItem('token');
     if (!token) {
       return;
@@ -34,18 +35,26 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
     this.orderService
       .getAllOrderById(this.currentUser?.id)
       .subscribe((data: any) => {
-        console.log('🏍️ ~ data: ', data);
-        this.orders = data?.res;
-        this.orderInfo = parseJSON(this.orders[1].order_info);
-        console.log('🏍️ ~ this.orderInfo: ', this.orderInfo);
         this.orderStatusValues = Object.entries(ORDER_STATUS_DISPLAY).map(
           ([key, value]) => ({ key, value })
         );
         this.orderStatusValues.forEach((status: any) => {
           this.tabMenuModel.push({ id: status.key, label: status.value });
         });
+        this.orders = data?.res;
+        console.log('🏍️ ~ this.orders: ', this.orders)
+        // if (this.orders?.length) {
+        //   this.orderInfo = parseJSON(this.orders[1]?.order_info);
+        // }
+
         this.activeTab = this.tabMenuModel[0];
       });
+  }
+
+  onClickOrder(order: any) {
+    this.router.navigate(['/order-details'], {
+      queryParams: { id: order?.id },
+    });
   }
 
   getTotalByStatus(id: any) {

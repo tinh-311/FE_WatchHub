@@ -23,7 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
 import { AvatarModule } from 'primeng/avatar';
 import { ProfileComponent } from './profile/profile.component';
@@ -90,6 +90,11 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { DragDropModule } from 'primeng/dragdrop';
 import { OrderListModule } from 'primeng/orderlist';
+import { GameSnakeComponent } from './game-snake/game-snake.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SidebarModule } from 'primeng/sidebar';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { StepsModule } from 'primeng/steps';
 
 @NgModule({
   declarations: [
@@ -140,7 +145,9 @@ import { OrderListModule } from 'primeng/orderlist';
     AddNewProductComponent,
     AddAddressComponent,
     MyOrderComponent,
-    ThankYouComponent
+    ThankYouComponent,
+    GameSnakeComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -179,9 +186,12 @@ import { OrderListModule } from 'primeng/orderlist';
     BadgeModule,
     TabMenuModule,
     DragDropModule,
-    OrderListModule
+    OrderListModule,
+    ConfirmDialogModule,
+    SidebarModule,
+    StepsModule
   ],
-  providers: [MessageService, DialogService],
+  providers: [MessageService, DialogService, ConfirmationService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

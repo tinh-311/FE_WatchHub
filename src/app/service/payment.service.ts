@@ -16,16 +16,17 @@ export class PaymentService {
   //   "amount": 50000000,
   //   "callbackUrl": "https://zenttt.bsite.net/payment/payment_response"
   // }
-  vnPay(data: any) {
+  vnPay(data: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
     const url = `${this.baseUrl}/payment/create_payment`;
-    return this.http.post<any>(url, data, { headers });
+    console.log('🏍️ ~ url: ', url)
+    return this.http.post<any>(url, {...data}, { headers });
   }
 
-  storeTransaction(data: any) {
+  storeTransaction(data: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
