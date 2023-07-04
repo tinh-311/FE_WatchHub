@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from 'src/service/products.service';
 import { CartService } from '../service/cart.service';
+import { getColor } from '../constant/util.constant';
 
 @Component({
   selector: 'app-product-details',
@@ -26,6 +27,10 @@ export class ProductDetailsComponent {
         console.log('🏍️ ~ this.product: ', this.product);
       });
     });
+  }
+
+  getColor(data: any) {
+    return getColor(data);
   }
 
   getProductStatus(quantity: number): string {

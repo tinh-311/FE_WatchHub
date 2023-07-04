@@ -69,7 +69,7 @@
           <dl class="d-flex">
             <dl class="row">
               <dt class="col-3">Thương Hiệu:</dt>
-              <dd class="col-3">{{ product?.brand_name }}</dd>
+              <dd class="col-3">{{ product?.brand?.brand_name }}</dd>
 
               <dt class="col-3">Xuất Xứ</dt>
               <dd class="col-3">{{ product?.product_source }}</dd>
@@ -90,7 +90,7 @@
               <dd class="col-3">{{ product?.product_dial_height }}</dd>
 
               <dt class="col-3">Màu Mặt Đồng Hồ</dt>
-              <dd class="col-3">{{ product?.product_dial_color }}</dd>
+              <dd class="col-3">{{ getColor(product?.product_dial_color) }}</dd>
 
               <dt class="col-3">Chống Nước</dt>
               <dd class="col-3">{{ product?.product_waterproof }}</dd>

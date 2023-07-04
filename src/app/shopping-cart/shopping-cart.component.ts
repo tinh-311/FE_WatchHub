@@ -17,6 +17,7 @@ import {
 } from '../constant/util.constant';
 import { PaymentService } from '../service/payment.service';
 import { SelectItem } from 'primeng/api';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -35,6 +36,14 @@ export class ShoppingCartComponent implements OnInit {
   selectedProducts: any[] = [];
   draggedProduct: any | undefined | null;
 
+  phoneNumberForm: any = this.formBuilder.group({
+    phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+  });
+
+  get phoneNumber() {
+    return this.phoneNumberForm.get('phoneNumber');
+  }
+
   constructor(
     private cartService: CartService,
     private toastService: ToastService,
@@ -45,7 +54,8 @@ export class ShoppingCartComponent implements OnInit {
     private orderService: OrderService,
     private loadingService: LoadingService,
     private paymentService: PaymentService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {
     this.getParamsFromUrl();
   }
@@ -135,12 +145,14 @@ export class ShoppingCartComponent implements OnInit {
       userID: this.currentUser?.id,
       orderID: orderID,
     };
+    console.log('🏍️ ~ dataPayment: ', dataPayment);
 
     switch (queryParams.vnp_ResponseCode) {
       case '00': {
         this.paymentService.storeTransaction(dataPayment).subscribe(
           (store: any) => {
-            this.router.navigate(['/thank-you']);
+            console.log('🏍️ ~ store: ', store)
+            // this.router.navigate(['/thank-you']);
           },
           (err) => {}
         );
@@ -352,7 +364,7 @@ export class ShoppingCartComponent implements OnInit {
     let items = this.selectedProducts.map((c: any) => {
       return {
         id: c?.id,
-        quantiry: c?.orderQty,
+        quantity: c?.orderQty,
       };
     });
 
@@ -369,9 +381,11 @@ export class ShoppingCartComponent implements OnInit {
       district: this.address[this.selectedAddress.index].district,
       ward: this.address[this.selectedAddress.index].ward,
       street: this.address[this.selectedAddress.index].street,
-      product_image_uuid: this.cartItems[0]?.product_image_uuid,
+      product_image_uuid: this.selectedProducts[0]?.product_image_uuid,
     };
+    console.log('🏍️ ~ data: ', data);
 
+    console.log('🏍️ ~ this.selectedPaymentMethod?.id: ', this.selectedPaymentMethod?.id)
     switch (this.selectedPaymentMethod?.id) {
       case 3: {
         this.orderService.create(data).subscribe(
@@ -387,6 +401,7 @@ export class ShoppingCartComponent implements OnInit {
             );
           },
           (err) => {
+            console.log('🏍️ ~ err: ', err);
             this.toastService.showMessage(
               ToasSumary.Error,
               err?.error?.message,
@@ -405,6 +420,7 @@ export class ShoppingCartComponent implements OnInit {
           })
           .subscribe(
             (dataVNP: any) => {
+              console.log('🏍️ ~ dataVNP: ', dataVNP)
               // create order
               this.orderService.create(data).subscribe(
                 (orderRES: any) => {

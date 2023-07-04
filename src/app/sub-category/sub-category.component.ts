@@ -55,7 +55,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
         this.getAllSubCategories(categoryId);
       },
       (err) => {
-        this.loadingService.hideLoading();
       }
     );
   }
@@ -103,16 +102,13 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   }
 
   getAllSubCategories(categoryId: any) {
-    this.loadingService.showLoading();
     this.categoryService.getAllSubCategories(categoryId).subscribe(
       (data) => {
         this.subCategories = data?.res;
         this.selectedSubCategory = this.subCategories[0];
         this.getProductTypes();
-        this.loadingService.hideLoading();
       },
       (err) => {
-        this.loadingService.hideLoading();
       }
     );
   }

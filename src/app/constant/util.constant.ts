@@ -42,7 +42,7 @@ export enum DIAL_COLOR {
   BROWN = 'Nâu',
   GRAY = 'Xám',
   BLACK = 'Đen',
-  WHITE = 'Trăng',
+  WHITE = 'Trắng',
   CYAN = 'Cyan',
   MAGENTA = 'Magenta',
   SILVER = 'Bạc',
@@ -56,6 +56,17 @@ export enum GENDER {
   UNISEX = 'Unisex',
 }
 
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${day}/${month}/${year} (${hours}:${minutes}:${seconds})`;
+}
+
 export function getKeyByValue<T extends string | number>(
   enumObject: Record<string, T>,
   enumValue: T
@@ -67,7 +78,8 @@ export function parseJSON(json: any) {
   return JSON.parse(json);
 }
 
-export const PAYMENT_CALLBACK_URL = 'http://localhost:4200/shopping-cart';
+export const PAYMENT_CALLBACK_URL = 'https://watchhub.website/shopping-cart';
+// export const PAYMENT_CALLBACK_URL = 'http://localhost:4200/shopping-cart';
 
 export const VNP_RESPONSE_CODE = [
   { code: '00', message: 'Giao dịch thành công' },
@@ -127,3 +139,61 @@ export const VNP_RESPONSE_CODE = [
       'Các lỗi khác (lỗi còn lại, không có trong danh sách mã lỗi đã liệt kê)',
   },
 ];
+
+export function getColor(data: any) {
+  switch (data) {
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLACK): {
+      return DIAL_COLOR.BLACK;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLUE): {
+      return DIAL_COLOR.BLUE;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.BROWN): {
+      return DIAL_COLOR.BROWN;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.CYAN): {
+      return DIAL_COLOR.CYAN;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.GOLD): {
+      return DIAL_COLOR.GOLD;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.GRAY): {
+      return DIAL_COLOR.GRAY;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.GREEN): {
+      return DIAL_COLOR.GREEN;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.INDIGO): {
+      return DIAL_COLOR.INDIGO;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.MAGENTA): {
+      return DIAL_COLOR.MAGENTA;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.ORANGE): {
+      return DIAL_COLOR.ORANGE;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.PINK): {
+      return DIAL_COLOR.PINK;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.PURPLE): {
+      return DIAL_COLOR.PURPLE;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.RED): {
+      return DIAL_COLOR.RED;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.SILVER): {
+      return DIAL_COLOR.SILVER;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.VIOLET): {
+      return DIAL_COLOR.VIOLET;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.WHITE): {
+      return DIAL_COLOR.WHITE;
+    }
+    case getKeyByValue(DIAL_COLOR, DIAL_COLOR.YELLOW): {
+      return DIAL_COLOR.WHITE;
+    }
+  }
+
+  return '';
+}

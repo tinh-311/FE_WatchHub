@@ -21,6 +21,16 @@ export class OrderService {
     return this.http.post<any>(url, data, { headers });
   }
 
+  getById(id: any): Observable<any>{
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Order/GetById${id}`;
+
+    return this.http.get<any>(url, { headers });
+  }
+
   getOrderById(status: any, id: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
