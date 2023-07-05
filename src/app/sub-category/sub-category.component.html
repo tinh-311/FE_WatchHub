@@ -251,6 +251,56 @@
               </div>
             </div>
           </article>
+
+          <article class="filter-group">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_gender"
+              >
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Lọc theo giới tính </strong>
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_gender">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let gender of genders">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    {{ gender }}
+                  </span>
+                  <!-- <b class="badge rounded-pill bg-gray-dark float-end">120</b> -->
+                </label>
+              </div>
+            </div>
+          </article>
+
+          <article class="filter-group">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_colors"
+              >
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Lọc theo màu sắc </strong>
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_colors">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let color of colors">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    {{ color }}
+                  </span>
+                  <!-- <b class="badge rounded-pill bg-gray-dark float-end">120</b> -->
+                </label>
+              </div>
+            </div>
+          </article>
         </div>
       </aside>
       <main class="col-lg-9">

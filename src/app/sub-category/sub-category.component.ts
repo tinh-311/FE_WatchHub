@@ -16,6 +16,7 @@ import jwt_decode from 'jwt-decode';
 import { BrandsService } from '../brands.service';
 import { ProductAlbertService } from '../service/product-albert.service';
 import { ProductCoreService } from '../service/product-core.service';
+import { DIAL_COLOR, GENDER } from '../constant/util.constant';
 
 @Component({
   selector: 'app-sub-category',
@@ -31,7 +32,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   items: MenuItem[] = [];
   home: any;
   currentPage: any = 1;
-  rowsPerPage: any = 9;
+  rowsPerPage: any = 12;
   isDataLoading: boolean = false;
   isShowCategories: boolean = true;
 
@@ -40,6 +41,8 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   brands: any;
   alberts: any;
   cores: any;
+  genders: string[] = Object.values(GENDER);
+  colors: string[] = Object.values(DIAL_COLOR);
 
   constructor(
     private route: ActivatedRoute,
