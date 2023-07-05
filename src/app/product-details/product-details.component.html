@@ -75,13 +75,13 @@
               <dd class="col-3">{{ product?.product_source }}</dd>
 
               <dt class="col-3">Loại Máy</dt>
-              <dd class="col-3">{{ product?.cores?.core_name }}</dd>
+              <dd class="col-3">{{ product?.core?.core_name }}</dd>
 
               <dt class="col-3">Loại Kính</dt>
-              <dd class="col-3">{{ product?.glasses?.glass_name }}</dd>
+              <dd class="col-3">{{ product?.glass?.glass_name }}</dd>
 
               <dt class="col-3">Loại Dây</dt>
-              <dd class="col-3">{{ product?.alberts?.albert_name }}</dd>
+              <dd class="col-3">{{ product?.albert?.albert_name }}</dd>
 
               <dt class="col-3">Đường Kính Mặt Số</dt>
               <dd class="col-3">{{ product?.product_dial_width }}</dd>
@@ -105,13 +105,23 @@
 
           <hr />
 
-          <div class="row mb-4">
+          <div
+            *ngIf="
+              this.currentUser?.is_admin !== 'True' &&
+              this.currentUser?.is_admin !== true
+            "
+            class="row mb-4"
+          >
             <div class="col-md-4 col-6 mb-3">
               <label class="form-label d-block">Quantity</label>
               <div class="input-group input-spinner">
                 <p-inputNumber
                   [(ngModel)]="quantity"
                   [showButtons]="true"
+                  [disabled]="
+                    this.currentUser?.is_admin === 'True' ||
+                    this.currentUser?.is_admin === true
+                  "
                   inputId="minmax-buttons"
                   [min]="1"
                   [max]="99"
@@ -123,9 +133,20 @@
           </div>
 
           <!-- <a href="#" class="btn btn-warning"> Buy now </a> -->
-          <a (click)="addToCart()" class="btn btn-primary">
+          <button
+            *ngIf="
+              this.currentUser?.is_admin !== 'True' &&
+              this.currentUser?.is_admin !== true
+            "
+            [disabled]="
+              this.currentUser?.is_admin === 'True' ||
+              this.currentUser?.is_admin === true
+            "
+            (click)="addToCart()"
+            class="btn btn-primary"
+          >
             <i class="me-1 fa fa-shopping-basket"></i> Add to cart
-          </a>
+          </button>
           <!-- <a href="#" class="btn btn-light">
             <i class="me-1 fa fa-heart"></i> Save
           </a> -->
