@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from 'src/service/products.service';
 import { CartService } from '../service/cart.service';
 import { getColor } from '../constant/util.constant';
+import { UserService } from 'src/service/user.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-product-details',
@@ -13,11 +15,13 @@ export class ProductDetailsComponent {
   product: any;
   imgUrl: string = '';
   quantity: number = 1;
+  currentUser: any;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductsService,
-    private cartService: CartService
+    private cartService: CartService,
+    private userService: UserService
   ) {
     this.route.queryParamMap.subscribe((params) => {
       const id = params.get('id');
@@ -26,6 +30,33 @@ export class ProductDetailsComponent {
         this.changeSelectedImg(this.product?.product_image_uuid[0]);
         console.log('🏍️ ~ this.product: ', this.product);
       });
+    });
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.currentUser = jwt_decode(token);
+
+      this.getUserById(this.currentUser?.id)
+        .then((data: any) => {
+          this.currentUser = data;
+          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
+        })
+        .catch((error: any) => {
+          console.error('🔥 ~ error:', error);
+        });
+    }
+  }
+
+  getUserById(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.userService.getUserByID(id).subscribe(
+        (data: any) => {
+          resolve(data);
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
     });
   }
 

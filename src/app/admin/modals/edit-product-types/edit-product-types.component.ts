@@ -159,10 +159,7 @@ export class EditProductTypesComponent implements OnInit {
     if (this.config.data) {
       const data = this.config.data;
       this.originalProductType = data?.productType;
-      console.log(
-        '🏍️ ~ this.originalProductType?.gender: ',
-        getKeyByValue(GENDER, GENDER.MALE)
-      );
+      console.log('🏍️ ~ this.originalProductType: ', this.originalProductType);
       this.imgURLS = this.originalProductType?.product_image_uuid;
       this.subCategoryId = this.originalProductType?.sub_category_id;
       this.addNewForm.patchValue({
@@ -205,7 +202,7 @@ export class EditProductTypesComponent implements OnInit {
     this.glassesService.getAll().subscribe((data: any) => {
       this.glasses = data?.res;
       this.selectedGlass = this.glasses.find(
-        (g: any) => g.id === this.originalProductType?.glasses?.id
+        (g: any) => g.glass_name === this.originalProductType?.glass?.glass_name
       );
 
       this.addNewForm.patchValue({
@@ -220,7 +217,8 @@ export class EditProductTypesComponent implements OnInit {
     this.albertsService.getAll().subscribe((data: any) => {
       this.alberts = data?.res;
       this.selectedAlbert = this.alberts.find(
-        (a: any) => a.id === this.originalProductType?.alberts?.id
+        (a: any) =>
+          a.albert_name === this.originalProductType?.albert?.albert_name
       );
 
       this.addNewForm.patchValue({
@@ -240,7 +238,7 @@ export class EditProductTypesComponent implements OnInit {
     this.coresService.getAll().subscribe((data: any) => {
       this.cores = data?.res;
       this.selectedCore = this.cores.find(
-        (c: any) => c?.id === this.originalProductType?.cores?.id
+        (c: any) => c?.core_name === this.originalProductType?.core?.core_name
       );
 
       this.addNewForm.patchValue({
@@ -297,6 +295,8 @@ export class EditProductTypesComponent implements OnInit {
         formData?.productTypeCode +
         ' - ' +
         formData?.gender?.name +
+        ' - ' +
+        formData?.productDialColor?.name +
         ' - ' +
         formData?.selectedGlass?.glass_name +
         ' - ' +

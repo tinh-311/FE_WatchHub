@@ -21,7 +21,8 @@
                 data-bs-toggle="collapse"
                 data-bs-target="#collapse_aside1"
               >
-                <i class="icon-control fa fa-chevron-down"></i> DANH MỤC
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Danh mục </strong>
               </a>
             </header>
             <div class="collapse show" id="collapse_aside1">
@@ -51,65 +52,26 @@
                 data-bs-toggle="collapse"
                 data-bs-target="#collapse_aside_brands"
               >
-                <i class="icon-control fa fa-chevron-down"></i> Brands
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Thương Hiệu </strong>
               </a>
             </header>
             <div class="collapse show" id="collapse_aside_brands">
               <div class="card-body">
-                <label class="form-check mb-2">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    checked
-                  />
-                  <span class="form-check-label"> Mercedes </span>
-                  <b class="badge rounded-pill bg-gray-dark float-end">120</b>
-                </label>
-
-                <label class="form-check mb-2">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    checked
-                  />
-                  <span class="form-check-label"> Toyota </span>
-                  <b class="badge rounded-pill bg-gray-dark float-end">15</b>
-                </label>
-
-                <label class="form-check mb-2">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    checked
-                  />
-                  <span class="form-check-label"> Mitsubishi </span>
-                  <b class="badge rounded-pill bg-gray-dark float-end">35</b>
-                </label>
-
-                <label class="form-check mb-2">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    checked
-                  />
-                  <span class="form-check-label"> Nissan </span>
-                  <b class="badge rounded-pill bg-gray-dark float-end">89</b>
-                </label>
-
-                <label class="form-check mb-2">
+                <label *ngFor="let brand of brands" class="form-check mb-2">
                   <input class="form-check-input" type="checkbox" value="" />
-                  <span class="form-check-label"> Honda </span>
-                  <b class="badge rounded-pill bg-gray-dark float-end">30</b>
-                </label>
-
-                <label class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" value="" />
-                  <span class="form-check-label"> Honda accord </span>
-                  <b class="badge rounded-pill bg-gray-dark float-end">30</b>
+                  <p-image
+                    class="cursor-pointer"
+                    [src]="brand?.brand_logo"
+                    alt="Image"
+                    width="30"
+                    class="ml-2"
+                  >
+                  </p-image>
+                  <span class="form-check-label">
+                    {{ brand?.brand_name }}
+                  </span>
+                  <!-- <b class="badge rounded-pill bg-gray-dark float-end">120</b> -->
                 </label>
               </div>
             </div>
@@ -123,12 +85,13 @@
                 data-bs-toggle="collapse"
                 data-bs-target="#collapse_aside2"
               >
-                <i class="icon-control fa fa-chevron-down"></i> Price
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Lọc theo giá </strong>
               </a>
             </header>
             <div class="collapse show" id="collapse_aside2">
               <div class="card-body">
-                <input type="range" class="form-range" min="0" max="100" />
+                <!-- <input type="range" class="form-range" min="0" max="100" />
                 <div class="row mb-3">
                   <div class="col-6">
                     <label for="min" class="form-label">Min</label>
@@ -150,7 +113,66 @@
                     />
                   </div>
                 </div>
-                <button class="btn btn-light w-100" type="button">Apply</button>
+                <button class="btn btn-light w-100" type="button">Apply</button> -->
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label"> 0đ - 2.000.000đ </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    2.000.000đ - 4.000.000đ
+                  </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    4.000.000đ - 6.000.000đ
+                  </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    6.000.000đ - 8.000.000đ
+                  </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    8.000.000đ - 10.000.000đ
+                  </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    10.000.000đ - 20.000.000đ
+                  </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    20.000.000đ - 30.000.000đ
+                  </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    30.000.000đ - 40.000.000đ
+                  </span>
+                </label>
+
+                <label class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label"> > 40.000.000đ </span>
+                </label>
               </div>
             </div>
           </article>
@@ -161,31 +183,70 @@
                 href="#"
                 class="title"
                 data-bs-toggle="collapse"
-                data-bs-target="#collapse_aside3"
+                data-bs-target="#collapse_aside_alberts"
               >
-                <i class="icon-control fa fa-chevron-down"></i> Size
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Lọc theo loại dây </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside3">
+            <div class="collapse show" id="collapse_aside_alberts">
               <div class="card-body">
-                <label class="checkbox-btn">
-                  <input type="checkbox" />
-                  <span class="btn btn-light"> XS </span>
+                <label *ngFor="let albert of alberts" class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    {{ albert?.albert_name }}
+                  </span>
+                  <!-- <b class="badge rounded-pill bg-gray-dark float-end">120</b> -->
                 </label>
+              </div>
+            </div>
+          </article>
 
-                <label class="checkbox-btn">
-                  <input type="checkbox" />
-                  <span class="btn btn-light"> SM </span>
+          <article class="filter-group">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_cores"
+              >
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Lọc theo loại máy </strong>
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_cores">
+              <div class="card-body">
+                <label *ngFor="let core of cores" class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    {{ core?.core_name }}
+                  </span>
+                  <!-- <b class="badge rounded-pill bg-gray-dark float-end">120</b> -->
                 </label>
+              </div>
+            </div>
+          </article>
 
-                <label class="checkbox-btn">
-                  <input type="checkbox" />
-                  <span class="btn btn-light"> LG </span>
-                </label>
-
-                <label class="checkbox-btn">
-                  <input type="checkbox" />
-                  <span class="btn btn-light"> XXL </span>
+          <article class="filter-group">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_alberts"
+              >
+                <i class="icon-control fa fa-chevron-down"></i>
+                <strong> Lọc theo loại kính </strong>
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_alberts">
+              <div class="card-body">
+                <label *ngFor="let albert of alberts" class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" />
+                  <span class="form-check-label">
+                    {{ albert?.albert_name }}
+                  </span>
+                  <!-- <b class="badge rounded-pill bg-gray-dark float-end">120</b> -->
                 </label>
               </div>
             </div>
@@ -253,6 +314,14 @@
                       product.price | currency : "VND"
                     }}</span>
                     <button
+                      [disabled]="
+                        this.currentUser?.is_admin === 'True' ||
+                        this.currentUser?.is_admin === true
+                      "
+                      *ngIf="
+                        this.currentUser?.is_admin !== 'True' &&
+                        this.currentUser?.is_admin !== true
+                      "
                       pButton
                       (click)="addToCart(product)"
                       icon="pi pi-shopping-cart"
@@ -304,7 +373,15 @@
                     product.price | currency : "VND"
                   }}</span>
                   <button
+                    *ngIf="
+                      this.currentUser?.is_admin !== 'True' &&
+                      this.currentUser?.is_admin !== true
+                    "
                     pButton
+                    [disabled]="
+                      this.currentUser?.is_admin === 'True' ||
+                      this.currentUser?.is_admin === true
+                    "
                     (click)="addToCart(product)"
                     icon="pi pi-shopping-cart"
                     class="p-button-rounded text-sm"

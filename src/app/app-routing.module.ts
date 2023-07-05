@@ -14,22 +14,31 @@ import { MyOrderComponent } from './my-order/my-order.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { GameSnakeComponent } from './game-snake/game-snake.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { UserGuard } from './user.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthenGuard] },
   { path: 'verify', component: VerifyComponent },
   { path: 'subcategory', component: SubCategoryComponent },
-  { path: 'orders', component: MyOrderComponent },
+  {
+    path: 'orders',
+    component: MyOrderComponent,
+    canActivate: [AuthenGuard, UserGuard],
+  },
   { path: 'thank-you', component: ThankYouComponent },
-  { path: 'games/snake', component: GameSnakeComponent },
+  {
+    path: 'games/snake',
+    component: GameSnakeComponent,
+    canActivate: [AuthenGuard],
+  },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent,
-    canActivate: [AuthenGuard],
+    canActivate: [AuthenGuard, UserGuard],
   },
   { path: 'product-details', component: ProductDetailsComponent },
   { path: 'order-details', component: OrderDetailsComponent },

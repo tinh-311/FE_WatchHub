@@ -1,8 +1,8 @@
 <header class="section-header mb-2">
   <section class="header-main">
     <div class="container">
-      <div class="grid">
-        <div class="col-12 md:col-6 lg:col-3 d-none d-sm-block">
+      <div class="w-100 d-flex justify-content-between">
+        <div class="d-none d-sm-block">
           <a href="#" class="navbar-brand fw-bold text-primary h1">
             <img
               style="width: 90px; height: 70px"
@@ -11,8 +11,7 @@
             />
           </a>
         </div>
-        <div class="col-12 md:col-6 lg:col-4"></div>
-        <div class="col-12 md:col-6 lg:col-5 mt-lg-3">
+        <div class="mt-lg-3">
           <span class="w100">
             <a
               *ngIf="
@@ -25,14 +24,18 @@
               <i class="fas fa-user-shield"></i>
               <span class="ms-1 d-none d-sm-inline-block"> Admin </span>
             </a>
-            <a
+            <!-- <a
               (click)="onClickFavourite()"
               class="btn mx-2 btn-danger clear-fix-ava"
             >
               <i class="fa fa-heart"></i>
-            </a>
+            </a> -->
             <a
               (click)="onClickCart()"
+              *ngIf="
+                this.currentUser?.is_admin !== 'True' &&
+                this.currentUser?.is_admin !== true
+              "
               class="btn mx-2 btn-success clear-fix-ava"
             >
               <i class="fa fa-shopping-cart text-white"></i>
@@ -81,10 +84,19 @@
                   <i class="fas fa-user-edit mr-2"></i>
                   Thông tin cá nhân
                 </a>
-                <hr />
+                <hr
+                  *ngIf="
+                    this.currentUser?.is_admin !== 'True' &&
+                    this.currentUser?.is_admin !== true
+                  "
+                />
                 <a
                   [href]="'/orders'"
                   class="text-decoration-none text-secondary"
+                  *ngIf="
+                    this.currentUser?.is_admin !== 'True' &&
+                    this.currentUser?.is_admin !== true
+                  "
                 >
                   <i class="fas fa-dolly mr-2"></i>
                   Đơn đặt hàng

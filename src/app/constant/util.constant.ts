@@ -78,8 +78,8 @@ export function parseJSON(json: any) {
   return JSON.parse(json);
 }
 
-export const PAYMENT_CALLBACK_URL = 'https://watchhub.website/shopping-cart';
-// export const PAYMENT_CALLBACK_URL = 'http://localhost:4200/shopping-cart';
+// export const PAYMENT_CALLBACK_URL = 'https://watchhub.website/shopping-cart';
+export const PAYMENT_CALLBACK_URL = 'http://localhost:4200/shopping-cart';
 
 export const VNP_RESPONSE_CODE = [
   { code: '00', message: 'Giao dịch thành công' },
@@ -138,7 +138,17 @@ export const VNP_RESPONSE_CODE = [
     message:
       'Các lỗi khác (lỗi còn lại, không có trong danh sách mã lỗi đã liệt kê)',
   },
+  {
+    code: '-99',
+    message:
+      'Đặt hàng thành công',
+  },
 ];
+
+export function getVnpResponseMessage(code: string): string {
+  const response = VNP_RESPONSE_CODE.find((item) => item.code === code);
+  return response ? response.message : 'Mã code không hợp lệ';
+}
 
 export function getColor(data: any) {
   switch (data) {

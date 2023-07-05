@@ -382,10 +382,10 @@ export class ShoppingCartComponent implements OnInit {
       ward: this.address[this.selectedAddress.index].ward,
       street: this.address[this.selectedAddress.index].street,
       product_image_uuid: this.selectedProducts[0]?.product_image_uuid,
+      phone: this.phoneNumber?.value,
     };
     console.log('🏍️ ~ data: ', data);
 
-    console.log('🏍️ ~ this.selectedPaymentMethod?.id: ', this.selectedPaymentMethod?.id)
     switch (this.selectedPaymentMethod?.id) {
       case 3: {
         this.orderService.create(data).subscribe(
@@ -393,15 +393,13 @@ export class ShoppingCartComponent implements OnInit {
             this.loadingService.hideLoading();
             localStorage.removeItem('cartItems');
             this.cartService.updateCart(this.cartItems);
-            location.reload();
-            this.toastService.showMessage(
-              ToasSumary.Success,
-              'Đặt hàng thành công!',
-              ToastType.Success
-            );
+            // location.reload();
+            this.router.navigate(['/thank-you'],
+            {
+              queryParams: { code: '-99' },
+            });
           },
           (err) => {
-            console.log('🏍️ ~ err: ', err);
             this.toastService.showMessage(
               ToasSumary.Error,
               err?.error?.message,
@@ -439,7 +437,9 @@ export class ShoppingCartComponent implements OnInit {
                 }
               );
             },
-            (err) => {}
+            (err) => {
+              console.log('🏍️ ~ err: ', err)
+            }
           );
         break;
       }

@@ -119,8 +119,8 @@ export class ProductTypesComponent implements OnInit {
           this.selectedSubCategory = !this.selectedSubCategory
             ? this.subCategories[0]
             : this.selectedSubCategory;
-          console.log('🏍️ ~ data: ', data);
           this.productTypes = data?.res;
+          console.log('🏍️ ~ this.productTypes: ', this.productTypes)
           this.totalCount = data?.totalCount;
           this.isLoading = false;
         },

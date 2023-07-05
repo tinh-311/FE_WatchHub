@@ -11,6 +11,11 @@ import { CategoryService } from 'src/service/category.service';
 import { LoadingService } from 'src/service/loading.service';
 import { ProductsService } from 'src/service/products.service';
 import { CartService } from '../service/cart.service';
+import { UserService } from 'src/service/user.service';
+import jwt_decode from 'jwt-decode';
+import { BrandsService } from '../brands.service';
+import { ProductAlbertService } from '../service/product-albert.service';
+import { ProductCoreService } from '../service/product-core.service';
 
 @Component({
   selector: 'app-sub-category',
@@ -26,11 +31,15 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   items: MenuItem[] = [];
   home: any;
   currentPage: any = 1;
-  rowsPerPage: any = 6;
+  rowsPerPage: any = 9;
   isDataLoading: boolean = false;
   isShowCategories: boolean = true;
 
   cartItems: any = [];
+  currentUser: any;
+  brands: any;
+  alberts: any;
+  cores: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +47,11 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     private productsService: ProductsService,
     private loadingService: LoadingService,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private userService: UserService,
+    private brandService: BrandsService,
+    private productAlbertService: ProductAlbertService,
+    private productCoreService: ProductCoreService
   ) {
     this.isDataLoading = false;
     this.route.queryParams.subscribe(
@@ -46,7 +59,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
         const categoryId = await params['categoryId'];
         const categoryName = params['categoryName'];
         this.isShowCategories = true;
-        console.log('🏍️ ~ categoryName: ', categoryName);
         if (categoryName === 'ALL') {
           this.isShowCategories = false;
           this.getAllPT();
@@ -54,13 +66,53 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
         }
         this.getAllSubCategories(categoryId);
       },
-      (err) => {
-      }
+      (err) => {}
     );
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.currentUser = jwt_decode(token);
+
+      this.getUserById(this.currentUser?.id)
+        .then((data: any) => {
+          this.currentUser = data;
+          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
+        })
+        .catch((error: any) => {
+          console.error('🔥 ~ error:', error);
+        });
+    }
+  }
+
+  getUserById(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.userService.getUserByID(id).subscribe(
+        (data: any) => {
+          resolve(data);
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
+    });
   }
 
   ngOnInit() {
     this.cartItems = this.cartService.getCartItems();
+    this.brandService.getAll().subscribe((brands: any) => {
+      this.brands = brands.res;
+      console.log('🏍️ ~ this.brands: ', this.brands);
+    });
+
+    this.productAlbertService.getAll().subscribe((alberts: any) => {
+      this.alberts = alberts.res;
+      console.log('🏍️ ~ this.alberts: ', this.alberts)
+    })
+
+    this.productCoreService.getAll().subscribe((cores: any) => {
+      this.cores = cores.res;
+      console.log('🏍️ ~ this.cores: ', this.cores)
+    })
   }
 
   ngAfterViewInit() {}
@@ -108,8 +160,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
         this.selectedSubCategory = this.subCategories[0];
         this.getProductTypes();
       },
-      (err) => {
-      }
+      (err) => {}
     );
   }
 
@@ -166,7 +217,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
 
   addToCart(product: any) {
     this.cartService.addToCart({
-      ...product
+      ...product,
     });
   }
 
