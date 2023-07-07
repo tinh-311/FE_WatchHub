@@ -95,6 +95,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { StepsModule } from 'primeng/steps';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -189,7 +190,8 @@ import { StepsModule } from 'primeng/steps';
     OrderListModule,
     ConfirmDialogModule,
     SidebarModule,
-    StepsModule
+    StepsModule,
+    ChartModule
   ],
   providers: [MessageService, DialogService, ConfirmationService],
   bootstrap: [AppComponent],

@@ -1,1 +1,66 @@
-<p>admin-dashboard-home works!</p>
+<div class="container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body text-secondary">
+            <h5 class="card-title"><i class="fas fa-cubes"></i> Số sản phẩm</h5>
+            <p class="card-text">{{ productsCount }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body text-secondary">
+            <h5 class="card-title">
+              <i class="fas fa-tags"></i> Số thương hiệu
+            </h5>
+            <p class="card-text">{{ brandsCount }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body text-secondary">
+            <h5 class="card-title">
+              <i class="fas fa-shopping-cart"></i> Số đơn hàng
+            </h5>
+            <p class="card-text">{{ ordersCount }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body text-secondary">
+            <h5 class="card-title">
+              <i class="fas fa-dollar-sign"></i> Doanh thu tháng
+            </h5>
+            <p class="card-text">{{ totalRevenue | currency : "VND" }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body text-secondary">
+          <h5 class="card-title">Biểu đồ doanh thu</h5>
+          <ng-container>
+            <p-chart
+              type="bar"
+              [data]="revenueChartData"
+              width="98%"
+              height="70vh"
+              class="d-flex justify-content-center"
+            ></p-chart>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
