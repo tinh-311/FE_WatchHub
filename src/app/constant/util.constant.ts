@@ -23,7 +23,7 @@ export function normalizeName(s: any) {
 }
 
 export function formatText(text: any) {
-  return text.length > 25 ? text.substring(0, 25) + '...' : text;
+  return text?.length > 25 ? text.substring(0, 25) + '...' : text;
 }
 
 export const UUID_DEFAUL_AVATAR =

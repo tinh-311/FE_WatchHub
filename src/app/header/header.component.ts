@@ -109,14 +109,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   getCategories() {
-    this.loadingService.showLoading();
     this.categoryService.getAll().subscribe(
       (data: any) => {
         this.categories = data?.res || [];
-        this.loadingService.hideLoading();
       },
       (err) => {
-        this.loadingService.hideLoading();
       }
     );
   }

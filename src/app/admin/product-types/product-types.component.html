@@ -17,6 +17,7 @@
       <p-dropdown
         [options]="subCategories"
         optionLabel="sub_category_name"
+        [disabled]="subCategories?.length <= 0"
         [(ngModel)]="selectedSubCategory"
         (onChange)="onDropdownSubCategoryChange($event)"
         placeholder="Chọn danh mục con"

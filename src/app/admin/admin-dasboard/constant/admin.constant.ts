@@ -10,7 +10,7 @@ export const SIDE_NAV = [
     displayName: 'Người dùng',
   },
   {
-    iconClass: 'fas fa-warehouse fa-2x',
+    iconClass: 'fas fa-tags fa-2x',
     name: 'BRANDS',
     displayName: 'Thương Hiệu',
   },
@@ -40,12 +40,12 @@ export const SIDE_NAV = [
     displayName: 'Loại Kính',
   },
   {
-    iconClass: 'fas fa-list fa-2x',
+    iconClass: 'fas fa-cubes fa-2x',
     name: 'PRODUCTTYPES',
     displayName: 'Loại sản phẩm',
   },
   {
-    iconClass: 'fas fa-table fa-2x',
+    iconClass: 'fas fa-shopping-cart fa-2x',
     name: 'ORDER',
     displayName: 'Đơn đặt hàng',
   },

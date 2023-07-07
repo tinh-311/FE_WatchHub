@@ -78,11 +78,25 @@ export class ProductTypesComponent implements OnInit {
     this.categoriesService.getAll().subscribe(
       (data) => {
         this.categories = data?.res;
+        this.categories = [{ category_name: 'Tất cả' }, ...this.categories];
         this.selectedCategory = this.categories[0];
+        if (this.selectedCategory.category_name === 'Tất cả') {
+          this.getAllProduct();
+          return;
+        }
         this.getSubCategories();
       },
       (err) => {}
     );
+  }
+
+  getAllProduct() {
+    this.productsService
+      .getAllProduct(this.currentPage, this.rowsPerPage)
+      .subscribe((p: any) => {
+        this.productTypes = p?.res;
+        console.log('🏍️ ~ this.productTypes: ', this.productTypes);
+      });
   }
 
   getSubCategories() {
@@ -120,7 +134,7 @@ export class ProductTypesComponent implements OnInit {
             ? this.subCategories[0]
             : this.selectedSubCategory;
           this.productTypes = data?.res;
-          console.log('🏍️ ~ this.productTypes: ', this.productTypes)
+          console.log('🏍️ ~ this.productTypes: ', this.productTypes);
           this.totalCount = data?.totalCount;
           this.isLoading = false;
         },

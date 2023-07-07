@@ -44,6 +44,23 @@
                 <img src="assets/images/misc/starts-disable.svg" alt="" />
               </li>
             </ul>
+            <div class="d-flex align-items-center gap-3">
+              <span
+                *ngFor="
+                  let subcategory of product?.productSubCategories;
+                  index as i
+                "
+                class="d-flex align-items-center gap-2"
+              >
+                <i class="pi pi-tag"></i>
+                <span class="font-semibold"
+                  >{{ subcategory?.sub_category_name }}
+                  <span *ngIf="i < product?.productSubCategories?.length - 1"
+                    >,
+                  </span>
+                </span>
+              </span>
+            </div>
             <!-- <b class="label-rating text-warning"> 4.5</b>
             <i class="dot"></i>
             <span class="label-rating text-muted">

@@ -74,7 +74,7 @@ export class EditProductTypesComponent implements OnInit {
     },
     {
       val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.INDIGO),
-      name: DIAL_COLOR.GREEN,
+      name: DIAL_COLOR.INDIGO,
     },
     {
       val: getKeyByValue(DIAL_COLOR, DIAL_COLOR.MAGENTA),

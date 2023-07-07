@@ -349,11 +349,23 @@
                       [cancel]="false"
                     ></p-rating>
                     <div class="d-flex align-items-center gap-3">
-                      <span class="d-flex align-items-center gap-2">
+                      <span
+                        *ngFor="
+                          let subcategory of product?.productSubCategories;
+                          index as i
+                        "
+                        class="d-flex align-items-center gap-2"
+                      >
                         <i class="pi pi-tag"></i>
-                        <span class="font-semibold">{{
-                          product?.subCategory?.sub_category_name
-                        }}</span>
+                        <span class="font-semibold"
+                          >{{ subcategory?.sub_category_name }}
+                          <span
+                            *ngIf="
+                              i < product?.productSubCategories?.length - 1
+                            "
+                            >,
+                          </span>
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -385,13 +397,21 @@
           <ng-template let-product pTemplate="gridItem">
             <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
               <div class="p-4 border-1 surface-border surface-card rounded">
-                <div
-                  class="d-flex flex-wrap align-items-center justify-content-between gap-2"
-                >
-                  <span class="d-flex align-items-center gap-2">
+                <div class="d-flex gap-2">
+                  <span
+                    *ngFor="
+                      let subcategory of product?.productSubCategories;
+                      index as i
+                    "
+                    class="d-flex align-items-center gap-2"
+                  >
                     <i class="pi pi-tag"></i>
                     <span class="font-semibold">
-                      {{ product?.subCategory?.sub_category_name }}
+                      {{ subcategory?.sub_category_name }}
+                      <span
+                        *ngIf="i < product?.productSubCategories?.length - 1"
+                        >,
+                      </span>
                     </span>
                   </span>
                 </div>

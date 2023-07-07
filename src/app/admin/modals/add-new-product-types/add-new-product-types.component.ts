@@ -253,6 +253,8 @@ export class AddNewProductTypesComponent implements OnInit {
         ' - ' +
         formData?.gender?.name +
         ' - ' +
+        formData?.productDialColor?.name +
+        ' - ' +
         formData?.selectedGlass?.glass_name +
         ' - ' +
         formData?.selectedCore?.core_name +
