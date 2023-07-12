@@ -45,6 +45,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   cores: any;
   genders: string[] = Object.values(GENDER);
   colors: string[] = Object.values(DIAL_COLOR);
+  selectedBrands: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -57,7 +58,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     private brandService: BrandsService,
     private productAlbertService: ProductAlbertService,
     private productCoreService: ProductCoreService,
-    private productGlassService: ProductGlassService
+    private productGlassService: ProductGlassService,
   ) {
     this.isDataLoading = false;
     this.route.queryParams.subscribe(
@@ -82,12 +83,29 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       this.getUserById(this.currentUser?.id)
         .then((data: any) => {
           this.currentUser = data;
-          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
         })
         .catch((error: any) => {
           console.error('🔥 ~ error:', error);
         });
     }
+  }
+
+  onCheckboxChange(event: any, brandName: string) {
+    if (event.target.checked) {
+      this.selectedBrands.push(brandName);
+    } else {
+      const index = this.selectedBrands.indexOf(brandName);
+      if (index !== -1) {
+        this.selectedBrands.splice(index, 1);
+      }
+    }
+
+    console.log('🏍️ ~ this.selectedBrands: ', this.selectedBrands);
+    const filters = {
+      brands: this.selectedBrands
+    }
+    console.log('🏍️ ~ filters: ', filters)
+    this.getProductTypes(filters);
   }
 
   getUserById(id: string): Promise<any> {
@@ -107,23 +125,19 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     this.cartItems = this.cartService.getCartItems();
 
     this.productGlassService.getAll().subscribe((glasses: any) => {
-      console.log('🏍️ ~ glasses: ', glasses);
       this.glasses = glasses?.res;
     });
 
     this.brandService.getAll().subscribe((brands: any) => {
       this.brands = brands.res;
-      console.log('🏍️ ~ this.brands: ', this.brands);
     });
 
     this.productAlbertService.getAll().subscribe((alberts: any) => {
       this.alberts = alberts.res;
-      console.log('🏍️ ~ this.alberts: ', this.alberts);
     });
 
     this.productCoreService.getAll().subscribe((cores: any) => {
       this.cores = cores.res;
-      console.log('🏍️ ~ this.cores: ', this.cores);
     });
   }
 
@@ -135,7 +149,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       .getAllProductTypes(this.currentPage, this.rowsPerPage)
       .subscribe(
         (data) => {
-          console.log('🏍️ ~ data sas: ', data);
           this.products = data?.res;
           this.totalRecords = data?.totalCount;
           this.isDataLoading = false;
@@ -176,7 +189,8 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  getProductTypes() {
+  getProductTypes(filters?: any) {
+    console.log('🏍️ ~ filters: ', filters)
     if (!this.selectedSubCategory) {
       this.products = [];
       return;
@@ -184,17 +198,18 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
 
     this.isDataLoading = true;
     this.productsService
-      .getProductTypes(
-        this.selectedSubCategory.id,
-        this.currentPage,
-        this.rowsPerPage
-      )
-      .subscribe((data) => {
-        this.products = data?.res;
-        console.log('🏍️ ~ this.products: ', this.products);
-        this.totalRecords = data?.totalCount;
-        this.isDataLoading = false;
-      });
+      .filterBySubCategoryId(this.selectedSubCategory.id, this.currentPage, this.rowsPerPage, filters || {})
+      .subscribe(
+        (data) => {
+          this.products = data?.res;
+          console.log('🏍️ ~ this.products: ', this.products)
+          this.totalRecords = data?.totalCount;
+          this.isDataLoading = false;
+        },
+        (err) => {
+          this.isDataLoading = false;
+        }
+      );
   }
 
   getSeverity(product: any) {

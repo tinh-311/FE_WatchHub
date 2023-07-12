@@ -62,7 +62,7 @@ export class ProductsService {
   updateProductType(data: any): Observable<any> {
     const url = `${this.baseUrl}/ProductType/Update${data?.id}`;
     return this.http.put<any>(url, data);
-    console.log('🏍️ ~ url: ', url)
+    console.log('🏍️ ~ url: ', url);
   }
 
   deleteProductType(id: any): Observable<any> {
@@ -122,5 +122,25 @@ export class ProductsService {
   softDeleteProduct(id: any): Observable<any> {
     const url = `${this.baseUrl}/Product/SoftDelete${id}`;
     return this.http.delete<any>(url);
+  }
+
+  filterBySubCategoryId(
+    subCategoryId: any,
+    pageNumber: number,
+    pageSize: number,
+    data: any
+  ): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/ProductType/FilterBySubCategoryId${subCategoryId}`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/ProductType/FilterBySubCategoryId${subCategoryId}?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
+    return this.http.post<any>(url, data, {headers});
   }
 }
