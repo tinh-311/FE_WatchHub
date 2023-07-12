@@ -86,6 +86,23 @@
           class="w-100"
         ></p-dropdown>
       </div>
+
+      <div class="w-50">
+        <label class="fw-bold">Danh cục con</label><br />
+        <p-multiSelect
+          [options]="groupedCategories"
+          [group]="true"
+          formControlName="subCategories"
+          defaultLabel="Chọn danh mục con"
+          display="chip"
+        >
+          <ng-template let-group pTemplate="group">
+            <div class="flex align-items-center">
+              <span>{{ group.label }}</span>
+            </div>
+          </ng-template>
+        </p-multiSelect>
+      </div>
     </div>
   </div>
 
@@ -326,10 +343,7 @@
     label="Hủy"
     styleClass="p-button-warning"
   ></p-button>
-  <p-button
-    (onClick)="create()"
-    [disabled]="addNewForm.invalid || imgURLS.length < 1"
-    class="ml-3"
-    label="Tạo"
-  ></p-button>
+  <p-button (onClick)="create()" class="ml-3" label="Tạo"></p-button>
 </div>
+
+<!-- [disabled]="addNewForm.invalid || imgURLS.length < 1" -->

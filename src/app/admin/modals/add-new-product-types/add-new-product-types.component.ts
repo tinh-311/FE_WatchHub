@@ -22,6 +22,7 @@ import {
   GENDER,
   DIAL_COLOR,
 } from 'src/app/constant/util.constant';
+import { SelectItemGroup } from 'primeng/api';
 LR.registerBlocks(LR);
 
 @Component({
@@ -107,6 +108,9 @@ export class AddNewProductTypesComponent implements OnInit {
     },
   ];
 
+  groupedCategories!: SelectItemGroup[];
+  selectedCategories: any;
+
   addNewForm: any = this.fb.group({
     price: [0, Validators.required],
     selectedBrand: ['', Validators.required],
@@ -123,6 +127,7 @@ export class AddNewProductTypesComponent implements OnInit {
     productAdditionalInformation: ['', Validators.required],
     gender: [this.genderOptions[0], Validators.required],
     productTypeCode: ['', Validators.required],
+    subCategories: ['', Validators.required],
   });
 
   constructor(
@@ -139,7 +144,24 @@ export class AddNewProductTypesComponent implements OnInit {
     private albertsService: ProductAlbertService,
     private glassesService: ProductGlassService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.categoriesService.getAll().subscribe((category: any) => {
+      console.log('🏍️ ~ category: ', category);
+      this.groupedCategories = category?.res?.map((data: any) => {
+        return {
+          label: data?.category_name,
+          value: data?.id,
+          items: data?.subCategories.map((s: any) => {
+            return {
+              label: s?.sub_category_name,
+              value: s?.id,
+            };
+          }),
+        };
+      });
+      console.log('🏍️ ~ this.groupedCategories: ', this.groupedCategories);
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
@@ -245,6 +267,7 @@ export class AddNewProductTypesComponent implements OnInit {
 
   create() {
     const formData = this.addNewForm.getRawValue();
+    console.log('🏍️ ~ formData: ', formData?.subCategories);
     let p = {
       product_type_name:
         formData?.selectedBrand?.brand_name +
@@ -267,7 +290,7 @@ export class AddNewProductTypesComponent implements OnInit {
       product_image_uuid: this.imgURLS,
       price: formData?.price,
       brand_id: formData?.selectedBrand?.id,
-      sub_category_id: this.subCategoryId,
+      sub_category_ids: formData?.subCategories,
       product_albert_id: formData?.selectedAlbert?.id,
       product_core_id: formData?.selectedCore?.id,
       product_glass_id: formData?.selectedGlass?.id,
