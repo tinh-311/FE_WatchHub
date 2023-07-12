@@ -44,7 +44,8 @@ export class ProductTypesComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getProductTypes();
-    this.getCategories();
+    // this.getCategories();
+    this.getAllProductTypes();
   }
 
   openImage(imageUrl: string) {
@@ -120,6 +121,26 @@ export class ProductTypesComponent implements OnInit {
     return formatText(s);
   }
 
+  getAllProductTypes() {
+    this.isLoading = true;
+    this.productsService
+      .getAllProductTypes(this.currentPage, this.rowsPerPage)
+      .subscribe(
+        (data) => {
+          this.selectedSubCategory = !this.selectedSubCategory
+            ? this.subCategories[0]
+            : this.selectedSubCategory;
+          this.productTypes = data?.res;
+          console.log('🏍️ ~ this.productTypes: ', this.productTypes);
+          this.totalCount = data?.totalCount;
+          this.isLoading = false;
+        },
+        (err) => {
+          this.isLoading = false;
+        }
+      );
+  }
+
   getProductTypes() {
     this.isLoading = true;
     this.productsService
@@ -160,7 +181,7 @@ export class ProductTypesComponent implements OnInit {
     });
     ref.onClose.subscribe((data) => {
       if (data) {
-        this.getProductTypes();
+        this.getAllProductTypes();
       }
     });
   }

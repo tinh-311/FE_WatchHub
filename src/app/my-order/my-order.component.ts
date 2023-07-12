@@ -8,6 +8,8 @@ import { OrderService } from '../service/order.service';
 import jwt_decode from 'jwt-decode';
 import { getKeyByValue, parseJSON } from '../constant/util.constant';
 import { NavigationExtras, Router } from '@angular/router';
+import { ToastService } from 'src/service/toast.service';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 
 @Component({
   selector: 'app-my-order',
@@ -22,7 +24,11 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   currentUser: any;
   orderInfo: any;
 
-  constructor(private orderService: OrderService, private router: Router) {
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+    private toastService: ToastService
+  ) {
     const token = localStorage.getItem('token');
     if (!token) {
       return;
@@ -32,6 +38,10 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {}
   ngOnInit(): void {
+    this.getOerder();
+  }
+
+  getOerder() {
     this.orderService
       .getAllOrderById(this.currentUser?.id)
       .subscribe((data: any) => {
@@ -42,7 +52,8 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
           this.tabMenuModel.push({ id: status.key, label: status.value });
         });
         this.orders = data?.res;
-        console.log('🏍️ ~ this.orders: ', this.orders)
+        this.orders = this.orders.reverse();
+        console.log('🏍️ ~ this.orders: ', this.orders);
         // if (this.orders?.length) {
         //   this.orderInfo = parseJSON(this.orders[1]?.order_info);
         // }
@@ -55,6 +66,33 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/order-details'], {
       queryParams: { id: order?.id },
     });
+  }
+
+  cancelOrder(order: any) {
+    console.log('🏍️ ~ order: ', order);
+    this.orderService
+      .updateStatus(
+        order?.id,
+        getKeyByValue(ORDER_STATUS, ORDER_STATUS.CANCELLED)
+      )
+      .subscribe(
+        (orderRes: any) => {
+          console.log('🏍️ ~ orderRes: ', orderRes);
+          this.toastService.showMessage(
+            ToasSumary.Success,
+            orderRes?.message,
+            ToastType.Success
+          );
+
+          this.orderService
+            .getAllOrderById(this.currentUser?.id)
+            .subscribe((data: any) => {
+              this.orders = data?.res;
+              this.orders = this.orders.reverse();
+            });
+        },
+        (err) => {}
+      );
   }
 
   getTotalByStatus(id: any) {

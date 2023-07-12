@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AdminDasboardComponent } from './admin-dasboard/admin-dasboard.component';
 import { NgModule } from '@angular/core';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+exports: [RouterModule],
 })
 export class AdminRoutingodule {}

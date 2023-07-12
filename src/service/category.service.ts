@@ -38,7 +38,7 @@ export class CategoryService {
   updateCategory(categoryId: any, categoryName: string) {
     const url = `${this.baseUrl}/Category/Update${categoryId}`;
     return this.http.put<any>(url, {
-      category_name: categoryName
+      category_name: categoryName,
     });
   }
 
@@ -82,7 +82,7 @@ export class CategoryService {
       url,
       {
         sub_category_name: subCategoryName,
-        category_id: categoryId
+        category_id: categoryId,
       },
       { headers }
     );
@@ -100,7 +100,22 @@ export class CategoryService {
   updateSubCategory(subCategoryId: any, subCategoryName: string) {
     const url = `${this.baseUrl}/SubCategory/Update${subCategoryId}`;
     return this.http.put<any>(url, {
-      sub_category_name: subCategoryName
+      sub_category_name: subCategoryName,
     });
   }
+
+  // getAllCategoriesAndSubCategories(pageNumber?: number, pageSize?: number) {
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${this.token}`,
+  //   });
+
+  //   let isPaging = pageNumber && pageSize;
+  //   let url = `${this.baseUrl}/Category/GetAll`;
+
+  //   if (isPaging) {
+  //     url = `${this.baseUrl}/Category/GetAll?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+  //   }
+
+  //   return this.http.get<any>(url, { headers });
+  // }
 }

@@ -1,6 +1,11 @@
 :host ::ng-deep {
-  .p-inputnumber,.p-inputtext {
+  .p-inputnumber,
+  .p-inputtext {
     width: 100% !important;
+  }
+
+  .p-multiselect {
+    width: 400px;
   }
 }
 

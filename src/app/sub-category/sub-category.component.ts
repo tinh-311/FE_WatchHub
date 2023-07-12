@@ -17,6 +17,7 @@ import { BrandsService } from '../brands.service';
 import { ProductAlbertService } from '../service/product-albert.service';
 import { ProductCoreService } from '../service/product-core.service';
 import { DIAL_COLOR, GENDER } from '../constant/util.constant';
+import { ProductGlassService } from '../service/product-glass.service';
 
 @Component({
   selector: 'app-sub-category',
@@ -40,6 +41,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   currentUser: any;
   brands: any;
   alberts: any;
+  glasses: any;
   cores: any;
   genders: string[] = Object.values(GENDER);
   colors: string[] = Object.values(DIAL_COLOR);
@@ -54,7 +56,8 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private brandService: BrandsService,
     private productAlbertService: ProductAlbertService,
-    private productCoreService: ProductCoreService
+    private productCoreService: ProductCoreService,
+    private productGlassService: ProductGlassService
   ) {
     this.isDataLoading = false;
     this.route.queryParams.subscribe(
@@ -102,6 +105,12 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.cartItems = this.cartService.getCartItems();
+
+    this.productGlassService.getAll().subscribe((glasses: any) => {
+      console.log('🏍️ ~ glasses: ', glasses);
+      this.glasses = glasses?.res;
+    });
+
     this.brandService.getAll().subscribe((brands: any) => {
       this.brands = brands.res;
       console.log('🏍️ ~ this.brands: ', this.brands);
@@ -109,13 +118,13 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
 
     this.productAlbertService.getAll().subscribe((alberts: any) => {
       this.alberts = alberts.res;
-      console.log('🏍️ ~ this.alberts: ', this.alberts)
-    })
+      console.log('🏍️ ~ this.alberts: ', this.alberts);
+    });
 
     this.productCoreService.getAll().subscribe((cores: any) => {
       this.cores = cores.res;
-      console.log('🏍️ ~ this.cores: ', this.cores)
-    })
+      console.log('🏍️ ~ this.cores: ', this.cores);
+    });
   }
 
   ngAfterViewInit() {}

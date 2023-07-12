@@ -21,7 +21,7 @@ export class OrderService {
     return this.http.post<any>(url, data, { headers });
   }
 
-  getById(id: any): Observable<any>{
+  getById(id: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
@@ -49,5 +49,30 @@ export class OrderService {
     let url = `${this.baseUrl}/Order/FilterByUserId${id}`;
 
     return this.http.get<any>(url, { headers });
+  }
+
+  getAllOrders(pageNumber?: number, pageSize?: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/Order/GetAll`;
+
+    if(isPaging) {
+      url = `${this.baseUrl}/Order/GetAll?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
+    return this.http.get<any>(url, { headers });
+  }
+
+  updateStatus(id: any, status: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Order/Update${id}?orderStatus=${status}`;
+
+    return this.http.put<any>(url, { headers });
   }
 }

@@ -96,6 +96,9 @@ import { SidebarModule } from 'primeng/sidebar';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { StepsModule } from 'primeng/steps';
 import { ChartModule } from 'primeng/chart';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ManageOrderComponent } from './admin/manage-order/manage-order.component';
+import { ManageOrderDetailComponent } from './modals/manage-order-detail/manage-order-detail.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +152,8 @@ import { ChartModule } from 'primeng/chart';
     ThankYouComponent,
     GameSnakeComponent,
     OrderDetailsComponent,
+    ManageOrderComponent,
+    ManageOrderDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -191,7 +196,8 @@ import { ChartModule } from 'primeng/chart';
     ConfirmDialogModule,
     SidebarModule,
     StepsModule,
-    ChartModule
+    ChartModule,
+    MultiSelectModule,
   ],
   providers: [MessageService, DialogService, ConfirmationService],
   bootstrap: [AppComponent],

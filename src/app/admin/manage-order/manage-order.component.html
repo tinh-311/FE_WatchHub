@@ -1,0 +1,52 @@
+<p-table
+  [value]="orders"
+  dataKey="id"
+  [loading]="isLoading"
+  [lazy]="true"
+  [rows]="rowsPerPage"
+  [globalFilterFields]="['id', 'brand_name  ', 'created_date', 'updated_date']"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Mã đơn hàng</th>
+      <th>Tên khách hàng</th>
+      <th>Trạng thái</th>
+      <th>Địa chỉ</th>
+      <th>Số điện thoại</th>
+      <th>Ngày tạo</th>
+      <th>Ngày chỉnh sửa</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr>
+      <td>{{ data?.id }}</td>
+      <td>{{ data?.user_id }}</td>
+      <td>{{ getOerderStatus(data?.order_status) }}</td>
+      <td>
+        {{ getAddress(data) }}
+      </td>
+      <td>
+        {{ data?.phone }}
+      </td>
+      <td>{{ data?.created_date | date }}</td>
+      <td>{{ data?.updated_date | date }}</td>
+      <td>
+        <p-button
+          (onClick)="manageOrder(data)"
+          class="mr-4"
+          icon="pi pi-list"
+          styleClass="p-button-rounded p-button-warning"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator
+  [rows]="rowsPerPage"
+  [totalRecords]="totalCount"
+  (onPageChange)="onPageChanged($event)"
+></p-paginator>
+<span class="d-flex justify-content-center text-secondary">
+  Tổng loại dây: {{ totalCount }}
+</span>

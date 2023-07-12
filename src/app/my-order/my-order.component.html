@@ -28,11 +28,12 @@
           <!-- <th>Trạng thái</th> -->
           <th>Thành tiền</th>
           <th>Thời gian đặt hàng</th>
+          <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-order>
-        <tr (click)="onClickOrder(order)" class="cursor-pointer">
-          <td>
+        <tr>
+          <td class="cursor-pointer" (click)="onClickOrder(order)">
             <p-image
               class="cursor-pointer"
               [src]="order?.product_image_uuid[0]"
@@ -41,10 +42,26 @@
             >
             </p-image>
           </td>
-          <td>{{ order?.id }}</td>
+          <td class="cursor-pointer" (click)="onClickOrder(order)">
+            {{ order?.id }}
+          </td>
           <!-- <td>{{ getStatusName(order.order_status) }}</td> -->
-          <td>{{ order.total_amount | currency : "VND" }}</td>
-          <td>{{ order.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+          <td class="cursor-pointer" (click)="onClickOrder(order)">
+            {{ order.total_amount | currency : "VND" }}
+          </td>
+          <td class="cursor-pointer" (click)="onClickOrder(order)">
+            {{ order.created_date | date : "dd/MM/YYYY HH:ss:mm" }}
+          </td>
+          <td>
+            <button
+              (click)="cancelOrder(order)"
+              pButton
+              pRipple
+              id="sc"
+              label="Hủy"
+              class="p-button-danger"
+            ></button>
+          </td>
         </tr>
       </ng-template>
     </p-table>

@@ -152,7 +152,9 @@ export class ShoppingCartComponent implements OnInit {
         this.paymentService.storeTransaction(dataPayment).subscribe(
           (store: any) => {
             console.log('🏍️ ~ store: ', store)
-            // this.router.navigate(['/thank-you']);
+            this.router.navigate(['/thank-you'], {
+              queryParams: { code: '00' },
+            });
           },
           (err) => {}
         );

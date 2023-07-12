@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
+import { SelectItemGroup } from 'primeng/api';
 import {
   DynamicDialogRef,
   DynamicDialogConfig,
@@ -108,6 +109,9 @@ export class EditProductTypesComponent implements OnInit {
     },
   ];
 
+  groupedCategories!: SelectItemGroup[];
+  selectedCategories: any;
+
   addNewForm: any = this.fb.group({
     price: [0, Validators.required],
     selectedBrand: ['', Validators.required],
@@ -124,6 +128,7 @@ export class EditProductTypesComponent implements OnInit {
     productFeatures: ['', Validators.required],
     productAdditionalInformation: ['', Validators.required],
     gender: [this.genderOptions[0], Validators.required],
+    subCategories: ['', Validators.required],
   });
 
   constructor(
@@ -140,7 +145,35 @@ export class EditProductTypesComponent implements OnInit {
     private toastService: ToastService,
     private categoriesService: CategoryService,
     private subCategoriesService: CategoryService
-  ) {}
+  ) {
+    this.categoriesService.getAll().subscribe(async (category: any) => {
+      this.groupedCategories = await category?.res?.map((data: any) => {
+        return {
+          label: data?.category_name,
+          value: data?.id,
+          items: data?.subCategories.map((s: any) => {
+            return {
+              label: s?.sub_category_name,
+              value: s?.id,
+            };
+          }),
+        };
+      });
+
+      console.log('🏍️ ~ this.groupedCategories: ', this.groupedCategories);
+
+      this.selectedCategories =
+        this.originalProductType?.productSubCategories.map(
+          (item: any) => item.sub_category_id
+        );
+
+      console.log('🏍️ ~ this.selectedCategories: ', this.selectedCategories);
+
+      this.addNewForm.patchValue({
+        subCategories: this.selectedCategories,
+      });
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
@@ -310,7 +343,7 @@ export class EditProductTypesComponent implements OnInit {
       product_image_uuid: this.imgURLS,
       price: formData?.price,
       brand_id: formData?.selectedBrand?.id,
-      sub_category_id: this.subCategoryId,
+      sub_category_ids: formData?.subCategories,
       product_albert_id: formData?.selectedAlbert?.id,
       product_core_id: formData?.selectedCore?.id,
       product_glass_id: formData?.selectedGlass?.id,
