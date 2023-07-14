@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { convertToDisPlayName } from 'src/app/constant/order-status.constant';
+import {
+  ORDER_STATUS,
+  convertToDisPlayName,
+} from 'src/app/constant/order-status.constant';
 import { OrderService } from 'src/app/service/order.service';
 import { ToastService } from 'src/service/toast.service';
 import { EditProductAlbertComponent } from '../modals/edit-product-albert/edit-product-albert.component';
 import { ManageOrderDetailComponent } from 'src/app/modals/manage-order-detail/manage-order-detail.component';
 import { UserService } from 'src/service/user.service';
+import { getKeyByValue } from 'src/app/constant/util.constant';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 
 @Component({
   selector: 'app-manage-order',
@@ -80,7 +85,7 @@ export class ManageOrderComponent implements OnInit {
   manageOrder(order: any) {
     console.log('🏍️ ~ order: ', order);
     const ref = this.dialogService.open(ManageOrderDetailComponent, {
-      header: 'Cập Nhật Dây',
+      header: `Quản lý đơn hàng - ${order?.id}`,
       width: '70%',
       dismissableMask: true,
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
@@ -92,5 +97,27 @@ export class ManageOrderComponent implements OnInit {
         this.getAllOrders();
       }
     });
+  }
+
+  cancelOrder(order: any) {
+    console.log('🏍️ ~ order: ', order);
+    this.orderService
+      .updateStatus(
+        order?.id,
+        getKeyByValue(ORDER_STATUS, ORDER_STATUS.CANCELLED)
+      )
+      .subscribe(
+        (orderRes: any) => {
+          console.log('🏍️ ~ orderRes: ', orderRes);
+          this.toastService.showMessage(
+            ToasSumary.Success,
+            orderRes?.message,
+            ToastType.Success
+          );
+
+          this.getAllOrders();
+        },
+        (err) => {}
+      );
   }
 }

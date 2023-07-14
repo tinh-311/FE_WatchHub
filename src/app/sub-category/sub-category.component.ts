@@ -18,6 +18,7 @@ import { ProductAlbertService } from '../service/product-albert.service';
 import { ProductCoreService } from '../service/product-core.service';
 import { DIAL_COLOR, GENDER } from '../constant/util.constant';
 import { ProductGlassService } from '../service/product-glass.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-sub-category',
@@ -124,19 +125,15 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.cartItems = this.cartService.getCartItems();
 
-    this.productGlassService.getAll().subscribe((glasses: any) => {
+    forkJoin([
+      this.productGlassService.getAll(),
+      this.brandService.getAll(),
+      this.productAlbertService.getAll(),
+      this.productCoreService.getAll()
+    ]).subscribe(([glasses, brands, alberts, cores]: [any, any, any, any]) => {
       this.glasses = glasses?.res;
-    });
-
-    this.brandService.getAll().subscribe((brands: any) => {
       this.brands = brands.res;
-    });
-
-    this.productAlbertService.getAll().subscribe((alberts: any) => {
       this.alberts = alberts.res;
-    });
-
-    this.productCoreService.getAll().subscribe((cores: any) => {
       this.cores = cores.res;
     });
   }
@@ -200,7 +197,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     this.productsService
       .filterBySubCategoryId(this.selectedSubCategory.id, this.currentPage, this.rowsPerPage, filters || {})
       .subscribe(
-        (data) => {
+        (data: any) => {
           this.products = data?.res;
           console.log('🏍️ ~ this.products: ', this.products)
           this.totalRecords = data?.totalCount;

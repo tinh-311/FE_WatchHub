@@ -4,7 +4,7 @@
   [loading]="isLoading"
   [lazy]="true"
   [rows]="rowsPerPage"
-  [globalFilterFields]="['id', 'brand_name  ', 'created_date', 'updated_date']"
+  [globalFilterFields]="['order_status']"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -32,12 +32,21 @@
       <td>{{ data?.created_date | date }}</td>
       <td>{{ data?.updated_date | date }}</td>
       <td>
-        <p-button
-          (onClick)="manageOrder(data)"
-          class="mr-4"
-          icon="pi pi-list"
-          styleClass="p-button-rounded p-button-warning"
-        ></p-button>
+        <div class="d-flex">
+          <p-button
+            (onClick)="manageOrder(data)"
+            class="mr-4"
+            icon="pi pi-list"
+            styleClass="p-button-rounded p-button-warning"
+          ></p-button>
+
+          <!-- <p-button
+            (onClick)="cancelOrder(data)"
+            class="mr-4"
+            icon="pi pi-trash"
+            styleClass="p-button-rounded p-button-danger"
+          ></p-button> -->
+        </div>
       </td>
     </tr>
   </ng-template>

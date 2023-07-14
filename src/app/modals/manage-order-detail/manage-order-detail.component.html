@@ -1,1 +1,38 @@
-<p>manage-order-detail works!</p>
+<!-- <div class="d-flex justify-content-center">
+  <h5>Mã: {{ orders?.id }}</h5>
+</div> -->
+<div class="d-flex justify-content-center">
+  <h5>
+    Trạn thái đơn hàng:
+    <strong>
+      {{ convertToDisPlayName(orders?.order_status) }}
+    </strong>
+  </h5>
+</div>
+
+<div class="">
+  <h6>Danh sách sản phẩm:</h6>
+  <ul *ngFor="let order of orderInfo" class="list-unstyled ml-3">
+    <li>
+      <div>
+        <p-image
+          class="cursor-pointer"
+          [src]="order?.product_image_uuid[0]"
+          (click)="openImage(order?.product_image_uuid[0])"
+          alt="Image"
+          width="50"
+        >
+        </p-image>
+
+        <span>
+          {{ order?.product_type_name }}
+        </span>
+      </div>
+      <div>Số lượng: {{ order?.quantity }}</div>
+    </li>
+    <hr />
+  </ul>
+  <div class="d-flex justify-content-center">
+    <p-button (onClick)="continue()" label="Tiếp tục" styleClass="p-button-secondary"></p-button>
+  </div>
+</div>

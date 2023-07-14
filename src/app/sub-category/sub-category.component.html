@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <section class="padding-y pt-0">
-  <form class="container">
+  <div class="container">
     <div class="row">
       <aside class="col-lg-3">
         <button
@@ -368,11 +368,6 @@
                     >
                       {{ product.product_type_name }}
                     </div>
-                    <p-rating
-                      [ngModel]="4"
-                      [readonly]="true"
-                      [cancel]="false"
-                    ></p-rating>
                   </div>
                   <div
                     class="d-flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
@@ -461,7 +456,7 @@
         <span> Tổng sản phẩm: {{ totalRecords }} </span>
       </main>
     </div>
-  </form>
+  </div>
 </section>
 
 <app-footer></app-footer>
