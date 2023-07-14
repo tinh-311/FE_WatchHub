@@ -290,7 +290,7 @@ export class EditProductTypesComponent implements OnInit {
       );
 
       this.addNewForm.patchValue({
-        selectedBrand: this.brands[0],
+        selectedBrand: this.selectedBrand,
       });
     });
   }

@@ -3,8 +3,8 @@ import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { convertToDisPlayName } from 'src/app/constant/order-status.constant';
 import { parseJSON } from 'src/app/constant/util.constant';
 import { ImgReviewComponent } from 'src/app/img-review/img-review.component';
-import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { OrderService } from 'src/app/service/order.service';
 
 @Component({
   selector: 'app-manage-order-detail',
@@ -14,10 +14,13 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 export class ManageOrderDetailComponent implements OnInit {
   orders: any;
   orderInfo: any;
+  orderDetailById: any;
 
   constructor(
     private config: DynamicDialogConfig,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private orderService: OrderService,
+
   ) {
     if (this.config.data) {
       this.orders = this.config.data?.order;
@@ -56,6 +59,20 @@ export class ManageOrderDetailComponent implements OnInit {
     });
     ref.onClose.subscribe((res) => {
       if (res) {
+        this.orderService
+        .getOrderDetailById(this.orders?.id)
+        .subscribe(
+          (data) => {
+            this.orderDetailById = data;
+            if(!this.orderDetailById || this.orderDetailById?.length){
+
+            }
+            console.log('🏍️ ~ this.orderDetailById: ', this.orderDetailById); 
+          },
+          (err) => {
+            console.log('🏍️ ~ err: ', err);
+          }
+        );
       }
     });
   }

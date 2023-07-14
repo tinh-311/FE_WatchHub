@@ -56,6 +56,18 @@ export enum GENDER {
   UNISEX = 'Unisex',
 }
 
+export function convertGender(value: string) {
+  if (value === 'Nam') {
+    return GENDER.MALE;
+  } else if (value === 'Nữ') {
+    return GENDER.FEMALE;
+  } else if (value === 'Cặp đôi') {
+    return GENDER.COUPLE;
+  } else if (value === 'Unisex') {
+    return GENDER.UNISEX;
+  }
+}
+
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, '0');
@@ -140,8 +152,7 @@ export const VNP_RESPONSE_CODE = [
   },
   {
     code: '-99',
-    message:
-      'Đặt hàng thành công',
+    message: 'Đặt hàng thành công',
   },
 ];
 
@@ -207,3 +218,28 @@ export function getColor(data: any) {
 
   return '';
 }
+
+export function formatName(name: string) {
+  return name?.length > 52 ? name?.slice(0, 52) + ' ...' : name;
+}
+
+export const PRICE_OPTIONS = [
+  { label: '0đ - 2.000.000đ', value: { min: 0, max: 2000000 } },
+  { label: '2.000.000đ - 4.000.000đ', value: { min: 2000000, max: 4000000 } },
+  { label: '4.000.000đ - 6.000.000đ', value: { min: 4000000, max: 6000000 } },
+  { label: '6.000.000đ - 8.000.000đ', value: { min: 6000000, max: 8000000 } },
+  { label: '8.000.000đ - 10.000.000đ', value: { min: 8000000, max: 10000000 } },
+  {
+    label: '10.000.000đ - 20.000.000đ',
+    value: { min: 10000000, max: 20000000 },
+  },
+  {
+    label: '20.000.000đ - 30.000.000đ',
+    value: { min: 20000000, max: 30000000 },
+  },
+  {
+    label: '30.000.000đ - 40.000.000đ',
+    value: { min: 30000000, max: 40000000 },
+  },
+  { label: '> 40.000.000đ', value: { min: 40000000, max: Infinity } },
+];

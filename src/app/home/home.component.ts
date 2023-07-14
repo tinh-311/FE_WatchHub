@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { CategoryService } from 'src/service/category.service';
 import { ProductsService } from 'src/service/products.service';
+import { formatName } from '../constant/util.constant';
 
 @Component({
   selector: 'app-home',
@@ -53,6 +54,6 @@ export class HomeComponent implements OnInit {
   }
 
   formatName(name: string) {
-    return name?.length > 52 ? name?.slice(0, 52) + ' ...' : name;
+    return formatName(name);
   }
 }

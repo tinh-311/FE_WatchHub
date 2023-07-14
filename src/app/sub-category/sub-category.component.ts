@@ -16,7 +16,12 @@ import jwt_decode from 'jwt-decode';
 import { BrandsService } from '../brands.service';
 import { ProductAlbertService } from '../service/product-albert.service';
 import { ProductCoreService } from '../service/product-core.service';
-import { DIAL_COLOR, GENDER } from '../constant/util.constant';
+import {
+  DIAL_COLOR,
+  GENDER,
+  PRICE_OPTIONS,
+  formatName,
+} from '../constant/util.constant';
 import { ProductGlassService } from '../service/product-glass.service';
 import { forkJoin } from 'rxjs';
 
@@ -47,6 +52,12 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   genders: string[] = Object.values(GENDER);
   colors: string[] = Object.values(DIAL_COLOR);
   selectedBrands: string[] = [];
+  selectedAlberts: string[] = [];
+  selectedCores: string[] = [];
+  selectedGlasses: string[] = [];
+  filters: any = {};
+  selectedPrice: any;
+  PRICE_OPTIONS: any = PRICE_OPTIONS;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,7 +70,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     private brandService: BrandsService,
     private productAlbertService: ProductAlbertService,
     private productCoreService: ProductCoreService,
-    private productGlassService: ProductGlassService,
+    private productGlassService: ProductGlassService
   ) {
     this.isDataLoading = false;
     this.route.queryParams.subscribe(
@@ -69,7 +80,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
         this.isShowCategories = true;
         if (categoryName === 'ALL') {
           this.isShowCategories = false;
-          this.getAllPT();
+          this.getAllPT(this.filters);
           return;
         }
         this.getAllSubCategories(categoryId);
@@ -101,12 +112,112 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       }
     }
 
-    console.log('🏍️ ~ this.selectedBrands: ', this.selectedBrands);
-    const filters = {
-      brands: this.selectedBrands
+    this.filters.brands = this.selectedBrands;
+    console.log('🏍️ ~ this.filters: ', this.filters);
+
+    if (this.isShowCategories) {
+      this.getProductTypes(this.filters);
+    } else {
+      this.getAllPT(this.filters);
     }
-    console.log('🏍️ ~ filters: ', filters)
-    this.getProductTypes(filters);
+  }
+
+  onCheckboxckAlbert(event: any, data: string) {
+    if (event.target.checked) {
+      this.selectedAlberts.push(data);
+    } else {
+      const index = this.selectedAlberts.indexOf(data);
+      if (index !== -1) {
+        this.selectedAlberts.splice(index, 1);
+      }
+    }
+
+    this.filters.alberts = this.selectedAlberts;
+    console.log('🏍️ ~ this.filters: ', this.filters);
+
+    if (this.isShowCategories) {
+      this.getProductTypes(this.filters);
+    } else {
+      this.getAllPT(this.filters);
+    }
+  }
+
+  onCheckboxckCore(event: any, data: string) {
+    if (event.target.checked) {
+      this.selectedCores.push(data);
+    } else {
+      const index = this.selectedCores.indexOf(data);
+      if (index !== -1) {
+        this.selectedCores.splice(index, 1);
+      }
+    }
+
+    this.filters.cores = this.selectedCores;
+    console.log('🏍️ ~ this.filters: ', this.filters);
+
+    if (this.isShowCategories) {
+      this.getProductTypes(this.filters);
+    } else {
+      this.getAllPT(this.filters);
+    }
+  }
+
+  onCheckboxckGlass(event: any, data: string) {
+    if (event.target.checked) {
+      this.selectedGlasses.push(data);
+    } else {
+      const index = this.selectedGlasses.indexOf(data);
+      if (index !== -1) {
+        this.selectedGlasses.splice(index, 1);
+      }
+    }
+
+    this.filters.glasses = this.selectedGlasses;
+    console.log('🏍️ ~ this.filters: ', this.filters);
+
+    if (this.isShowCategories) {
+      this.getProductTypes(this.filters);
+    } else {
+      this.getAllPT(this.filters);
+    }
+  }
+
+  onCheckboxckGender(event: any, data: string) {
+
+    // this.filters.glasses = this.selectedGlasses;
+    // console.log('🏍️ ~ this.filters: ', this.filters);
+
+    // if (this.isShowCategories) {
+    //   this.getProductTypes(this.filters);
+    // } else {
+    //   this.getAllPT(this.filters);
+    // }
+  }
+
+  onclickPrice(option: any) {
+    console.log('🏍️ ~ option: ', option);
+
+    if (this.selectedPrice) {
+      this.filters.minPrice = option?.value?.min;
+      this.filters.maxPrice = option?.value?.max;
+    } else {
+      delete this.filters.minPrice;
+      delete this.filters.maxPrice;
+    }
+
+    if (this.isShowCategories) {
+      this.getProductTypes(this.filters);
+    } else {
+      this.getAllPT(this.filters);
+    }
+  }
+
+  toggleRadioSelection(option: any) {
+    if (this.selectedPrice === option) {
+      this.selectedPrice = null;
+    } else {
+      this.selectedPrice = option;
+    }
   }
 
   getUserById(id: string): Promise<any> {
@@ -129,7 +240,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       this.productGlassService.getAll(),
       this.brandService.getAll(),
       this.productAlbertService.getAll(),
-      this.productCoreService.getAll()
+      this.productCoreService.getAll(),
     ]).subscribe(([glasses, brands, alberts, cores]: [any, any, any, any]) => {
       this.glasses = glasses?.res;
       this.brands = brands.res;
@@ -140,10 +251,10 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
-  getAllPT() {
+  getAllPT(filters?: any) {
     this.isDataLoading = true;
     this.productsService
-      .getAllProductTypes(this.currentPage, this.rowsPerPage)
+      .filter(this.currentPage, this.rowsPerPage, filters || {})
       .subscribe(
         (data) => {
           this.products = data?.res;
@@ -160,18 +271,19 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     this.currentPage = event.page + 1;
     this.rowsPerPage = event.rows;
     if (this.isShowCategories) {
-      this.getProductTypes();
+      this.getProductTypes(this.filters);
     } else {
-      this.getAllPT();
+      this.getAllPT(this.filters);
     }
   }
 
   onCliskSubCategory(subCategory: any) {
     this.selectedSubCategory = subCategory;
+    console.log('🏍️ ~ this.filters: ', this.filters);
     if (this.isShowCategories) {
-      this.getProductTypes();
+      this.getProductTypes(this.filters);
     } else {
-      this.getAllPT();
+      this.getAllPT(this.filters);
     }
   }
 
@@ -180,14 +292,14 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       (data) => {
         this.subCategories = data?.res;
         this.selectedSubCategory = this.subCategories[0];
-        this.getProductTypes();
+        this.getProductTypes(this.filters);
       },
       (err) => {}
     );
   }
 
   getProductTypes(filters?: any) {
-    console.log('🏍️ ~ filters: ', filters)
+    console.log('🏍️ ~ filters: ', filters);
     if (!this.selectedSubCategory) {
       this.products = [];
       return;
@@ -195,11 +307,16 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
 
     this.isDataLoading = true;
     this.productsService
-      .filterBySubCategoryId(this.selectedSubCategory.id, this.currentPage, this.rowsPerPage, filters || {})
+      .filterBySubCategoryId(
+        this.selectedSubCategory.id,
+        this.currentPage,
+        this.rowsPerPage,
+        filters || {}
+      )
       .subscribe(
         (data: any) => {
           this.products = data?.res;
-          console.log('🏍️ ~ this.products: ', this.products)
+          console.log('🏍️ ~ this.products: ', this.products);
           this.totalRecords = data?.totalCount;
           this.isDataLoading = false;
         },
@@ -257,5 +374,9 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   clearCart() {
     this.cartService.clearCart();
     this.cartItems = this.cartService.getCartItems();
+  }
+
+  formatName(name: string) {
+    return formatName(name);
   }
 }

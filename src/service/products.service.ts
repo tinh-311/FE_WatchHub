@@ -130,6 +130,7 @@ export class ProductsService {
     pageSize?: number,
     data?: any
   ) {
+    console.log('🏍️ ~ data: ', data);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
@@ -141,6 +142,26 @@ export class ProductsService {
       url = `${this.baseUrl}/ProductType/FilterBySubCategoryId${subCategoryId}?PageNumber=${pageNumber}&PageSize=${pageSize}`;
     }
 
-    return this.http.post<any>(url, data, {headers});
+    return this.http.post<any>(url, data, { headers });
+  }
+
+  filter(
+    pageNumber?: number,
+    pageSize?: number,
+    data?: any
+  ) {
+    console.log('🏍️ ~ data: ', data);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/ProductType/Filter`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/ProductType/Filter?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
+    return this.http.post<any>(url, data, { headers });
   }
 }
