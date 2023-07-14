@@ -66,6 +66,8 @@ export function convertGender(value: string) {
   } else if (value === 'Unisex') {
     return GENDER.UNISEX;
   }
+
+  return '';
 }
 
 export function formatDate(dateString: string): string {
