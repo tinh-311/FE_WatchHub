@@ -34,160 +34,43 @@
     </header>
 
     <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <span class="topbar">
-              <b class="badge bg-success"> Offer </b>
-            </span>
-            <img src="assets/images/items/12.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate">Blue T-shirt for Men</a>
-            <small class="text-muted">Sizes: S, M, XL</small>
-            <div class="price-wrap">
-              <span class="price">$15.90</span> <del class="price-old">$20</del>
+      <div *ngFor="let product of products" class="col-3 sm:col-3 lg:col-3 xl:col-3 p-2">
+        <div class="p-4 border-1 surface-border surface-card rounded">
+          <div class="d-flex flex-column align-items-center gap-3 py-5">
+            <img
+              class="w-100 shadow-2 rounded"
+              tooltipPosition="bottom"
+              id="user-avatar"
+              [src]="
+                product?.product_image_uuid
+                  ? product?.product_image_uuid[0]
+                  : ''
+              "
+            />
+            <div
+              class="text-lg font-bold cursor-pointer"
+            >
+              {{ formatName(product.product_type_name) }}
             </div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
+            <p-rating
+              [ngModel]="4"
+              [readonly]="true"
+              [cancel]="false"
+              class="text-warning"
+            ></p-rating>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-lg font-semibold">{{
+              product.price | currency : "VND"
+            }}</span>
+            <button
+              pButton
+              icon="pi pi-shopping-cart"
+              class="p-button-rounded text-sm"
+            ></button>
+          </div>
+        </div>
       </div>
-      <!-- col end.// -->
-
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <img src="assets/images/items/11.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate">Warm Winter Jacket</a>
-            <small class="text-muted">Sizes: S, M, XL</small>
-            <div class="price">$72.90</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
-      </div>
-      <!-- col end.// -->
-
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <img src="assets/images/items/10.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate">Mens T-shirt Cotton Base</a>
-            <small class="text-muted">Blue, White, Black</small>
-            <div class="price">$29.98</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
-      </div>
-      <!-- col end.// -->
-
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <img src="assets/images/items/9.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate">Men's Denim Shorts Jeans</a>
-            <small class="text-muted">Blue, White, Black</small>
-            <div class="price">$75.50</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
-      </div>
-      <!-- col end.// -->
-
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <img src="assets/images/items/5.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate"
-              >Apple Watch Series 1 Sport Case 38mm Black</a
-            >
-            <small class="text-muted">5GB, 10GB, 24GB</small>
-            <div class="price">$75.50</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
-      </div>
-      <!-- col end.// -->
-
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <img src="assets/images/items/6.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate"
-              >Gaming Headset 32db Blackbuilt in mic</a
-            >
-            <small class="text-muted">Black, Blue, Green</small>
-            <div class="price">$99.50</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
-      </div>
-      <!-- col end.// -->
-
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <img src="assets/images/items/7.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate"
-              >Gaming Headset 32db Blackbuilt in mic</a
-            >
-            <small class="text-muted">Sizes: S, M, XL</small>
-            <div class="price">$41.50</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
-      </div>
-      <!-- col end.// -->
-
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <figure class="card card-product-grid">
-          <a href="#" class="img-wrap">
-            <img src="assets/images/items/8.webp" />
-          </a>
-          <figcaption class="info-wrap border-top">
-            <a href="#" class="float-end btn btn-light btn-icon">
-              <i class="fa fa-heart"></i>
-            </a>
-            <a href="#" class="title text-truncate">Slim fit T-shirt for men</a>
-            <small class="text-muted">Sizes: S, M, XL</small>
-            <div class="price">$75.50</div>
-            <!-- price-wrap.// -->
-          </figcaption>
-        </figure>
-      </div>
-      <!-- col end.// -->
     </div>
     <!-- row end.// -->
   </div>

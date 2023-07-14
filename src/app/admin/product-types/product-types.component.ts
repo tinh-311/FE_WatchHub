@@ -61,7 +61,7 @@ export class ProductTypesComponent implements OnInit {
   onPageChanged(event: any) {
     this.currentPage = event.page + 1;
     this.rowsPerPage = event.rows;
-    this.getProductTypes();
+    this.getAllProductTypes();
   }
 
   onDropdownCategoryChange(event: any) {
@@ -209,7 +209,7 @@ export class ProductTypesComponent implements OnInit {
             if (res?.message) {
               this.currentPage = 1;
               this.isLoading = false;
-              this.getProductTypes();
+              this.getAllProductTypes();
               this.toastService.showMessage(
                 ToasSumary.Success,
                 res?.message,

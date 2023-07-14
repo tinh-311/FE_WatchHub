@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { CategoryService } from 'src/service/category.service';
+import { ProductsService } from 'src/service/products.service';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,10 @@ import { CategoryService } from 'src/service/category.service';
 export class HomeComponent implements OnInit {
   banners: any;
   responsiveOptions: any;
+  products: any;
+  yellowRatingClass = 'yellow-rating';
 
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private productService: ProductsService) {}
 
   ngOnInit() {
     this.banners = [
@@ -41,5 +43,16 @@ export class HomeComponent implements OnInit {
         numScroll: 1,
       },
     ];
+
+    this.productService.filterBySubCategoryId(14, 1, 8, {
+      gender: ['MALE', 'FEMALE']
+    }).subscribe((data: any) => {
+      console.log('🏍️ ~ data: ', data)
+      this.products = data?.res;
+    })
+  }
+
+  formatName(name: string) {
+    return name?.length > 52 ? name?.slice(0, 52) + ' ...' : name;
   }
 }

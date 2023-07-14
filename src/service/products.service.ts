@@ -125,11 +125,11 @@ export class ProductsService {
   }
 
   filterBySubCategoryId(
-    subCategoryId: any,
-    pageNumber: number,
-    pageSize: number,
-    data: any
-  ): Observable<any> {
+    subCategoryId?: any,
+    pageNumber?: number,
+    pageSize?: number,
+    data?: any
+  ) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
