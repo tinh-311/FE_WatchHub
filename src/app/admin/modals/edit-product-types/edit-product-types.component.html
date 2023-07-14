@@ -47,15 +47,16 @@
           <input
             pInputText
             id="productTypeCode"
+            [disabled]="true"
             formControlName="productTypeCode"
           />
-          <span
+          <!-- <span
             (click)="autoGenerateCode()"
             title="Tự động tạo mã"
             class="bg-success my-auto ml-4 rounded btn"
           >
             <i class="fas fa-random text-white p-1"></i>
-          </span>
+          </span> -->
         </div>
         <small
           class="mt-1"
