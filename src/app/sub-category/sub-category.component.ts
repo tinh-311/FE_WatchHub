@@ -240,6 +240,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       delete this.filters.maxPrice;
     }
 
+    console.log('🏍️ ~ this.filters: ', this.filters)
     if (this.isShowCategories) {
       this.getProductTypes(this.filters);
     } else {
