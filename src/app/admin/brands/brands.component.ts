@@ -35,7 +35,6 @@ export class BrandsComponent implements OnInit {
     this.brandsService.getAll(this.currentPage, this.rowsPerPage).subscribe(
       (data) => {
         this.brands = data?.res;
-        console.log('🏍️ ~ this.brands: ', this.brands);
         this.totalCount = data?.totalCount;
         this.isLoading = false;
       },

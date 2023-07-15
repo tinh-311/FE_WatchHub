@@ -178,8 +178,8 @@
         <td>
           {{ productType?.quantity }}
         </td>
-        <td>{{ productType?.created_date | date }}</td>
-        <td>{{ productType?.updated_date | date }}</td>
+        <td>{{ productType?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+        <td>{{ productType?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
         <td>
           <p-button
             (onClick)="editProductTypes(productType)"

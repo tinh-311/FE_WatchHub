@@ -20,7 +20,6 @@ export class BreadcrumbComponent implements OnInit {
     }
 
     this.breadcrumbService.items$.subscribe((item: any) => {
-      console.log('🏍️ ~ item: ', item)
       this.items = [item];
     })
 

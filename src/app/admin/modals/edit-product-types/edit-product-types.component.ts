@@ -160,14 +160,10 @@ export class EditProductTypesComponent implements OnInit {
         };
       });
 
-      console.log('🏍️ ~ this.groupedCategories: ', this.groupedCategories);
-
       this.selectedCategories =
         this.originalProductType?.productSubCategories.map(
           (item: any) => item.sub_category_id
         );
-
-      console.log('🏍️ ~ this.selectedCategories: ', this.selectedCategories);
 
       this.addNewForm.patchValue({
         subCategories: this.selectedCategories,
@@ -176,15 +172,14 @@ export class EditProductTypesComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.addNewForm.get('productTypeCode').disable();
     window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
       this.imgURLS = [];
       this.imgDirty = true;
       if (e.detail.ctx === 'edit-productType') {
         e.detail?.data.forEach((d: any) => {
           const uploadedUrl = d?.cdnUrl + e.detail?.data[0]?.name;
-          console.log('🏍️ ~ uploadedUrl: ', uploadedUrl);
           this.imgURLS.push(uploadedUrl);
-          console.log('🏍️ ~ this.imgURLS: ', this.imgURLS);
         });
       }
     });
@@ -192,7 +187,6 @@ export class EditProductTypesComponent implements OnInit {
     if (this.config.data) {
       const data = this.config.data;
       this.originalProductType = data?.productType;
-      console.log('🏍️ ~ this.originalProductType: ', this.originalProductType);
       this.imgURLS = this.originalProductType?.product_image_uuid;
       this.subCategoryId = this.originalProductType?.sub_category_id;
       this.addNewForm.patchValue({
@@ -262,7 +256,6 @@ export class EditProductTypesComponent implements OnInit {
 
   onDropdownGenderChange(event: any) {
     this.selectedGender = event?.value;
-    console.log('🏍️ ~ this.selectedGender: ', this.selectedGender);
   }
 
   onDropdownAlbertChange(event: any) {}
@@ -358,14 +351,12 @@ export class EditProductTypesComponent implements OnInit {
       product_type_code: formData?.productTypeCode,
       gender: formData?.gender?.val,
     };
-    console.log('🏍️ ~ p: ', p);
 
     if (!formData) {
       return;
     }
     this.productsService.updateProductType(p).subscribe(
       (res) => {
-        console.log('🏍️ ~ res: ', res);
         if (res?.message) {
           this.toastService.showMessage(
             ToasSumary.Success,
@@ -376,8 +367,6 @@ export class EditProductTypesComponent implements OnInit {
         }
       },
       (err) => {
-        console.log('🏍️ ~ err: ', err);
-
         if (err?.error?.message) {
           this.toastService.showMessage(
             ToasSumary.Error,

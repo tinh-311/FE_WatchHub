@@ -37,7 +37,6 @@ export class ProductGlassComponent implements OnInit {
     this.productGlassService.getAll(this.currentPage, this.rowsPerPage).subscribe(
       (data) => {
         this.productGlass = data?.res;
-        console.log('🏍️ ~ this.productGlass: ', this.productGlass)
         this.totalCount = data?.totalCount;
         this.isLoading = false;
       },

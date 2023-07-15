@@ -7,7 +7,12 @@
   [loading]="idLoading"
   [lazy]="true"
   [rows]="rowsPerPage"
-  [globalFilterFields]="['id', 'category_name  ', 'created_date', 'updated_date']"
+  [globalFilterFields]="[
+    'id',
+    'category_name  ',
+    'created_date',
+    'updated_date'
+  ]"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -47,20 +52,27 @@
         ></p-columnFilter>
       </th>
 
-      <th>
-        Action
-      </th>
+      <th>Action</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-category>
     <tr>
       <td>{{ category?.id }}</td>
       <td>{{ category?.category_name }}</td>
-      <td>{{ category?.created_date | date }}</td>
-      <td>{{ category?.updated_date | date }}</td>
+      <td>{{ category?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+      <td>{{ category?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
       <td>
-        <p-button (onClick)="editCategory(category)" class="mr-4" icon="pi pi-file-edit" styleClass="p-button-rounded p-button-warning"></p-button>
-        <p-button (onClick)="deleteCategory(category)" icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+        <p-button
+          (onClick)="editCategory(category)"
+          class="mr-4"
+          icon="pi pi-file-edit"
+          styleClass="p-button-rounded p-button-warning"
+        ></p-button>
+        <p-button
+          (onClick)="deleteCategory(category)"
+          icon="pi pi-times"
+          styleClass="p-button-rounded p-button-danger"
+        ></p-button>
       </td>
     </tr>
   </ng-template>
@@ -70,4 +82,6 @@
   [totalRecords]="totalCount"
   (onPageChange)="onPageChanged($event)"
 ></p-paginator>
-<span class="d-flex justify-content-center text-secondary"> Tổng danh mục: {{ totalCount }} </span>
+<span class="d-flex justify-content-center text-secondary">
+  Tổng danh mục: {{ totalCount }}
+</span>

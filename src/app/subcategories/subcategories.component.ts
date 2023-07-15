@@ -56,9 +56,7 @@ export class SubcategoriesComponent implements OnInit {
         this.rowsPerPage
       )
       .subscribe((data) => {
-        console.log('🏍️ ~ data: ', data);
         this.totalCount = data?.totalCount;
-        console.log('🏍️ ~ this.totalCount: ', this.totalCount);
         this.subCategories = data?.res;
         this.isLoading = false;
       });

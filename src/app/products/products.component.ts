@@ -46,7 +46,6 @@ export class ProductsComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.products = data?.res;
-          console.log('🏍️ ~ this.products: ', this.products);
           this.totalCount = data?.totalCount;
         },
         (err) => {}

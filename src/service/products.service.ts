@@ -62,7 +62,6 @@ export class ProductsService {
   updateProductType(data: any): Observable<any> {
     const url = `${this.baseUrl}/ProductType/Update${data?.id}`;
     return this.http.put<any>(url, data);
-    console.log('🏍️ ~ url: ', url);
   }
 
   deleteProductType(id: any): Observable<any> {
@@ -130,7 +129,6 @@ export class ProductsService {
     pageSize?: number,
     data?: any
   ) {
-    console.log('🏍️ ~ data: ', data);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
@@ -150,7 +148,6 @@ export class ProductsService {
     pageSize?: number,
     data?: any
   ) {
-    console.log('🏍️ ~ data: ', data);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });

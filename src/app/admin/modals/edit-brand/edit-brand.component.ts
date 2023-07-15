@@ -49,7 +49,6 @@ export class EditBrandComponent implements OnInit {
     if (!this.brandName) {
       return;
     }
-    console.log('🏍️ ~ this.logo: ', this.logo);
 
     this.brandsService
       .update(this.brandId, this.brandName, this.logo || '')

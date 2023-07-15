@@ -35,7 +35,6 @@ export class ProductAlbertsComponent implements OnInit {
     this.productAlbertService.getAll(this.currentPage, this.rowsPerPage).subscribe(
       (data) => {
         this.productAlberts = data?.res;
-        console.log('🏍️ ~ this.productAlberts: ', this.productAlberts)
         this.totalCount = data?.totalCount;
         this.isLoading = false;
       },

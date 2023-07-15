@@ -95,8 +95,6 @@ export class ShoppingCartComponent implements OnInit {
       this.cartItems = this.cartItems?.filter(
         (val, i) => i != draggedProductIndex
       );
-      console.log('🏍️ ~ this.cartItems: ', this.cartItems);
-      console.log('🏍️ ~ this.selectedProducts: ', this.selectedProducts);
 
       this.draggedProduct = null;
     }
@@ -145,13 +143,11 @@ export class ShoppingCartComponent implements OnInit {
       userID: this.currentUser?.id,
       orderID: orderID,
     };
-    console.log('🏍️ ~ dataPayment: ', dataPayment);
 
     switch (queryParams.vnp_ResponseCode) {
       case '00': {
         this.paymentService.storeTransaction(dataPayment).subscribe(
           (store: any) => {
-            console.log('🏍️ ~ store: ', store)
             this.router.navigate(['/thank-you'], {
               queryParams: { code: '00' },
             });
@@ -386,7 +382,6 @@ export class ShoppingCartComponent implements OnInit {
       product_image_uuid: this.selectedProducts[0]?.product_image_uuid,
       phone: this.phoneNumber?.value,
     };
-    console.log('🏍️ ~ data: ', data);
 
     switch (this.selectedPaymentMethod?.id) {
       case 3: {
@@ -420,7 +415,6 @@ export class ShoppingCartComponent implements OnInit {
           })
           .subscribe(
             (dataVNP: any) => {
-              console.log('🏍️ ~ dataVNP: ', dataVNP)
               // create order
               this.orderService.create(data).subscribe(
                 (orderRES: any) => {
@@ -440,7 +434,6 @@ export class ShoppingCartComponent implements OnInit {
               );
             },
             (err) => {
-              console.log('🏍️ ~ err: ', err)
             }
           );
         break;

@@ -42,7 +42,6 @@ export class ManageProductsComponent implements OnInit {
     this.productService
       .getAllProduct(this.currentPage, this.rowsPerPage)
       .subscribe((data: any) => {
-        console.log('🏍️ ~ data: ', data)
 
       });
   }
@@ -50,12 +49,7 @@ export class ManageProductsComponent implements OnInit {
   getProductTypes() {
     this.productService.getAllProductTypes().subscribe((data) => {
       this.productTypes = data.res;
-      console.log('🏍️ ~ this.productTypes: ', this.productTypes);
       this.selectedProductTypes = this.productTypes[0];
-      console.log(
-        '🏍️ ~ this.selectedProductTypes: ',
-        this.selectedProductTypes
-      );
     });
   }
 

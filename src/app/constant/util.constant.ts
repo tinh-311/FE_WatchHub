@@ -49,6 +49,59 @@ export enum DIAL_COLOR {
   GOLD = 'Vàng đồng',
 }
 
+export function convertDialColor(value: any) {
+  const colorValues = Object.values(DIAL_COLOR);
+  const colorKeys = Object.keys(DIAL_COLOR);
+
+  const index = colorValues.indexOf(value);
+  if (index !== -1) {
+    return colorKeys[index];
+  }
+
+  return '';
+}
+
+export function getDialColorValue(key: string) {
+  switch (key) {
+    case 'Đỏ':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.RED);
+    case 'Cam':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.ORANGE);
+    case 'Vàng':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.YELLOW);
+    case 'Xanh lá':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.GREEN);
+    case 'Xanh dương':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLUE);
+    case 'Indigo':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.INDIGO);
+    case 'Violet':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.VIOLET);
+    case 'Tím':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.PURPLE);
+    case 'Hồng':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.PINK);
+    case 'Nâu':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.BROWN);
+    case 'Xám':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.GRAY);
+    case 'Đen':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.BLACK);
+    case 'Trắng':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.WHITE);
+    case 'Cyan':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.CYAN);
+    case 'Magenta':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.MAGENTA);
+    case 'Bạc':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.SILVER);
+    case 'Vàng đồng':
+      return getKeyByValue(DIAL_COLOR, DIAL_COLOR.GOLD);
+    default:
+      return '';
+  }
+}
+
 export enum GENDER {
   MALE = 'Nam',
   FEMALE = 'Nữ',
@@ -58,15 +111,14 @@ export enum GENDER {
 
 export function convertGender(value: string) {
   if (value === 'Nam') {
-    return GENDER.MALE;
+    return getKeyByValue(GENDER, GENDER.MALE);
   } else if (value === 'Nữ') {
-    return GENDER.FEMALE;
+    return getKeyByValue(GENDER, GENDER.FEMALE);
   } else if (value === 'Cặp đôi') {
-    return GENDER.COUPLE;
+    return getKeyByValue(GENDER, GENDER.COUPLE);
   } else if (value === 'Unisex') {
-    return GENDER.UNISEX;
+    return getKeyByValue(GENDER, GENDER.UNISEX);
   }
-
   return '';
 }
 

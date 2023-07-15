@@ -70,7 +70,6 @@ export class AdminDasboardComponent implements OnInit {
 
   onClickNavItem(navItem: any) {
     this.curentNavItem = navItem?.name;
-    console.log('🏍️ ~ this.curentNavItem: ', this.curentNavItem);
     let url = '';
     switch (this.curentNavItem) {
       case SideNav.Dashboard: {
@@ -118,7 +117,6 @@ export class AdminDasboardComponent implements OnInit {
         break;
       }
     }
-    console.log('🏍️ ~ url: ', url)
 
     this.router.navigate([`/admin/${url}`]);
   }

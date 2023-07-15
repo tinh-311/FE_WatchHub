@@ -120,7 +120,6 @@ export class GameSnakeComponent implements OnInit {
     if (screenfull.isEnabled) {
       screenfull.toggle();
       this.isFullscreen = !screenfull.isFullscreen;
-      console.log('🏍️ ~ this.isFullscreen: ', this.isFullscreen);
     }
   }
 
@@ -163,7 +162,6 @@ export class GameSnakeComponent implements OnInit {
       screenfull.toggle();
       this.isFullscreen = !screenfull.isFullscreen;
       this.canvasHeight = 700;
-      console.log('🏍️ ~ this.isFullscreen: ', this.isFullscreen);
     }
     this.snake = [
       [6, 6],
@@ -222,7 +220,6 @@ export class GameSnakeComponent implements OnInit {
 
   endGame(isShowMess: boolean = true) {
     this.gameOver = true;
-    console.log('🏍️ ~ this.gameOver: ', this.gameOver);
     this.gameStarted = false;
     this.snake = [];
     this.food = [];

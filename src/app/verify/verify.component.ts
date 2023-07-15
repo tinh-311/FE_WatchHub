@@ -31,12 +31,10 @@ export class VerifyComponent {
       .verify(this.verifyForm.value?.email, this.verifyForm.value?.code)
       .subscribe(
         (res) => {
-          console.log('🏍️ ~ res: ', res);
           this.loadingService.hideLoading();
           this.router.navigate(['/login']);
         },
         (err) => {
-          console.log('🏍️ ~ err: ', err)
           this.toastService.showMessage(
             ToasSumary.Error,
             err?.error?.message,

@@ -26,7 +26,6 @@ export class OrderDetailsComponent implements OnInit {
     this.route.queryParams.subscribe(
       (params) => {
         const id: any = params['id'];
-        console.log('🏍️ ~ id: ', id);
         this.orderSrvice.getById(id).subscribe(
           (data: any) => {
             this.orderData = data;
@@ -52,9 +51,6 @@ export class OrderDetailsComponent implements OnInit {
             this.currentStep = this.items.findIndex(
               (item: any) => item.label === step
             );
-            console.log('🏍️ ~ this.currentStep: ', this.currentStep);
-
-            console.log('🏍️ ~ this.orderData: ', this.orderData);
           },
           (err) => {}
         );

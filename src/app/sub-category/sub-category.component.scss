@@ -12,3 +12,9 @@
   padding: 6px;
   border-radius: 0.25rem;
 }
+
+.custom-btn {
+  &:hover {
+    color: whitesmoke !important;
+  }
+}

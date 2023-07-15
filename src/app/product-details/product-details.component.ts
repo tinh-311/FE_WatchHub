@@ -28,7 +28,6 @@ export class ProductDetailsComponent {
       this.productService.getProductTypesById(id).subscribe((data: any) => {
         this.product = data;
         this.changeSelectedImg(this.product?.product_image_uuid[0]);
-        console.log('🏍️ ~ this.product: ', this.product);
       });
     });
 
@@ -39,10 +38,8 @@ export class ProductDetailsComponent {
       this.getUserById(this.currentUser?.id)
         .then((data: any) => {
           this.currentUser = data;
-          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
         })
         .catch((error: any) => {
-          console.error('🔥 ~ error:', error);
         });
     }
   }
@@ -82,7 +79,6 @@ export class ProductDetailsComponent {
 
   changeSelectedImg(imgUrl: string) {
     this.imgUrl = imgUrl;
-    console.log('🏍️ ~ this.imgUrl: ', this.imgUrl);
   }
 
   addToCart() {

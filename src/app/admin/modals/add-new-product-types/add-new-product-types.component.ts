@@ -146,7 +146,6 @@ export class AddNewProductTypesComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.categoriesService.getAll().subscribe((category: any) => {
-      console.log('🏍️ ~ category: ', category);
       this.groupedCategories = category?.res?.map((data: any) => {
         return {
           label: data?.category_name,
@@ -159,7 +158,6 @@ export class AddNewProductTypesComponent implements OnInit {
           }),
         };
       });
-      console.log('🏍️ ~ this.groupedCategories: ', this.groupedCategories);
     });
   }
 
@@ -173,7 +171,6 @@ export class AddNewProductTypesComponent implements OnInit {
           this.imgURLS.push(uploadedUrl);
         });
       }
-      console.log('🏍️ ~ this.imgURLS: ', this.imgURLS);
     });
 
     if (this.config.data) {
@@ -267,7 +264,6 @@ export class AddNewProductTypesComponent implements OnInit {
 
   create() {
     const formData = this.addNewForm.getRawValue();
-    console.log('🏍️ ~ formData: ', formData?.subCategories);
     let p = {
       product_type_name:
         formData?.selectedBrand?.brand_name +
@@ -305,14 +301,12 @@ export class AddNewProductTypesComponent implements OnInit {
       product_type_code: formData?.productTypeCode,
       gender: formData?.gender?.val,
     };
-    console.log('🏍️ ~ p: ', p);
 
     if (!formData) {
       return;
     }
     this.productsService.createProductType(p).subscribe(
       (res) => {
-        console.log('🏍️ ~ res: ', res);
         if (res?.message) {
           this.toastService.showMessage(
             ToasSumary.Success,
@@ -323,7 +317,6 @@ export class AddNewProductTypesComponent implements OnInit {
         }
       },
       (err) => {
-        console.log('🏍️ ~ err: ', err);
 
         if (err?.error?.message) {
           this.toastService.showMessage(

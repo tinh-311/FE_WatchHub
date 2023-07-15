@@ -34,7 +34,6 @@ export class AddNewBrandComponent implements OnInit, AfterViewInit {
   ) {}
   ngOnInit(): void {
     window.addEventListener('LR_DATA_OUTPUT', (e: any) => {
-      console.log('🏍️ ~ e: ', e);
       if (e.detail.ctx === 'new-brand') {
         const uploadedUrl = e.detail?.data[0]?.cdnUrl + e.detail?.data[0]?.name;
         this.logo = uploadedUrl;

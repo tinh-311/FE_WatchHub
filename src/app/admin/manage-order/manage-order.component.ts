@@ -42,7 +42,6 @@ export class ManageOrderComponent implements OnInit {
       .subscribe(
         (data) => {
           this.orders = data?.res;
-          console.log('🏍️ ~ this.orders: ', this.orders);
           this.totalCount = data?.totalCount;
           this.isLoading = false;
         },
@@ -76,14 +75,11 @@ export class ManageOrderComponent implements OnInit {
 
   async getUserById(id: any) {
     await this.userService.getUserByID(id).subscribe((user: any) => {
-      console.log('🏍️ ~ user: ', user);
-
       return '';
     });
   }
 
   manageOrder(order: any) {
-    console.log('🏍️ ~ order: ', order);
     const ref = this.dialogService.open(ManageOrderDetailComponent, {
       header: `Quản lý đơn hàng - ${order?.id}`,
       width: '70%',
@@ -100,7 +96,6 @@ export class ManageOrderComponent implements OnInit {
   }
 
   cancelOrder(order: any) {
-    console.log('🏍️ ~ order: ', order);
     this.orderService
       .updateStatus(
         order?.id,
@@ -108,7 +103,6 @@ export class ManageOrderComponent implements OnInit {
       )
       .subscribe(
         (orderRes: any) => {
-          console.log('🏍️ ~ orderRes: ', orderRes);
           this.toastService.showMessage(
             ToasSumary.Success,
             orderRes?.message,

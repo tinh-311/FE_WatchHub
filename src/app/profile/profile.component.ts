@@ -98,7 +98,6 @@ export class ProfileComponent implements OnInit {
             totalOrder: [0, [Validators.required]],
           });
           this.infoForm.get('email').disable();
-          console.log('🏍️ ~ this.addresses: ', this.addresses);
         })
         .catch((error: any) => {
           console.error('🔥 ~ error:', error);
@@ -125,7 +124,6 @@ export class ProfileComponent implements OnInit {
         this.loadingService.showLoading();
         this.uploadedUrl = e.detail?.data[0]?.cdnUrl + e.detail?.data[0]?.name;
         this.currentUser.avatar = this.uploadedUrl;
-        console.log('🏍️ ~ this.currentUser: ', this.currentUser);
         let userUpdate = {
           id: this.currentUser?.id,
           username: this.currentUser?.username || '',
@@ -134,11 +132,9 @@ export class ProfileComponent implements OnInit {
           userAddresses: JSON.parse(this.currentUser?.addresses) || [],
           avatar: this.currentUser?.avatar || '',
         };
-        console.log('🏍️ ~ userUpdate: ', userUpdate);
 
         this.userService.updateUser({ ...userUpdate }).subscribe(
           (res) => {
-            console.log('🏍️ ~ res: ', res);
             localStorage.setItem('token', res?.token);
             this.loadingService.hideLoading();
             this.toastService.showMessage(
@@ -207,7 +203,6 @@ export class ProfileComponent implements OnInit {
         })
       ) {
         this.addresses.unshift(data);
-        console.log('🏍️ ~ this.addresses: ', this.addresses);
       } else {
         this.toastService.showMessage(
           ToasSumary.Warn,

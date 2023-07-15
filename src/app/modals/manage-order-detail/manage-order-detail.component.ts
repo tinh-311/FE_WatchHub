@@ -25,8 +25,6 @@ export class ManageOrderDetailComponent implements OnInit {
     if (this.config.data) {
       this.orders = this.config.data?.order;
       this.orderInfo = parseJSON(this.orders?.order_info);
-      console.log('🏍️ ~ this.orderInfo : ', this.orderInfo);
-      console.log('🏍️ ~ this.order: ', this.orders);
     }
   }
 
@@ -67,10 +65,8 @@ export class ManageOrderDetailComponent implements OnInit {
             if(!this.orderDetailById || this.orderDetailById?.length){
 
             }
-            console.log('🏍️ ~ this.orderDetailById: ', this.orderDetailById); 
           },
           (err) => {
-            console.log('🏍️ ~ err: ', err);
           }
         );
       }
