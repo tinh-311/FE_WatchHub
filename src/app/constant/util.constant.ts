@@ -295,5 +295,5 @@ export const PRICE_OPTIONS = [
     label: '30.000.000đ - 40.000.000đ',
     value: { min: 30000000, max: 40000000 },
   },
-  { label: '> 40.000.000đ', value: { min: 40000000, max: Infinity } },
+  { label: '> 40.000.000đ', value: { min: 40000000, max: 1000000000 } },
 ];
