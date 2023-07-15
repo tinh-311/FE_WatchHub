@@ -53,7 +53,6 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         });
         this.orders = data?.res;
         this.orders = this.orders.reverse();
-        console.log('🏍️ ~ this.orders: ', this.orders);
         // if (this.orders?.length) {
         //   this.orderInfo = parseJSON(this.orders[1]?.order_info);
         // }
@@ -69,7 +68,6 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   }
 
   cancelOrder(order: any) {
-    console.log('🏍️ ~ order: ', order);
     this.orderService
       .updateStatus(
         order?.id,
@@ -77,7 +75,6 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
       )
       .subscribe(
         (orderRes: any) => {
-          console.log('🏍️ ~ orderRes: ', orderRes);
           this.toastService.showMessage(
             ToasSumary.Success,
             orderRes?.message,

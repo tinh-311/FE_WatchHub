@@ -11,9 +11,7 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>
-        ID
-      </th>
+      <th>ID</th>
       <th pSortableColumn="core_name">
         Loại máy
         <p-sortIcon field="core_name"></p-sortIcon>
@@ -44,8 +42,8 @@
     <tr>
       <td>{{ data?.id }}</td>
       <td>{{ data?.core_name }}</td>
-      <td>{{ data?.created_date | date }}</td>
-      <td>{{ data?.updated_date | date }}</td>
+      <td>{{ data?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+      <td>{{ data?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
       <td>
         <p-button
           (onClick)="edit(data)"
@@ -67,4 +65,6 @@
   [totalRecords]="totalCount"
   (onPageChange)="onPageChanged($event)"
 ></p-paginator>
-<span class="d-flex justify-content-center text-secondary"> Tổng loại máy: {{ totalCount }} </span>
+<span class="d-flex justify-content-center text-secondary">
+  Tổng loại máy: {{ totalCount }}
+</span>

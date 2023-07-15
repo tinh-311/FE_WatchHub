@@ -28,7 +28,6 @@ export class UserGuard implements CanActivate {
     const token = localStorage.getItem('token');
     if (token) {
       const user: any = jwt_decode(token);
-      console.log('🏍️ ~ user: ', user);
       return user?.is_admin === 'False';
     }
 

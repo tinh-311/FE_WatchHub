@@ -20,7 +20,9 @@ import {
   DIAL_COLOR,
   GENDER,
   PRICE_OPTIONS,
+  convertGender,
   formatName,
+  getDialColorValue,
 } from '../constant/util.constant';
 import { ProductGlassService } from '../service/product-glass.service';
 import { forkJoin } from 'rxjs';
@@ -55,9 +57,12 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   selectedAlberts: string[] = [];
   selectedCores: string[] = [];
   selectedGlasses: string[] = [];
+  selectedGenders: string[] = [];
+  selectedColors: string[] = [];
   filters: any = {};
   selectedPrice: any;
   PRICE_OPTIONS: any = PRICE_OPTIONS;
+  isCollapsed: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -102,6 +107,10 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     }
   }
 
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
   onCheckboxChange(event: any, brandName: string) {
     if (event.target.checked) {
       this.selectedBrands.push(brandName);
@@ -113,7 +122,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     }
 
     this.filters.brands = this.selectedBrands;
-    console.log('🏍️ ~ this.filters: ', this.filters);
 
     if (this.isShowCategories) {
       this.getProductTypes(this.filters);
@@ -133,7 +141,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     }
 
     this.filters.alberts = this.selectedAlberts;
-    console.log('🏍️ ~ this.filters: ', this.filters);
 
     if (this.isShowCategories) {
       this.getProductTypes(this.filters);
@@ -153,7 +160,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     }
 
     this.filters.cores = this.selectedCores;
-    console.log('🏍️ ~ this.filters: ', this.filters);
 
     if (this.isShowCategories) {
       this.getProductTypes(this.filters);
@@ -173,7 +179,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     }
 
     this.filters.glasses = this.selectedGlasses;
-    console.log('🏍️ ~ this.filters: ', this.filters);
 
     if (this.isShowCategories) {
       this.getProductTypes(this.filters);
@@ -182,21 +187,51 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onCheckboxckGender(event: any, data: string) {
+  onCheckboxckGender(event: any, data: any) {
+    data = convertGender(data);
+    if (event.target.checked) {
+      this.selectedGenders.push(data);
+    } else {
+      const index = this.selectedGenders.indexOf(data);
+      if (index !== -1) {
+        this.selectedGenders.splice(index, 1);
+      }
+    }
+    this.filters.genders = this.selectedGenders;
+    if (this.isShowCategories) {
+      this.getProductTypes(this.filters);
+    } else {
+      this.getAllPT(this.filters);
+    }
+  }
 
-    // this.filters.glasses = this.selectedGlasses;
-    // console.log('🏍️ ~ this.filters: ', this.filters);
+  onCheckboxckColors(event: any, data: any) {
+    data = getDialColorValue(data);
+    if (event.target.checked) {
+      this.selectedColors.push(data);
+    } else {
+      const index = this.selectedColors.indexOf(data);
+      if (index !== -1) {
+        this.selectedColors.splice(index, 1);
+      }
+    }
+    this.filters.dialColors = this.selectedColors;
+    if (this.isShowCategories) {
+      this.getProductTypes(this.filters);
+    } else {
+      this.getAllPT(this.filters);
+    }
+  }
 
-    // if (this.isShowCategories) {
-    //   this.getProductTypes(this.filters);
-    // } else {
-    //   this.getAllPT(this.filters);
-    // }
+  getDialColorValue(color: any) {
+    return getDialColorValue(color);
+  }
+
+  convertGender(gender: any) {
+    return convertGender(gender);
   }
 
   onclickPrice(option: any) {
-    console.log('🏍️ ~ option: ', option);
-
     if (this.selectedPrice) {
       this.filters.minPrice = option?.value?.min;
       this.filters.maxPrice = option?.value?.max;
@@ -279,7 +314,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
 
   onCliskSubCategory(subCategory: any) {
     this.selectedSubCategory = subCategory;
-    console.log('🏍️ ~ this.filters: ', this.filters);
     if (this.isShowCategories) {
       this.getProductTypes(this.filters);
     } else {
@@ -299,7 +333,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   }
 
   getProductTypes(filters?: any) {
-    console.log('🏍️ ~ filters: ', filters);
     if (!this.selectedSubCategory) {
       this.products = [];
       return;
@@ -316,7 +349,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       .subscribe(
         (data: any) => {
           this.products = data?.res;
-          console.log('🏍️ ~ this.products: ', this.products);
           this.totalRecords = data?.totalCount;
           this.isDataLoading = false;
         },

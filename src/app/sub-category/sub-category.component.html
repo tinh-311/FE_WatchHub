@@ -12,6 +12,16 @@
           Show filter
         </button>
 
+        <button
+          class="btn btn-outline-secondary mb-3 w-100 text-secondary custom-btn d-none d-lg-block"
+          [ngClass]="{ 'btn-secondary text-white': !isCollapsed }"
+          (click)="toggleCollapse()"
+        >
+          <span>
+            {{ !isCollapsed ? "Hiển thị tất cả" : "Ẩn tất cả" }}
+          </span>
+        </button>
+
         <div id="aside_filter" class="collapse card d-lg-block mb-5">
           <article *ngIf="isShowCategories" class="filter-group">
             <header class="card-header">
@@ -25,7 +35,11 @@
                 <strong> Danh mục </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside1">
+            <div
+              class="collapse"
+              id="collapse_aside1"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <ul class="list-menu">
                   <li *ngFor="let subCategory of subCategories">
@@ -56,7 +70,11 @@
                 <strong> Thương Hiệu </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside_brands">
+            <div
+              class="collapse"
+              id="collapse_aside_brands"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <label *ngFor="let brand of brands" class="form-check mb-2">
                   <input
@@ -92,7 +110,11 @@
                 <strong> Lọc theo giá </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside2">
+            <div
+              class="collapse"
+              id="collapse_aside2"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <label
                   class="form-check mb-2"
@@ -127,7 +149,11 @@
                 <strong> Lọc theo loại dây </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside_alberts">
+            <div
+              class="collapse"
+              id="collapse_aside_alberts"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <label *ngFor="let albert of alberts" class="form-check mb-2">
                   <input
@@ -157,7 +183,11 @@
                 <strong> Lọc theo loại máy </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside_cores">
+            <div
+              class="collapse"
+              id="collapse_aside_cores"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <label *ngFor="let core of cores" class="form-check mb-2">
                   <input
@@ -187,7 +217,11 @@
                 <strong> Lọc theo loại kính </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside_glass">
+            <div
+              class="collapse"
+              id="collapse_aside_glass"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <label *ngFor="let glass of glasses" class="form-check mb-2">
                   <input
@@ -217,10 +251,19 @@
                 <strong> Lọc theo giới tính </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside_gender">
+            <div
+              class="collapse"
+              id="collapse_aside_gender"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <label class="form-check mb-2" *ngFor="let gender of genders">
-                  <input (change)="onCheckboxckGender($event, gender)" class="form-check-input" type="checkbox" value="" />
+                  <input
+                    (change)="onCheckboxckGender($event, gender)"
+                    class="form-check-input"
+                    type="checkbox"
+                    [value]="gender"
+                  />
                   <span class="form-check-label">
                     {{ gender }}
                   </span>
@@ -242,10 +285,19 @@
                 <strong> Lọc theo màu sắc </strong>
               </a>
             </header>
-            <div class="collapse show" id="collapse_aside_colors">
+            <div
+              class="collapse"
+              id="collapse_aside_colors"
+              [ngClass]="{ show: isCollapsed }"
+            >
               <div class="card-body">
                 <label class="form-check mb-2" *ngFor="let color of colors">
-                  <input class="form-check-input" type="checkbox" value="" />
+                  <input
+                    (change)="onCheckboxckColors($event, color)"
+                    class="form-check-input"
+                    type="checkbox"
+                    [value]="color"
+                  />
                   <span class="form-check-label">
                     {{ color }}
                   </span>

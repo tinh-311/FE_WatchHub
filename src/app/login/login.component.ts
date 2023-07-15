@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       const currentUser = jwt_decode(token);
-      console.log('🏍️ ~ currentUser: ', currentUser)
       if (currentUser) {
         this.router.navigate(['']);
       }
@@ -75,7 +74,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
       },
       (err) => {
-        console.log('🏍️ ~ err: ', err)
         this.toastService.showMessage(
           ToasSumary.Error,
           err?.error?.message,

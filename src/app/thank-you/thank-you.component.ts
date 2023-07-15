@@ -15,7 +15,6 @@ export class ThankYouComponent implements OnInit {
       (params) => {
         const code: any = params['code'];
         this.code = code;
-        console.log('🏍️ ~ this.code: ', this.code);
       },
       (err) => {}
     );

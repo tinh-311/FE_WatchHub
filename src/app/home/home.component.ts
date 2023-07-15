@@ -48,7 +48,6 @@ export class HomeComponent implements OnInit {
     this.productService.filterBySubCategoryId(14, 1, 8, {
       gender: ['MALE', 'FEMALE']
     }).subscribe((data: any) => {
-      console.log('🏍️ ~ data: ', data)
       this.products = data?.res;
     })
   }

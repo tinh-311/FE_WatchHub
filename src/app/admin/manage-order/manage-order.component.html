@@ -29,8 +29,8 @@
       <td>
         {{ data?.phone }}
       </td>
-      <td>{{ data?.created_date | date }}</td>
-      <td>{{ data?.updated_date | date }}</td>
+      <td>{{ data?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+      <td>{{ data?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
       <td>
         <div class="d-flex">
           <p-button

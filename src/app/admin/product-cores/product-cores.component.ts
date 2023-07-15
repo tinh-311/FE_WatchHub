@@ -35,7 +35,6 @@ export class ProductCoresComponent {
     this.productCoreService.getAll(this.currentPage, this.rowsPerPage).subscribe(
       (data) => {
         this.productCores = data?.res;
-        console.log('🏍️ ~ this.productCores: ', this.productCores)
         this.totalCount = data?.totalCount;
         this.isLoading = false;
       },

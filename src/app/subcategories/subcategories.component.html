@@ -75,8 +75,8 @@
     <tr>
       <td>{{ subcategory?.id }}</td>
       <td>{{ subcategory?.sub_category_name }}</td>
-      <td>{{ subcategory?.created_date | date }}</td>
-      <td>{{ subcategory?.updated_date | date }}</td>
+      <td>{{ subcategory?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+      <td>{{ subcategory?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
       <td>
         <p-button
           (onClick)="editSubCategory(subcategory)"
@@ -98,4 +98,6 @@
   [totalRecords]="totalCount"
   (onPageChange)="onPageChanged($event)"
 ></p-paginator>
-<span class="d-flex justify-content-center text-secondary"> Tổng danh mục con: {{ totalCount }} </span>
+<span class="d-flex justify-content-center text-secondary">
+  Tổng danh mục con: {{ totalCount }}
+</span>

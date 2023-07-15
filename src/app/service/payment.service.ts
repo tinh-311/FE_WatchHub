@@ -22,7 +22,6 @@ export class PaymentService {
     });
 
     const url = `${this.baseUrl}/payment/create_payment`;
-    console.log('🏍️ ~ url: ', url)
     return this.http.post<any>(url, {...data}, { headers });
   }
 

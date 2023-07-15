@@ -112,6 +112,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.categoryService.getAll().subscribe(
       (data: any) => {
         this.categories = data?.res || [];
+        this.categories = this.categories?.reverse();
       },
       (err) => {
       }

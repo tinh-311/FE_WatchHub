@@ -71,7 +71,6 @@ export class ProductTypesComponent implements OnInit {
 
   onDropdownSubCategoryChange(event: any) {
     this.selectedSubCategory = event?.value;
-    console.log('🏍️ ~ this.selectedSubCategory: ', this.selectedSubCategory);
     this.getProductTypes();
   }
 
@@ -96,7 +95,6 @@ export class ProductTypesComponent implements OnInit {
       .getAllProduct(this.currentPage, this.rowsPerPage)
       .subscribe((p: any) => {
         this.productTypes = p?.res;
-        console.log('🏍️ ~ this.productTypes: ', this.productTypes);
       });
   }
 
@@ -131,7 +129,6 @@ export class ProductTypesComponent implements OnInit {
             ? this.subCategories[0]
             : this.selectedSubCategory;
           this.productTypes = data?.res;
-          console.log('🏍️ ~ this.productTypes: ', this.productTypes);
           this.totalCount = data?.totalCount;
           this.isLoading = false;
         },
@@ -155,7 +152,6 @@ export class ProductTypesComponent implements OnInit {
             ? this.subCategories[0]
             : this.selectedSubCategory;
           this.productTypes = data?.res;
-          console.log('🏍️ ~ this.productTypes: ', this.productTypes);
           this.totalCount = data?.totalCount;
           this.isLoading = false;
         },
@@ -187,7 +183,6 @@ export class ProductTypesComponent implements OnInit {
   }
 
   deleteProductTypes(data: any) {
-    console.log('🏍️ ~ data: ', data);
     const ref = this.dialogService.open(ConfirmationComponent, {
       header: `Xác nhận xóa loại sản phẩm ${data?.product_type_name}`,
       width: '70%',
@@ -288,9 +283,7 @@ export class ProductTypesComponent implements OnInit {
       },
     });
     ref.onClose.subscribe((data) => {
-      if (data) {
-        this.getProductTypes();
-      }
+      this.getProductTypes();
     });
   }
 }

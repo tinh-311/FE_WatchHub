@@ -35,8 +35,8 @@
       <tr>
         <td>{{ product?.id }}</td>
         <td>{{ product?.product_code }}</td>
-        <td>{{ product?.created_date | date }}</td>
-        <td>{{ product?.updated_date | date }}</td>
+        <td>{{ product?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+        <td>{{ product?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
         <td>
           <p-button
             (onClick)="deleteProduct(product)"
