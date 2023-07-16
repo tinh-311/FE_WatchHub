@@ -5,7 +5,7 @@
   <h5>
     Trạn thái đơn hàng:
     <strong>
-      {{ convertToDisPlayName(orders?.order_status) }}
+      {{ convertToDisPlayName(order?.order_status) }}
     </strong>
   </h5>
 </div>
@@ -29,18 +29,35 @@
         </span>
       </div>
       <div>Số lượng: {{ order?.quantity }}</div>
-      <ul>
-        <li>
-          XNHJSHUHSCCSHU
-        </li>
-        <li>
-          XNHJSHUHSCCSHU
-        </li>
+      <ul *ngFor="let orderDetail of orderDetailById">
+        <li>Mã sản phẩm: {{ orderDetail?.product_code }}</li>
       </ul>
+      <div class="d-flex justify-content-center w-100">
+        <p-progressSpinner
+          *ngIf="isLoading"
+          class="small-spinner"
+          strokeWidth="2"
+          fill="var(--surface-ground)"
+          animationDuration=".5s"
+        ></p-progressSpinner>
+      </div>
+      <hr />
     </li>
-    <hr />
   </ul>
+
   <div class="d-flex justify-content-center">
-    <p-button (onClick)="continue()" label="Tiếp tục" styleClass="p-button-secondary"></p-button>
+    <p-button
+      *ngIf="isHiddenBtn()"
+      (onClick)="continue()"
+      [label]= "btnMessage"
+      styleClass="p-button-secondary"
+    ></p-button>
+    <p-button
+      *ngIf="isHiddenBtn()"
+      (onClick)="cancelOrder()"
+      label= "Huỷ"
+      styleClass="ml-3 p-button-danger"
+    ></p-button>
   </div>
+  
 </div>
