@@ -47,45 +47,19 @@ export class ManageOrderDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.orderService.getOrderDetailById(this.order?.id).subscribe(
-      (data) => {
-        if (!data || data.length == 0) {
-          // inventory checking fail
-          this.toastService.showMessage(
-            ToasSumary.Error,
-            'Số lượng hàng tồn kho không đủ, hãy nhập thêm!!!',
-            ToastType.Error
-          );
-          this.orderService
-            .updateStatus(
-              this.order?.id,
-              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
-            )
-            .subscribe(
-              (res) => {
-                this.ref.close(true);
-              },
-              (err) => {
-              }
-            );
-        } else {
-          // inventory checking successful
-          this.orderDetailById = data;
-          console.log('orderDetailById: ', this.orderDetailById);
-        }
-        this.isLoading = false;
-      },
-      (err) => {
-        console.log('🏍️ ~ err: ', err);
-        this.toastService.showMessage(
-          ToasSumary.Error,
-          err?.message,
-          ToastType.Error
-        );
-        this.isLoading = false;
+    switch (this.order?.order_status) {
+      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION): {
+        // this.btnMessage = ORDER_STATUS.AWAITING_SHIPMENT;
+        break;
       }
-    );
+      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+        break;
+      }
+      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
+        this.btnMessage = ORDER_STATUS.AWAITING_COLLECTION;
+        break;
+      }
+    }
   }
 
   openImage(imageUrl: string) {
@@ -111,23 +85,85 @@ export class ManageOrderDetailComponent implements OnInit {
     });
     ref.onClose.subscribe((res) => {
       if (res) {
-        console.log('YES)');
-        this.orderService
-          .updateStatus(
-            this.order?.id,
-            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
-          )
-          .subscribe(
-            (res) => {
-              console.log('res: ', res);
-              this.btnMessage = 'Đang giao hàng';
-              this.ref.close(true);
-            },
-            (err) => {
-              console.log('err', err);
-            }
-          );
+        console.log('🏍️ ~ this.order?.order_status: ', this.order?.order_status)
+        switch (this.order?.order_status) {
+          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT):
+          case getKeyByValue(
+            ORDER_STATUS,
+            ORDER_STATUS.AWAITING_CONFIRMATION
+          ): {
+            this.awaitingConfirmation();
+            break;
+          }
+          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION):
+          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+            console.log('🏍️ ~ this.order?.id: ', this.order?.id);
+
+            this.orderService
+              .updateStatus(
+                this.order?.id,
+                getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
+              )
+              .subscribe(
+                (res) => {
+                  console.log('res: ', res);
+                  this.btnMessage = 'Đang đóng gói';
+                  this.ref.close(true);
+                },
+                (err) => {
+                  console.log('err', err);
+                }
+              );
+
+            break;
+          }
+          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
+          }
+        }
       }
     });
+  }
+
+  awaitingConfirmation() {
+    this.isLoading = true;
+    this.orderService.getOrderDetailById(this.order?.id).subscribe(
+      (data) => {
+        console.log('🏍️ ~ data: ', data);
+        if (!data || data.length == 0) {
+          // inventory checking fail
+          this.toastService.showMessage(
+            ToasSumary.Error,
+            'Số lượng hàng tồn kho không đủ, hãy nhập thêm!!!',
+            ToastType.Error
+          );
+          this.orderService
+            .updateStatus(
+              this.order?.id,
+              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+            )
+            .subscribe(
+              (res) => {
+                this.ref.close(true);
+              },
+              (err) => {}
+            );
+        } else {
+          // inventory checking successful
+          this.orderDetailById = data;
+          this.btnMessage = ORDER_STATUS.AWAITING_COLLECTION;
+          console.log('orderDetailById: ', this.orderDetailById);
+        }
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log('🏍️ ~ err: ', err);
+        this.toastService.showMessage(
+          ToasSumary.Error,
+          err?.message,
+          ToastType.Error
+        );
+        this.isLoading = false;
+      }
+    );
   }
 }
