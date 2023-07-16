@@ -1,10 +1,8 @@
 <router-outlet></router-outlet>
 <app-loading *ngIf="isLoading"></app-loading>
 <p-toast
-  [showTransformOptions]="'translateY(100%)'"
-  [showTransitionOptions]="'1000ms'"
-  [hideTransitionOptions]="'1000ms'"
-  [showTransformOptions]="'translateX(100%)'"
+  position="top-center"
+  life="1000"
 ></p-toast>
 
 <p-confirmDialog></p-confirmDialog>
