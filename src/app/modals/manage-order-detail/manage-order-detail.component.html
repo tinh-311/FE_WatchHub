@@ -47,9 +47,17 @@
 
   <div class="d-flex justify-content-center">
     <p-button
+      *ngIf="isHiddenBtn()"
       (onClick)="continue()"
       [label]= "btnMessage"
       styleClass="p-button-secondary"
     ></p-button>
+    <p-button
+      *ngIf="isHiddenBtn()"
+      (onClick)="cancelOrder()"
+      label= "Huỷ"
+      styleClass="ml-3 p-button-danger"
+    ></p-button>
   </div>
+  
 </div>

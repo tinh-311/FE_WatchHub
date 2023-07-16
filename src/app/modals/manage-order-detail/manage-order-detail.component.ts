@@ -48,15 +48,15 @@ export class ManageOrderDetailComponent implements OnInit {
 
   ngOnInit(): void {
     switch (this.order?.order_status) {
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION): {
-        // this.btnMessage = ORDER_STATUS.AWAITING_SHIPMENT;
-        break;
-      }
+      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION):
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
         break;
       }
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
-        this.btnMessage = ORDER_STATUS.AWAITING_COLLECTION;
+        this.btnMessage = ORDER_STATUS.IN_TRANSIT;
+        break;
+      }
+      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.IN_TRANSIT): {
         break;
       }
     }
@@ -85,7 +85,10 @@ export class ManageOrderDetailComponent implements OnInit {
     });
     ref.onClose.subscribe((res) => {
       if (res) {
-        console.log('🏍️ ~ this.order?.order_status: ', this.order?.order_status)
+        console.log(
+          '🏍️ ~ this.order?.order_status: ',
+          this.order?.order_status
+        );
         switch (this.order?.order_status) {
           case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT):
           case getKeyByValue(
@@ -107,7 +110,6 @@ export class ManageOrderDetailComponent implements OnInit {
               .subscribe(
                 (res) => {
                   console.log('res: ', res);
-                  this.btnMessage = 'Đang đóng gói';
                   this.ref.close(true);
                 },
                 (err) => {
@@ -118,6 +120,21 @@ export class ManageOrderDetailComponent implements OnInit {
             break;
           }
           case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
+            this.orderService
+              .updateStatus(
+                this.order?.id,
+                getKeyByValue(ORDER_STATUS, ORDER_STATUS.IN_TRANSIT)
+              )
+              .subscribe(
+                (res) => {
+                  console.log('res: ', res);
+                  this.ref.close(true);
+                },
+                (err) => {
+                  console.log('err', err);
+                }
+              );
+            break;
           }
         }
       }
@@ -152,6 +169,17 @@ export class ManageOrderDetailComponent implements OnInit {
           this.orderDetailById = data;
           this.btnMessage = ORDER_STATUS.AWAITING_COLLECTION;
           console.log('orderDetailById: ', this.orderDetailById);
+          this.orderService
+            .updateStatus(
+              this.order?.id,
+              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
+            )
+            .subscribe(
+              (res) => {
+                this.ref.close(true);
+              },
+              (err) => {}
+            );
         }
         this.isLoading = false;
       },
@@ -165,5 +193,30 @@ export class ManageOrderDetailComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+  cancelOrder() {
+    this.orderService
+      .updateStatus(
+        this.order?.id,
+        getKeyByValue(ORDER_STATUS, ORDER_STATUS.CANCELLED)
+      )
+      .subscribe(
+        (orderRes: any) => {
+          this.ref.close(true);
+        },
+        (err) => {}
+      );
+  }
+  isHiddenBtn(): boolean {
+    if (
+      [
+        ORDER_STATUS.IN_TRANSIT,
+        ORDER_STATUS.DELIVERED,
+        ORDER_STATUS.CANCELLED,
+      ].includes(convertToDisPlayName(this.order?.order_status))
+    ) {
+      return false;
+    }
+    return true;
   }
 }

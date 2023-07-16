@@ -18,7 +18,7 @@ export enum ORDER_STATUS_DISPLAY {
   CANCELLED = 'Đã huỷ',
 }
 
-export function convertToDisPlayName(status: string): string {
+export function convertToDisPlayName(status: any): any {
   switch (status) {
     case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION):
       return 'Chờ xác nhận';
