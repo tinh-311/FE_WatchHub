@@ -1,5 +1,5 @@
 <app-header></app-header>
-<section class="section-intro padding-top-sm">
+<!-- <section class="section-intro padding-top-sm">
   <div class="container">
     <main class="card py-3 mt-2">
       <div class="row w-100">
@@ -24,7 +24,6 @@
       </div>
     </main>
   </div>
-  <!-- container end.// -->
 </section>
 
 <section class="padding-top">
@@ -34,7 +33,7 @@
     </header>
 
     <div class="row">
-      <div *ngFor="let product of products" class="col-3 sm:col-3 lg:col-3 xl:col-3 p-2">
+      <div *ngFor="let product of products" class="col-12 sm:col-5 lg:col-5 xl:col-2 p-2">
         <div class="p-4 border-1 surface-border surface-card rounded">
           <div class="d-flex flex-column align-items-center gap-3 py-5">
             <img
@@ -72,9 +71,7 @@
         </div>
       </div>
     </div>
-    <!-- row end.// -->
   </div>
-  <!-- container end.// -->
 </section>
 
 <section class="padding-top">
@@ -94,7 +91,6 @@
           />
         </article>
       </aside>
-      <!-- col.// -->
       <aside class="col-lg-6">
         <div class="row mb-4">
           <div class="col-6">
@@ -116,7 +112,6 @@
             </article>
           </div>
         </div>
-        <!-- row.// -->
 
         <article class="card bg-success" style="min-height: 200px">
           <div class="card-body">
@@ -129,11 +124,8 @@
           </div>
         </article>
       </aside>
-      <!-- col.// -->
     </div>
-    <!-- row.// -->
   </div>
-  <!-- container end.// -->
 </section>
 
 <section class="padding-top">
@@ -153,7 +145,6 @@
           />
         </a>
       </div>
-      <!-- col.// -->
       <div class="col-lg-2 col-md-4 col-4">
         <a href="#" class="img-wrap">
           <img
@@ -164,7 +155,6 @@
           />
         </a>
       </div>
-      <!-- col.// -->
       <div class="col-lg-2 col-md-4 col-4">
         <a href="#" class="img-wrap">
           <img
@@ -175,7 +165,6 @@
           />
         </a>
       </div>
-      <!-- col.// -->
       <div class="col-lg-2 col-md-4 col-4">
         <a href="#" class="img-wrap">
           <img
@@ -186,7 +175,6 @@
           />
         </a>
       </div>
-      <!-- col.// -->
       <div class="col-lg-2 col-md-4 col-4">
         <a href="#" class="img-wrap">
           <img
@@ -197,7 +185,6 @@
           />
         </a>
       </div>
-      <!-- col.// -->
       <div class="col-lg-2 col-md-4 col-4">
         <a href="#" class="img-wrap">
           <img
@@ -208,82 +195,181 @@
           />
         </a>
       </div>
-      <!-- col.// -->
     </div>
-    <!-- row end.// -->
   </div>
-  <!-- container end.// -->
-</section>
+</section> -->
 
-<section class="padding-y">
-  <div class="container">
-    <article class="card p-3 p-lg-5">
-      <div class="row g-3">
-        <div class="col-lg-3 col-md-6">
-          <figure class="icontext">
-            <div class="icon">
-              <span class="icon-sm bg-warning-light text-warning rounded">
-                <i class="fa fa-thumbs-up"></i>
-              </span>
-            </div>
-            <figcaption class="text">
-              <h6 class="title">Reasonable prices</h6>
-              <p>Have you ever finally just</p>
-            </figcaption>
-          </figure>
-          <!-- icontext // -->
+<div>
+  <div class="card-banner p-1">
+    <p-carousel
+      [value]="banners"
+      [numVisible]="4"
+      [numScroll]="4"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+      [autoplayInterval]="8000"
+    >
+      <ng-template let-src pTemplate="item">
+        <div class="image-container">
+          <img style="height: 150px" [src]="src" alt="" />
         </div>
-        <!-- col // -->
-        <div class="col-lg-3 col-md-6">
-          <figure class="icontext">
-            <div class="icon">
-              <span class="icon-sm bg-warning-light text-warning rounded">
-                <i class="fa fa-plane"></i>
-              </span>
-            </div>
-            <figcaption class="text">
-              <h6 class="title">Worldwide shipping</h6>
-              <p>Have you ever finally just</p>
-            </figcaption>
-          </figure>
-          <!-- icontext // -->
-        </div>
-        <!-- col // -->
-        <div class="col-lg-3 col-md-6">
-          <figure class="icontext">
-            <div class="icon">
-              <span class="icon-sm bg-warning-light text-warning rounded">
-                <i class="fa fa-star"></i>
-              </span>
-            </div>
-            <figcaption class="text">
-              <h6 class="title">Best ratings</h6>
-              <p>Have you ever finally just</p>
-            </figcaption>
-          </figure>
-          <!-- icontext // -->
-        </div>
-        <!-- col // -->
-        <div class="col-lg-3 col-md-6">
-          <figure class="icontext">
-            <div class="icon">
-              <span class="icon-sm bg-warning-light text-warning rounded">
-                <i class="fa fa-phone"></i>
-              </span>
-            </div>
-            <figcaption class="text">
-              <h6 class="title">Help center</h6>
-              <p>Have you ever finally just</p>
-            </figcaption>
-          </figure>
-          <!-- icontext // -->
-        </div>
-        <!-- col // -->
-      </div>
-      <!-- row // -->
-    </article>
+      </ng-template>
+    </p-carousel>
   </div>
-  <!-- //container -->
-</section>
+
+  <div class="px-6 mt-4">
+    <header class="section-heading mb-0">
+      <h4 class="section-title text-secondary">Sản phẩm mới</h4>
+    </header>
+
+    <div class="row">
+      <div
+        *ngFor="let product of newProducts"
+        class="col-12 sm:col-5 lg:col-5 xl:col-2 p-2"
+      >
+        <div class="p-4 border-1 surface-border surface-card rounded">
+          <div
+            (click)="onClickProduct(product)"
+            class="d-flex flex-column align-items-center gap-3 py-5 cursor-pointer"
+          >
+            <img
+              class="w-100 shadow-2 rounded"
+              tooltipPosition="bottom"
+              id="user-avatar"
+              [src]="
+                product?.product_image_uuid
+                  ? product?.product_image_uuid[0]
+                  : ''
+              "
+            />
+            <div class="font-bold cursor-pointer">
+              {{ formatName(product.product_type_name) }}
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-lg font-semibold">{{
+              product.price | currency : "VND"
+            }}</span>
+            <button
+              pButton
+              *ngIf="
+                this.currentUser?.is_admin !== 'True' &&
+                this.currentUser?.is_admin !== true
+              "
+              icon="pi pi-shopping-cart"
+              class="p-button-rounded text-sm"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="px-6 mt-4">
+    <header class="section-heading mb-0">
+      <h4 class="section-title text-secondary">Sản phẩm độc quyền</h4>
+    </header>
+
+    <div class="row">
+      <div
+        *ngFor="let product of bestProducts"
+        class="col-12 sm:col-5 lg:col-5 xl:col-2 p-2"
+      >
+        <div class="p-4 border-1 surface-border surface-card rounded">
+          <div
+            (click)="onClickProduct(product)"
+            class="d-flex flex-column align-items-center gap-3 py-5 cursor-pointer"
+          >
+            <img
+              class="w-100 shadow-2 rounded"
+              tooltipPosition="bottom"
+              id="user-avatar"
+              [src]="
+                product?.product_image_uuid
+                  ? product?.product_image_uuid[0]
+                  : ''
+              "
+            />
+            <div class="font-bold cursor-pointer">
+              {{ formatName(product.product_type_name) }}
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-lg font-semibold">{{
+              product.price | currency : "VND"
+            }}</span>
+            <button
+              pButton
+              *ngIf="
+                this.currentUser?.is_admin !== 'True' &&
+                this.currentUser?.is_admin !== true
+              "
+              icon="pi pi-shopping-cart"
+              class="p-button-rounded text-sm"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-6 mt-4">
+    <header class="section-heading mb-0">
+      <h4 class="section-title text-secondary">Sản phẩm hot</h4>
+    </header>
+
+    <div class="row">
+      <div
+        *ngFor="let product of products"
+        class="col-12 sm:col-5 lg:col-5 xl:col-2 p-2"
+      >
+        <div class="p-4 border-1 surface-border surface-card rounded">
+          <div
+            (click)="onClickProduct(product)"
+            class="d-flex flex-column align-items-center gap-3 py-5 cursor-pointer"
+          >
+            <img
+              class="w-100 shadow-2 rounded"
+              tooltipPosition="bottom"
+              id="user-avatar"
+              [src]="
+                product?.product_image_uuid
+                  ? product?.product_image_uuid[0]
+                  : ''
+              "
+            />
+            <div class="font-bold cursor-pointer">
+              {{ formatName(product.product_type_name) }}
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-lg font-semibold">{{
+              product.price | currency : "VND"
+            }}</span>
+            <button
+              pButton
+              *ngIf="
+                this.currentUser?.is_admin !== 'True' &&
+                this.currentUser?.is_admin !== true
+              "
+              icon="pi pi-shopping-cart"
+              class="p-button-rounded text-sm"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider w-100 mt-6">
+    <div class="slide-track">
+      <div *ngFor="let brand of brands" class="slide">
+        <img [src]="brand?.brand_logo" height="50" width="100" alt="" />
+      </div>
+    </div>
+  </div>
+</div>
 
 <app-footer></app-footer>
