@@ -70,14 +70,14 @@ export class ShoppingCartComponent implements OnInit {
     if (token) {
       this.currentUser = jwt_decode(token);
 
-      this.getUserById(this.currentUser?.id)
-        .then((data: any) => {
+      this.userService.getUserByID(this.currentUser?.id)
+        .subscribe((data: any) => {
           this.currentUser = data;
+          console.log('🏍️ ~ this.currentUser: ', this.currentUser)
           this.address = JSON.parse(this.currentUser?.addresses);
           this.addressOptions = this.mappingAddress(this.address);
           this.selectedAddress = this.addressOptions[0];
         })
-        .catch((error: any) => {});
     }
   }
 
