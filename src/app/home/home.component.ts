@@ -5,6 +5,7 @@ import { formatName } from '../constant/util.constant';
 import { BrandsService } from '../brands.service';
 import jwt_decode from 'jwt-decode';
 import { UserService } from 'src/service/user.service';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private productService: ProductsService,
     private brandService: BrandsService,
-    private userService: UserService
+    private userService: UserService,
+    private cartService: CartService,
   ) {}
 
   ngOnInit() {
@@ -103,6 +105,12 @@ export class HomeComponent implements OnInit {
           console.error('🔥 ~ error:', error);
         });
     }
+  }
+
+  addToCart(product: any) {
+    this.cartService.addToCart({
+      ...product,
+    });
   }
 
   getUserById(id: string): Promise<any> {
