@@ -41,7 +41,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   items: MenuItem[] = [];
   home: any;
   currentPage: any = 1;
-  rowsPerPage: any = 12;
+  rowsPerPage: any = 24;
   isDataLoading: boolean = false;
   isShowCategories: boolean = true;
 

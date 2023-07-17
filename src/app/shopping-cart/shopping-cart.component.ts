@@ -13,6 +13,7 @@ import { ORDER_STATUS } from '../constant/order-status.constant';
 import {
   PAYMENT_CALLBACK_URL,
   VNP_RESPONSE_CODE,
+  getColor,
   getKeyByValue,
 } from '../constant/util.constant';
 import { PaymentService } from '../service/payment.service';
@@ -79,6 +80,21 @@ export class ShoppingCartComponent implements OnInit {
           this.selectedAddress = this.addressOptions[0];
         })
     }
+  }
+
+  onCheckbox(event: any, data: any) {
+    if (event.target.checked) {
+      this.selectedProducts.push(data);
+    } else {
+      const index = this.selectedProducts.indexOf(data);
+      if (index !== -1) {
+        this.selectedProducts.splice(index, 1);
+      }
+    }
+  }
+
+  getColor(color: any) {
+    return getColor(color);
   }
 
   dragStart(product: any) {
@@ -351,6 +367,7 @@ export class ShoppingCartComponent implements OnInit {
   payment() {
     // 2: VNPay, 3: COD, 4:MOMO
 
+    console.log('🏍️ ~ this.selectedProducts: ', this.selectedProducts)
     if (!this.selectedProducts.length || !this.selectedProducts) {
       return;
     }
@@ -382,6 +399,8 @@ export class ShoppingCartComponent implements OnInit {
       product_image_uuid: this.selectedProducts[0]?.product_image_uuid,
       phone: this.phoneNumber?.value,
     };
+
+    this.selectedProducts = [];
 
     switch (this.selectedPaymentMethod?.id) {
       case 3: {
