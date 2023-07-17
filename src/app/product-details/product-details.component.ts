@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from 'src/service/products.service';
 import { CartService } from '../service/cart.service';
-import { getColor } from '../constant/util.constant';
+import { GENDER, displayGender, getColor } from '../constant/util.constant';
 import { UserService } from 'src/service/user.service';
 import jwt_decode from 'jwt-decode';
 
@@ -27,6 +27,7 @@ export class ProductDetailsComponent {
       const id = params.get('id');
       this.productService.getProductTypesById(id).subscribe((data: any) => {
         this.product = data;
+        console.log('🏍️ ~ this.product: ', this.product);
         this.changeSelectedImg(this.product?.product_image_uuid[0]);
       });
     });
@@ -39,9 +40,12 @@ export class ProductDetailsComponent {
         .then((data: any) => {
           this.currentUser = data;
         })
-        .catch((error: any) => {
-        });
+        .catch((error: any) => {});
     }
+  }
+
+  getGender(gender: any) {
+    return displayGender(gender);
   }
 
   getUserById(id: string): Promise<any> {
