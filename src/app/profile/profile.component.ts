@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
   uploadedUrl: string = '';
   readonly UUID_DEFAUL_AVATAR = UUID_DEFAUL_AVATAR;
 
-  addresses: any = [];
+  addresses: any[] = [];
   newAddress: string = '';
 
   constructor(
@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit {
       this.getUserById(this.currentUser?.id)
         .then((data: any) => {
           this.currentUser = data;
-          this.addresses = JSON.parse(this.currentUser?.addresses);
+          this.addresses = JSON.parse(this.currentUser?.addresses) || [];
 
           this.infoForm = this.formBuilder.group({
             fullName: [this.currentUser?.fullname, [Validators.required]],
@@ -190,10 +190,10 @@ export class ProfileComponent implements OnInit {
       baseZIndex: 10000,
     });
 
-    ref.onClose.subscribe((data) => {
+    ref.onClose.subscribe((data: any) => {
       if (
         data &&
-        !this.addresses.find((address: any) => {
+        !this.addresses?.find((address: any) => {
           return (
             address?.ward === data?.ward &&
             address?.street === data?.street &&
@@ -203,6 +203,7 @@ export class ProfileComponent implements OnInit {
         })
       ) {
         this.addresses.unshift(data);
+        console.log('🏍️ ~ this.addresses: ', this.addresses)
       } else {
         this.toastService.showMessage(
           ToasSumary.Warn,
@@ -229,6 +230,7 @@ export class ProfileComponent implements OnInit {
       userAddresses: this.addresses || [],
       avatar: this.currentUser?.avatar || '',
     };
+    console.log('🏍️ ~ userUpdate: ', userUpdate);
 
     this.userService.updateUser({ ...userUpdate }).subscribe(
       (res) => {

@@ -124,9 +124,15 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         data = this.orders.filter(
           (order: any) =>
             order.order_status ===
-              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION) ||
+            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+        );
+        break;
+      }
+      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
+        data = this.orders.filter(
+          (order: any) =>
             order.order_status ===
-              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
         );
         break;
       }
@@ -196,10 +202,20 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         const f = this.orders.filter(
           (order: any) =>
             order.order_status ===
-            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
+            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
         );
 
         return f;
+      }
+      case getKeyByValue(
+        ORDER_STATUS_DISPLAY,
+        ORDER_STATUS_DISPLAY.AWAITING_COLLECTION
+      ): {
+        return this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+            getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.AWAITING_COLLECTION)
+        );
       }
       case getKeyByValue(
         ORDER_STATUS_DISPLAY,

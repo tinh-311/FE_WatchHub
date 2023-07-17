@@ -192,7 +192,7 @@ export class AddAddressComponent implements OnInit {
                 (res: any) => {
                   this.wards = res?.data?.data;
 
-                  let selectedWards = this.wards.find((p) => {
+                  let selectedWards = this.wards?.find((p) => {
                     let n = normalizeName(p?.name).replace(' ', '');
                     let suburb = address.suburb.replace('Phường ', '');
                     suburb = suburb.replace('Ward ', '');

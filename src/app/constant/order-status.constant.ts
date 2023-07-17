@@ -13,6 +13,7 @@ export enum ORDER_STATUS {
 export enum ORDER_STATUS_DISPLAY {
   AWAITING_CONFIRMATION = 'Chờ xác nhận',
   AWAITING_SHIPMENT = 'Chờ lấy hàng',
+  AWAITING_COLLECTION = 'Đang đóng gói',
   IN_TRANSIT = 'Đang giao hàng',
   DELIVERED = 'Đã giao hàng',
   CANCELLED = 'Đã huỷ',
