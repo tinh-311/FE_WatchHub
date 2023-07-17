@@ -35,15 +35,15 @@
           <h4 class="title text-dark">
             {{ product?.product_type_name }}
           </h4>
-          <div class="rating-wrap my-3">
-            <ul class="rating-stars">
+          <div class="rating-wrap my-3 mb-0">
+            <!-- <ul class="rating-stars">
               <li style="width: 80%" class="stars-active">
                 <img src="assets/images/misc/stars-active.svg" alt="" />
               </li>
               <li>
                 <img src="assets/images/misc/starts-disable.svg" alt="" />
               </li>
-            </ul>
+            </ul> -->
             <!-- <b class="label-rating text-warning"> 4.5</b>
             <i class="dot"></i>
             <span class="label-rating text-muted">
@@ -68,11 +68,17 @@
 
           <dl class="d-flex">
             <dl class="row">
+              <dt class="col-3">Mã sản phẩm</dt>
+              <dd class="col-3">{{ product?.product_type_code }}</dd>
+
               <dt class="col-3">Thương Hiệu:</dt>
               <dd class="col-3">{{ product?.brand?.brand_name }}</dd>
 
               <dt class="col-3">Xuất Xứ</dt>
               <dd class="col-3">{{ product?.product_source }}</dd>
+
+              <dt class="col-3">Giới Tính</dt>
+              <dd class="col-3">{{ getGender(product?.gender) }}</dd>
 
               <dt class="col-3">Loại Máy</dt>
               <dd class="col-3">{{ product?.core?.core_name }}</dd>

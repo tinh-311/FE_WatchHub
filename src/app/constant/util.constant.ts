@@ -109,6 +109,19 @@ export enum GENDER {
   UNISEX = 'Unisex',
 }
 
+export function displayGender(value: string) {
+  if (getKeyByValue(GENDER, GENDER.MALE)) {
+    return 'Nam';
+  } else if (getKeyByValue(GENDER, GENDER.FEMALE)) {
+    return 'Nữ';
+  } else if (getKeyByValue(GENDER, GENDER.COUPLE)) {
+    return 'Cặp đôi';
+  } else if (getKeyByValue(GENDER, GENDER.UNISEX)) {
+    return 'Unisex';
+  }
+  return '';
+}
+
 export function convertGender(value: string) {
   if (value === 'Nam') {
     return getKeyByValue(GENDER, GENDER.MALE);
