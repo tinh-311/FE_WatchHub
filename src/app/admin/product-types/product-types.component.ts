@@ -237,8 +237,9 @@ export class ProductTypesComponent implements OnInit {
       },
     });
     ref.onClose.subscribe((data) => {
+      console.log('🏍️ ~ data: ', data)
       if (data) {
-        this.getProductTypes();
+        this.getAllProductTypes();
       }
     });
   }
