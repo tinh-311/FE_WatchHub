@@ -40,13 +40,13 @@ export class OrderService {
 
     return this.http.get<any>(url, { headers });
   }
-  getOrderDetailById(id: any): Observable<any> {
+  InventoryChecking(id: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
-    let url = `${this.baseUrl}/Order/GetOrderDetailById${id}`;
-    return this.http.get<any>(url, { headers });
+    let url = `${this.baseUrl}/Warehouse/InventoryChecking${id}`;
+    return this.http.post<any>(url, { headers });
   }
 
   getAllOrderById(id: any): Observable<any> {

@@ -47,16 +47,22 @@ export class ManageOrderDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // switch (this.order?.order_status) {
+    //   case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION):
+    //   case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+    //     break;
+    //   }
+    //   case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
+    //     this.btnMessage = ORDER_STATUS.IN_TRANSIT;
+    //     break;
+    //   }
+    //   case getKeyByValue(ORDER_STATUS, ORDER_STATUS.IN_TRANSIT): {
+    //     break;
+    //   }
+    // }
     switch (this.order?.order_status) {
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION):
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        break;
-      }
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
-        this.btnMessage = ORDER_STATUS.IN_TRANSIT;
-        break;
-      }
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.IN_TRANSIT): {
+        this.btnMessage = 'Xác nhận lại'
         break;
       }
     }
@@ -74,13 +80,13 @@ export class ManageOrderDetailComponent implements OnInit {
 
   continue() {
     const ref = this.dialogService.open(ConfirmationComponent, {
-      header: `Xác nhận chuyển trạng thái đơn đặt hàng`,
+      header: `Xác nhận đơn hàng`,
       width: '40%',
       dismissableMask: true,
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
       data: {
-        message: `Bạn có chắc chắn muốn chuyển trạng thái của đơn hàng?`,
+        message: `Bạn có chắc chắn muốn xác nhận đơn hàng?`,
       },
     });
     ref.onClose.subscribe((res) => {
@@ -90,50 +96,11 @@ export class ManageOrderDetailComponent implements OnInit {
           this.order?.order_status
         );
         switch (this.order?.order_status) {
-          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT):
           case getKeyByValue(
             ORDER_STATUS,
             ORDER_STATUS.AWAITING_CONFIRMATION
           ): {
             this.awaitingConfirmation();
-            break;
-          }
-          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_CONFIRMATION):
-          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-            console.log('🏍️ ~ this.order?.id: ', this.order?.id);
-
-            this.orderService
-              .updateStatus(
-                this.order?.id,
-                getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
-              )
-              .subscribe(
-                (res) => {
-                  console.log('res: ', res);
-                  this.ref.close(true);
-                },
-                (err) => {
-                  console.log('err', err);
-                }
-              );
-
-            break;
-          }
-          case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
-            this.orderService
-              .updateStatus(
-                this.order?.id,
-                getKeyByValue(ORDER_STATUS, ORDER_STATUS.IN_TRANSIT)
-              )
-              .subscribe(
-                (res) => {
-                  console.log('res: ', res);
-                  this.ref.close(true);
-                },
-                (err) => {
-                  console.log('err', err);
-                }
-              );
             break;
           }
         }
@@ -143,45 +110,17 @@ export class ManageOrderDetailComponent implements OnInit {
 
   awaitingConfirmation() {
     this.isLoading = true;
-    this.orderService.getOrderDetailById(this.order?.id).subscribe(
+    this.orderService.InventoryChecking(this.order?.id).subscribe(
       (data) => {
         console.log('🏍️ ~ data: ', data);
-        if (!data || data.length == 0) {
-          // inventory checking fail
+          // inventory checking
           this.toastService.showMessage(
-            ToasSumary.Error,
-            'Số lượng hàng tồn kho không đủ, hãy nhập thêm!!!',
-            ToastType.Error
+            ToasSumary.Info,
+            data?.message,
+            ToastType.Info
           );
-          this.orderService
-            .updateStatus(
-              this.order?.id,
-              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
-            )
-            .subscribe(
-              (res) => {
-                this.ref.close(true);
-              },
-              (err) => {}
-            );
-        } else {
-          // inventory checking successful
-          this.orderDetailById = data;
-          this.btnMessage = ORDER_STATUS.AWAITING_COLLECTION;
-          console.log('orderDetailById: ', this.orderDetailById);
-          this.orderService
-            .updateStatus(
-              this.order?.id,
-              getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
-            )
-            .subscribe(
-              (res) => {
-                this.ref.close(true);
-              },
-              (err) => {}
-            );
-        }
         this.isLoading = false;
+        this.ref.close(true);
       },
       (err) => {
         console.log('🏍️ ~ err: ', err);
@@ -207,7 +146,20 @@ export class ManageOrderDetailComponent implements OnInit {
         (err) => {}
       );
   }
-  isHiddenBtn(): boolean {
+  isHiddenVerifyBtn(): boolean {
+    if (
+      [
+        ORDER_STATUS.AWAITING_COLLECTION,
+        ORDER_STATUS.IN_TRANSIT,
+        ORDER_STATUS.DELIVERED,
+        ORDER_STATUS.CANCELLED,
+      ].includes(convertToDisPlayName(this.order?.order_status))
+    ) {
+      return false;
+    }
+    return true;
+  }
+  isHiddenCancelBtn(): boolean {
     if (
       [
         ORDER_STATUS.IN_TRANSIT,

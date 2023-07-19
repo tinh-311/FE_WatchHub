@@ -68,4 +68,6 @@ export enum SideNav {
   ProductTypes = 'PRODUCTTYPES',
   SubCategories = 'SUBCATEGORIES',
   Profile = 'PROFILE',
+  Warehouse = 'WAREHOUSE',
+  Delivery = 'DELIVERY'
 }
