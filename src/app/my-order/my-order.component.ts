@@ -242,6 +242,10 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
     return this.orders;
   }
 
+  isShowCancel(id: any) {
+    return ['AWAITING_CONFIRMATION', 'AWAITING_SHIPMENT'].includes(id);
+  }
+
   getStatusName(data: any) {
     return this.orderStatusValues.find((o: any) => o.key === data).value;
   }
