@@ -54,6 +54,7 @@
           </td>
           <td>
             <button
+              *ngIf="isShowCancel(tab?.id)"
               (click)="cancelOrder(order)"
               pButton
               pRipple

@@ -15,6 +15,8 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 import { GameSnakeComponent } from './game-snake/game-snake.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { UserGuard } from './user.guard';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { DeliveryComponent } from './delivery/delivery.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +32,8 @@ const routes: Routes = [
     canActivate: [AuthenGuard, UserGuard],
   },
   { path: 'thank-you', component: ThankYouComponent },
+  { path: 'T3Pwarehouse', component: WarehouseComponent },
+  { path: 'T3Pdelivery', component: DeliveryComponent },
   {
     path: 'games/snake',
     component: GameSnakeComponent,

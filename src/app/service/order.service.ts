@@ -40,15 +40,7 @@ export class OrderService {
 
     return this.http.get<any>(url, { headers });
   }
-  getOrderDetailById(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
-    });
-
-    let url = `${this.baseUrl}/Order/GetOrderDetailById${id}`;
-    return this.http.get<any>(url, { headers });
-  }
-
+  
   getAllOrderById(id: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
@@ -83,4 +75,37 @@ export class OrderService {
 
     return this.http.put<any>(url, { headers });
   }
+  InventoryChecking(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Warehouse/InventoryChecking${id}`;
+    return this.http.post<any>(url, { headers });
+  }
+  T3PDeliveryIntransit(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Delivery/T3PDeliveryInTransit${id}`;
+    return this.http.post<any>(url, { headers });
+  }
+  T3PDeliverySuccessful(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Delivery/T3PDeliverySuccess${id}`;
+    return this.http.post<any>(url, { headers });
+  }
+  T3PDeliveryFail(id: any, cancelReason: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Delivery/T3PDeliveryFail${id}cancelReason=${cancelReason}`;
+    return this.http.post<any>(url, { headers });
+  }
+  
 }

@@ -40,10 +40,10 @@ export class ShoppingCartComponent implements OnInit {
   phoneNumberForm: any = this.formBuilder.group({
     phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
   });
-
   get phoneNumber() {
     return this.phoneNumberForm.get('phoneNumber');
   }
+  isCheckAll: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -65,20 +65,22 @@ export class ShoppingCartComponent implements OnInit {
     this.cartItems = this.cartService.getCartItems();
     this.paymentMenthodService.getAll().subscribe((data: any) => {
       this.paymentMenthods = data?.res;
+      this.paymentMenthods.reverse();
     });
 
     const token = localStorage.getItem('token');
     if (token) {
       this.currentUser = jwt_decode(token);
 
-      this.userService.getUserByID(this.currentUser?.id)
+      this.userService
+        .getUserByID(this.currentUser?.id)
         .subscribe((data: any) => {
           this.currentUser = data;
-          console.log('🏍️ ~ this.currentUser: ', this.currentUser)
+          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
           this.address = JSON.parse(this.currentUser?.addresses);
           this.addressOptions = this.mappingAddress(this.address);
           this.selectedAddress = this.addressOptions[0];
-        })
+        });
     }
   }
 
@@ -91,6 +93,7 @@ export class ShoppingCartComponent implements OnInit {
         this.selectedProducts.splice(index, 1);
       }
     }
+    console.log('this.selectedProducts', this.selectedProducts);
   }
 
   getColor(color: any) {
@@ -366,8 +369,6 @@ export class ShoppingCartComponent implements OnInit {
 
   payment() {
     // 2: VNPay, 3: COD, 4:MOMO
-
-    console.log('🏍️ ~ this.selectedProducts: ', this.selectedProducts)
     if (!this.selectedProducts.length || !this.selectedProducts) {
       return;
     }
@@ -382,7 +383,6 @@ export class ShoppingCartComponent implements OnInit {
         quantity: c?.orderQty,
       };
     });
-
     let data = {
       user_id: this.currentUser?.id,
       items: items,
@@ -400,8 +400,6 @@ export class ShoppingCartComponent implements OnInit {
       phone: this.phoneNumber?.value,
     };
 
-    this.selectedProducts = [];
-
     switch (this.selectedPaymentMethod?.id) {
       case 3: {
         this.orderService.create(data).subscribe(
@@ -410,8 +408,7 @@ export class ShoppingCartComponent implements OnInit {
             localStorage.removeItem('cartItems');
             this.cartService.updateCart(this.cartItems);
             // location.reload();
-            this.router.navigate(['/thank-you'],
-            {
+            this.router.navigate(['/thank-you'], {
               queryParams: { code: '-99' },
             });
           },
@@ -452,11 +449,19 @@ export class ShoppingCartComponent implements OnInit {
                 }
               );
             },
-            (err) => {
-            }
+            (err) => {}
           );
         break;
       }
+    }
+    this.selectedProducts = [];
+  }
+  onCheckboxAll(event: any) {
+    this.isCheckAll = event.target.checked;
+    if (this.isCheckAll) {
+      this.selectedProducts = this.cartItems;
+    } else {
+      this.selectedProducts = [];
     }
   }
 }
