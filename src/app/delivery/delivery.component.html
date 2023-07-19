@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="input-container">
+      <input type="number" class="form-control" [(ngModel)]="orderId" placeholder="Order ID" min="0" />
+      <label for="InTransit">Xác nhận đơn đang được vận chuyển</label>
+      <button name="InTransit" class="btn btn-primary" (click)="DeliveryIntransit()">Hit</button>
+    </div>
+    <div class="input-container">
+      <input type="number" class="form-control" [(ngModel)]="orderId" placeholder="Order ID" min="0" />
+      <label for="DeliverySuccessful">Xác nhận giao hàng thành công</label>
+      <button name="DeliverySuccessful" class="btn btn-primary" (click)="DeliverySuccessful()">Hit</button>
+    </div>
+    <div class="input-container">
+      <input type="number" class="form-control" [(ngModel)]="orderId" placeholder="Order ID" min="0" />
+      <input type="text" class="form-control" [(ngModel)]="cancelReason" placeholder="Lý do huỷ" />
+      <label for="DeliveryFail">Xác nhận giao hàng thất bại</label>
+      <button name="DeliveryFail" class="btn btn-primary" (click)="DeliveryFail()">Hit</button>
+    </div>
+  </div>
+  

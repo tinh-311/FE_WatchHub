@@ -99,6 +99,8 @@ import { ChartModule } from 'primeng/chart';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ManageOrderComponent } from './admin/manage-order/manage-order.component';
 import { ManageOrderDetailComponent } from './modals/manage-order-detail/manage-order-detail.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { DeliveryComponent } from './delivery/delivery.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +155,9 @@ import { ManageOrderDetailComponent } from './modals/manage-order-detail/manage-
     GameSnakeComponent,
     OrderDetailsComponent,
     ManageOrderComponent,
-    ManageOrderDetailComponent
+    ManageOrderDetailComponent,
+    WarehouseComponent,
+    DeliveryComponent
   ],
   imports: [
     BrowserModule,

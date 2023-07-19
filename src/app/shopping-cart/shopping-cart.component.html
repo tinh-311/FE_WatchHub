@@ -5,7 +5,14 @@
       <div class="col-md-8">
         <div class="card">
           <content-body>
-            <h4 class="card-title p-4 pb-0">Giỏ Hàng Của Bạn</h4>
+            <span class="d-flex">
+              <input
+                (change)="onCheckboxAll($event)"
+                class="form-check-input mr-3 ml-5 mt-5"
+                type="checkbox"
+              />
+              <h4 class="card-title p-4 pb-0 pl-0">Giỏ Hàng Của Bạn</h4>
+            </span>
             <hr />
           </content-body>
 
@@ -22,6 +29,7 @@
                       class="form-check-input"
                       type="checkbox"
                       [value]="cart"
+                      [disabled]="isCheckAll"
                     />
                   </div>
                   <div class="aside">
