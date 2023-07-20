@@ -44,7 +44,14 @@
       <hr />
     </li>
   </ul>
-
+  <div *ngIf="isShowCancelReason()" class="">
+    <h6>
+      <strong>Lý do huỷ:</strong> 
+      <strong class="outstanding-message">
+        {{order?.cancel_reason}}
+      </strong>
+    </h6>
+  </div>
   <div class="d-flex justify-content-center">
     <p-button
       *ngIf="isHiddenVerifyBtn()"
@@ -61,3 +68,4 @@
   </div>
   
 </div>
+

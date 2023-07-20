@@ -2,3 +2,9 @@
     width: 30px; /* Adjust the width as desired */
     height: 30px; /* Adjust the height as desired */
   }
+  /* styles.css or component-name.css */
+.outstanding-message {
+  font-size: 16px; /* Increase font size to make it more prominent */
+  font-weight: bold; /* Add bold font weight for emphasis */
+  color: hwb(0 0% 0% / 0.829); /* Use a different color, e.g., red, to stand out */
+}
