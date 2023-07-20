@@ -1,19 +1,68 @@
-<div class="container">
+<!-- Make sure to include Bootstrap CSS and JS files in your project before using these classes. -->
+
+<div class="w-100 h-100 d-flex justify-content-center align-self-center align-middle">
+  <div>
     <div class="input-container">
-      <input type="number" class="form-control" [(ngModel)]="orderId" placeholder="Order ID" min="0" />
-      <label for="InTransit">Xác nhận đơn đang được vận chuyển</label>
-      <button name="InTransit" class="btn btn-primary" (click)="DeliveryIntransit()">Hit</button>
+      <label for="orderIdTransit">Xác nhận đơn đang được vận chuyển</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="orderIdTransit"
+        id="orderIdTransit"
+        placeholder="Order ID"
+        min="0"
+      />
+      <button
+        name="InTransit"
+        class="btn btn-primary mt-2"
+        (click)="DeliveryIntransit()"
+      >
+        Hit
+      </button>
     </div>
+
     <div class="input-container">
-      <input type="number" class="form-control" [(ngModel)]="orderId" placeholder="Order ID" min="0" />
-      <label for="DeliverySuccessful">Xác nhận giao hàng thành công</label>
-      <button name="DeliverySuccessful" class="btn btn-primary" (click)="DeliverySuccessful()">Hit</button>
+      <label for="orderIdSuccess">Xác nhận giao hàng thành công</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="orderIdSuccess"
+        id="orderIdSuccess"
+        placeholder="Order ID"
+        min="0"
+      />
+      <button
+        name="DeliverySuccessful"
+        class="btn btn-primary mt-2"
+        (click)="DeliverySuccessful()"
+      >
+        Hit
+      </button>
     </div>
+
     <div class="input-container">
-      <input type="number" class="form-control" [(ngModel)]="orderId" placeholder="Order ID" min="0" />
-      <input type="text" class="form-control" [(ngModel)]="cancelReason" placeholder="Lý do huỷ" />
-      <label for="DeliveryFail">Xác nhận giao hàng thất bại</label>
-      <button name="DeliveryFail" class="btn btn-primary" (click)="DeliveryFail()">Hit</button>
+      <label for="orderIdFail">Xác nhận giao hàng thất bại</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="orderIdFail"
+        id="orderIdFail"
+        placeholder="Order ID"
+        min="0"
+      />
+      <input
+        type="text"
+        class="form-control mt-2"
+        [(ngModel)]="cancelReason"
+        placeholder="Lý do huỷ"
+      />
+      <button
+        name="DeliveryFail"
+        class="btn btn-primary mt-2"
+        (click)="DeliveryFail()"
+      >
+        Hit
+      </button>
     </div>
   </div>
-  
+</div>

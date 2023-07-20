@@ -60,6 +60,12 @@
       styleClass="p-button-secondary"
     ></p-button>
     <p-button
+    *ngIf="isHiddenVerifyBtn()"
+    (onClick)="isShowOrderDetail()"
+    label= "Xem chi tiết"
+    styleClass="p-button-secondary"
+  ></p-button>
+    <p-button
       *ngIf="isHiddenCancelBtn()"
       (onClick)="cancelOrder()"
       label= "Huỷ"

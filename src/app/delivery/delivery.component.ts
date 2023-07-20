@@ -9,7 +9,9 @@ import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
   styleUrls: ['./delivery.component.scss'],
 })
 export class DeliveryComponent {
-  orderId: any;
+  orderIdTransit: any;
+  orderIdSuccess: any;
+  orderIdFail: any;
   cancelReason: any;
   constructor(
     private orderService: OrderService,
@@ -19,7 +21,7 @@ export class DeliveryComponent {
   }
 
   DeliveryIntransit(){
-    this.orderService.T3PDeliveryIntransit(this.orderId).subscribe(
+    this.orderService.T3PDeliveryIntransit(this.orderIdTransit).subscribe(
       (data) => {
         this.toastService.showMessage(
           ToasSumary.Info,
@@ -37,7 +39,7 @@ export class DeliveryComponent {
     );
   }
   DeliverySuccessful(){
-    this.orderService.T3PDeliverySuccessful(this.orderId).subscribe(
+    this.orderService.T3PDeliverySuccessful(this.orderIdSuccess).subscribe(
       (data) => {
         this.toastService.showMessage(
           ToasSumary.Info,
@@ -55,7 +57,7 @@ export class DeliveryComponent {
     );
   }
   DeliveryFail(){
-    this.orderService.T3PDeliveryFail(this.orderId, this.cancelReason).subscribe(
+    this.orderService.T3PDeliveryFail(this.orderIdFail, this.cancelReason).subscribe(
       (data) => {
         this.toastService.showMessage(
           ToasSumary.Info,

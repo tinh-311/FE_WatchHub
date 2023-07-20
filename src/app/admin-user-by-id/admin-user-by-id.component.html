@@ -1,0 +1,83 @@
+<p-table
+  [value]="user"
+  dataKey="id"
+  [lazy]="true"
+  [rows]="1"
+  [globalFilterFields]="['fullname', 'email', 'phone', 'is_admin', 'is_deleted']"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>
+        ID
+        <p-columnFilter
+          type="number"
+          field="id"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th>Avatar</th>
+      <th pSortableColumn="fullname" >
+        Full Name
+        <p-sortIcon field="fullname"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="fullname"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="email">
+        Email
+        <p-sortIcon field="email"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="email"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="phone">
+        Phone
+        <p-sortIcon field="phone"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          field="phone"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="is_admin">
+        Is Admin
+        <p-sortIcon field="is_admin"></p-sortIcon>
+        <p-columnFilter
+          type="boolean"
+          field="is_admin"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+      <th pSortableColumn="is_deleted">
+        Is Deleted
+        <p-sortIcon field="is_deleted"></p-sortIcon>
+        <p-columnFilter
+          type="boolean"
+          field="is_deleted"
+          display="menu"
+        ></p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <td>{{ user?.id }}</td>
+      <td>
+        <p-avatar
+          [image]="user?.avatar || 'assets/images/user.webp'"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+      </td>
+      <td>{{ user?.fullname }}</td>
+      <td>{{ user?.email }}</td>
+      <td>{{ user?.phone }}</td>
+      <td>{{ user?.is_admin }}</td>
+      <td>{{ user?.is_deleted }}</td>
+    </tr>
+  </ng-template>
+</p-table>
