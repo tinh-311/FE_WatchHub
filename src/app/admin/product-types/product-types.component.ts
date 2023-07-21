@@ -16,6 +16,7 @@ import { EditProductTypesComponent } from '../modals/edit-product-types/edit-pro
 import { ConfirmationComponent } from 'src/app/modals/confirmation/confirmation.component';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { ProductsComponent } from 'src/app/products/products.component';
+import { FilterService } from 'primeng/api';
 
 @Component({
   selector: 'app-product-types',
@@ -30,22 +31,61 @@ export class ProductTypesComponent implements OnInit {
   selectedSubCategory: any;
 
   currentPage: any = 1;
-  rowsPerPage: any = 5;
+  rowsPerPage: any = 10;
   totalCount: number = 0;
   isLoading: boolean = false;
+
+  filter: any;
 
   constructor(
     private productsService: ProductsService,
     private dialogService: DialogService,
     private toastService: ToastService,
     private categoriesService: CategoryService,
-    private subCategoriesService: CategoryService
+    private subCategoriesService: CategoryService,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
     // this.getProductTypes();
     // this.getCategories();
     this.getAllProductTypes();
+  }
+
+  clearSearch() {
+    this.filter = '';
+    this.getAllProductTypes();
+    this.currentPage = 1;
+  }
+
+  search(isClearCurrentPage: boolean = true) {
+    if (this.filter === '') {
+      this.clearSearch();
+      return;
+    }
+
+    if (isClearCurrentPage) {
+      this.currentPage = 1;
+    }
+
+    this.isLoading = true;
+    this.productsService
+      .searchByProductTypeCodeOrId(
+        this.currentPage,
+        this.rowsPerPage,
+        this.filter
+      )
+      .subscribe(
+        (data: any) => {
+          console.log('🏍️ ~ data: ', data);
+          this.productTypes = data?.res;
+          this.totalCount = data?.totalCount;
+          this.isLoading = false;
+        },
+        (err) => {
+          this.isLoading = false;
+        }
+      );
   }
 
   openImage(imageUrl: string) {
@@ -61,7 +101,12 @@ export class ProductTypesComponent implements OnInit {
   onPageChanged(event: any) {
     this.currentPage = event.page + 1;
     this.rowsPerPage = event.rows;
-    this.getAllProductTypes();
+
+    if (this.filter) {
+      this.search(false);
+    } else {
+      this.getAllProductTypes();
+    }
   }
 
   onDropdownCategoryChange(event: any) {
@@ -237,7 +282,7 @@ export class ProductTypesComponent implements OnInit {
       },
     });
     ref.onClose.subscribe((data) => {
-      console.log('🏍️ ~ data: ', data)
+      console.log('🏍️ ~ data: ', data);
       if (data) {
         this.getAllProductTypes();
       }
