@@ -171,4 +171,16 @@ export class ManageOrderDetailComponent implements OnInit {
     }
     return true;
   }
+  isShowCancelReason(): boolean{
+    if(convertToDisPlayName(this.order?.order_status) == ORDER_STATUS.CANCELLED){
+      return true;
+    }
+    return false;
+  }
+  isShowOrderDetail(): boolean{
+    if(convertToDisPlayName(this.order?.order_status) == ORDER_STATUS.AWAITING_COLLECTION){
+      return true;
+    }
+    return false;
+  }
 }

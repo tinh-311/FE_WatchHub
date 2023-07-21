@@ -101,6 +101,7 @@ import { ManageOrderComponent } from './admin/manage-order/manage-order.componen
 import { ManageOrderDetailComponent } from './modals/manage-order-detail/manage-order-detail.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import { DeliveryComponent } from './delivery/delivery.component';
+import { AdminUserByIdComponent } from './admin-user-by-id/admin-user-by-id.component';
 
 @NgModule({
   declarations: [
@@ -157,7 +158,8 @@ import { DeliveryComponent } from './delivery/delivery.component';
     ManageOrderComponent,
     ManageOrderDetailComponent,
     WarehouseComponent,
-    DeliveryComponent
+    DeliveryComponent,
+    AdminUserByIdComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,8 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Mã đơn hàng</th>
-      <th>Tên khách hàng</th>
+      <th>khách hàng</th>
+      <th>Tổng tiền</th>
       <th>Trạng thái</th>
       <th>Địa chỉ</th>
       <th>Số điện thoại</th>
@@ -21,7 +22,15 @@
   <ng-template pTemplate="body" let-data>
     <tr>
       <td>{{ data?.id }}</td>
-      <td>{{ data?.user_id }}</td>
+      <td>
+        <p-button
+            (onClick)="viewUserDetail(data)"
+            class="mr-4"
+            icon="pi"
+            styleClass="p-button-rounded"
+          >{{ data?.user_id }}</p-button>
+      </td>
+      <td class="formatted-amount">{{ data?.total_amount | currency: 'VND':'symbol':'1.0-0'  }}</td>
       <td>{{ getOerderStatus(data?.order_status) }}</td>
       <td>
         {{ getAddress(data) }}

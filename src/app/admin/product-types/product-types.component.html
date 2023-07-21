@@ -32,6 +32,22 @@
     label="Add New"
   ></p-button>
 </div>
+<input
+  class="mr-2"
+  title="Tìm kiếm theo Id hoặc Mã loại sản phẩm"
+  pInputText
+  type="text"
+  placeholder="Tìm kiếm theo Id hoặc Mã loại sản phẩm"
+  (change)="search()"
+  [(ngModel)]="filter"
+/>
+<p-button
+  (onClick)="clearSearch()"
+  class="mt-4 w-100"
+  styleClass="p-button-warning"
+  icon="pi pi-filter-slash"
+  title="Hủy bỏ tìm kiếm"
+></p-button>
 <hr />
 
 <div class="container-fluid">
@@ -40,12 +56,12 @@
     dataKey="id"
     [loading]="isLoading"
     [lazy]="true"
-    styleClass="p-datatable-striped p-datatable-sm"
+    styleClass="p-datatable-striped p-datatable-sm container"
     [rows]="rowsPerPage"
     responsiveLayout="stack"
     [breakpoint]="'960px'"
-    [scrollable]="true"
-    scrollHeight="900px"
+    [scrollable]="false"
+    scrollHeight="250vh"
     [virtualScroll]="true"
     [virtualScrollItemSize]="200"
   >

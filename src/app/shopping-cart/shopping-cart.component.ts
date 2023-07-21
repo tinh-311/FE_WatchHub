@@ -44,6 +44,7 @@ export class ShoppingCartComponent implements OnInit {
     return this.phoneNumberForm.get('phoneNumber');
   }
   isCheckAll: boolean = false;
+  checkAll: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -85,6 +86,16 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   onCheckbox(event: any, data: any) {
+    console.log('🏍️ ~ data: ', data)
+    console.log('🏍️ ~ event.target.checked: ', event.target.checked)
+    console.log('🏍️ ~ this.selectedProducts: ', this.selectedProducts)
+
+    if(this.isCheckAll) {
+      this.isCheckAll = !this.isCheckAll;
+      this.selectedProducts = [];
+      return;
+    }
+
     if (event.target.checked) {
       this.selectedProducts.push(data);
     } else {

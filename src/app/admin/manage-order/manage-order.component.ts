@@ -11,6 +11,8 @@ import { ManageOrderDetailComponent } from 'src/app/modals/manage-order-detail/m
 import { UserService } from 'src/service/user.service';
 import { getKeyByValue } from 'src/app/constant/util.constant';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
+import { AdminUserComponent } from '../admin-user/admin-user.component';
+import { AdminUserByIdComponent } from 'src/app/admin-user-by-id/admin-user-by-id.component';
 
 @Component({
   selector: 'app-manage-order',
@@ -94,7 +96,21 @@ export class ManageOrderComponent implements OnInit {
       }
     });
   }
-
+  viewUserDetail(order: any) {
+    const ref = this.dialogService.open(AdminUserByIdComponent, {
+      header: `Chi tiết khách hàng - ${order?.user_id}`,
+      width: '70%',
+      dismissableMask: true,
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+      data: { order: order },
+    });
+    ref.onClose.subscribe((data) => {
+      if (data) {
+        this.getAllOrders();
+      }
+    });
+  }
   cancelOrder(order: any) {
     this.orderService
       .updateStatus(

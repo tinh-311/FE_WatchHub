@@ -143,11 +143,7 @@ export class ProductsService {
     return this.http.post<any>(url, data, { headers });
   }
 
-  filter(
-    pageNumber?: number,
-    pageSize?: number,
-    data?: any
-  ) {
+  filter(pageNumber?: number, pageSize?: number, data?: any) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
@@ -160,5 +156,24 @@ export class ProductsService {
     }
 
     return this.http.post<any>(url, data, { headers });
+  }
+
+  searchByProductTypeCodeOrId(
+    pageNumber?: number,
+    pageSize?: number,
+    searchTerm?: string
+  ) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/ProductType/SearchByProductTypeCodeOrId?searchTerm=${searchTerm}`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/ProductType/SearchByProductTypeCodeOrId?PageNumber=${pageNumber}&PageSize=${pageSize}&searchTerm=${searchTerm}`;
+    }
+
+    return this.http.post<any>(url, { headers });
   }
 }
