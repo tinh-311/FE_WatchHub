@@ -23,6 +23,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   orderStatusValues: any;
   currentUser: any;
   orderInfo: any;
+  totalByStatus: any;
 
   constructor(
     private orderService: OrderService,
@@ -38,10 +39,10 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {}
   ngOnInit(): void {
-    this.getOerder();
+    this.getOrder();
   }
 
-  getOerder() {
+  getOrder() {
     this.orderService
       .getAllOrderById(this.currentUser?.id)
       .subscribe((data: any) => {
@@ -93,13 +94,12 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   }
 
   getTotalByStatus(id: any) {
-    let data: any;
     switch (id) {
       case getKeyByValue(
         ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.AWAITING_CONFIRMATION
       ): {
-        data = this.orders.filter(
+        this.totalByStatus = this.orders.filter(
           (order: any) =>
             order.order_status ===
             getKeyByValue(
@@ -113,7 +113,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.CANCELLED
       ): {
-        data = this.orders.filter(
+        this.totalByStatus = this.orders.filter(
           (order: any) =>
             order.order_status ===
             getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.CANCELLED)
@@ -121,7 +121,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         break;
       }
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        data = this.orders.filter(
+        this.totalByStatus = this.orders.filter(
           (order: any) =>
             order.order_status ===
             getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
@@ -129,7 +129,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         break;
       }
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
-        data = this.orders.filter(
+        this.totalByStatus = this.orders.filter(
           (order: any) =>
             order.order_status ===
             getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION)
@@ -140,7 +140,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.DELIVERED
       ): {
-        data = this.orders.filter(
+        this.totalByStatus = this.orders.filter(
           (order: any) =>
             order.order_status ===
             getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.DELIVERED)
@@ -152,7 +152,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.IN_TRANSIT
       ): {
-        data = this.orders.filter(
+        this.totalByStatus = this.orders.filter(
           (order: any) =>
             order.order_status ===
             getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.IN_TRANSIT)
@@ -161,7 +161,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
       }
     }
 
-    return data.length;
+    return this.totalByStatus.length;
   }
 
   getStatus(status: any) {
@@ -214,7 +214,10 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         return this.orders.filter(
           (order: any) =>
             order.order_status ===
-            getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.AWAITING_COLLECTION)
+            getKeyByValue(
+              ORDER_STATUS_DISPLAY,
+              ORDER_STATUS_DISPLAY.AWAITING_COLLECTION
+            )
         );
       }
       case getKeyByValue(

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
   ORDER_STATUS,
+  PAYMENT_METHOD,
   convertToDisPlayName,
 } from 'src/app/constant/order-status.constant';
 import { OrderService } from 'src/app/service/order.service';
@@ -25,6 +26,7 @@ export class ManageOrderComponent implements OnInit {
   rowsPerPage: any = 10;
   totalCount: number = 0;
   isLoading: boolean = false;
+  paymentMethodDisplay: string = "";
 
   constructor(
     private orderService: OrderService,
@@ -71,7 +73,7 @@ export class ManageOrderComponent implements OnInit {
     this.getAllOrders();
   }
 
-  getOerderStatus(status: any) {
+  getOrderStatus(status: any) {
     return convertToDisPlayName(status);
   }
 
@@ -129,5 +131,17 @@ export class ManageOrderComponent implements OnInit {
         },
         (err) => {}
       );
+  }
+  paymentMethodConvert(paymentMethodId : any): any{
+    if(paymentMethodId == 2){
+      this.paymentMethodDisplay = PAYMENT_METHOD.COD
+      return true;
+    }
+    if(paymentMethodId == 3){
+      this.paymentMethodDisplay = PAYMENT_METHOD.VNPAY
+      return true;
+    }
+    console.log("paymentMethodDisplay", this.paymentMethodDisplay);
+    return false;
   }
 }

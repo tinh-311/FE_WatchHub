@@ -8,3 +8,11 @@
   font-weight: bold; /* Add bold font weight for emphasis */
   color: hwb(0 0% 0% / 0.829); /* Use a different color, e.g., red, to stand out */
 }
+/* Custom CSS classes for success and fail statuses */
+.success-icon {
+  color: green; /* or any other color representing success */
+}
+
+.fail-icon {
+  color: red; /* or any other color representing failure */
+}

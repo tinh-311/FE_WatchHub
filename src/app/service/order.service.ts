@@ -75,6 +75,14 @@ export class OrderService {
 
     return this.http.put<any>(url, { headers });
   }
+  ConfirmationChecking(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let url = `${this.baseUrl}/Order/ConfirmationChecking${id}`;
+    return this.http.post<any>(url, { headers });
+  }
   InventoryChecking(id: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
@@ -104,7 +112,7 @@ export class OrderService {
       Authorization: `Bearer ${this.token}`,
     });
 
-    let url = `${this.baseUrl}/Delivery/T3PDeliveryFail${id}cancelReason=${cancelReason}`;
+    let url = `${this.baseUrl}/Delivery/T3PDeliveryFail${id}/${cancelReason}`;
     return this.http.post<any>(url, { headers });
   }
   

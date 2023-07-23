@@ -1,0 +1,12 @@
+/* Custom styles for p-button-link */
+:host ::ng-deep .p-button.p-button-link {
+    border: none; /* Remove the button border */
+    cursor: pointer; /* Show a pointer cursor on hover */
+  }
+  
+  /* Custom styles for p-button-link on hover */
+  :host ::ng-deep .p-button.p-button-link:hover {
+    color: #fff;
+    background-color: hwb(211 0% 30%); /* Darker shade of blue on hover */
+  }
+  

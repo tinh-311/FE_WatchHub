@@ -37,7 +37,7 @@ export class WarehouseComponent implements OnInit {
         console.log('🏍️ ~ err: ', err);
         this.toastService.showMessage(
           ToasSumary.Error,
-          err?.message,
+          err?.error?.message,
           ToastType.Error
         );
       }

@@ -24,17 +24,20 @@
       <td>{{ data?.id }}</td>
       <td>
         <p-button
-            (onClick)="viewUserDetail(data)"
-            class="mr-4"
-            icon="pi"
-            styleClass="p-button-rounded"
-          >{{ data?.user_id }}</p-button>
+          (onClick)="viewUserDetail(data)"
+          class="mr-4"
+          icon="pi pi-user"
+          styleClass="p-button-link"
+        ></p-button>
       </td>
-      <td class="formatted-amount">{{ data?.total_amount | currency: 'VND':'symbol':'1.0-0'  }}</td>
-      <td>{{ getOerderStatus(data?.order_status) }}</td>
+      <td class="formatted-amount">
+        {{ data?.total_amount | currency : "VND" : "symbol" : "1.0-0" }}
+      </td>
+      <td>{{ getOrderStatus(data?.order_status) }}</td>
       <td>
         {{ getAddress(data) }}
       </td>
+
       <td>
         {{ data?.phone }}
       </td>
