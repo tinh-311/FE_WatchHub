@@ -36,6 +36,9 @@ export class OrderDetailsComponent implements OnInit {
                 label: ORDER_STATUS.AWAITING_CONFIRMATION,
               },
               {
+                label: ORDER_STATUS.CONFIRMED,
+              },
+              {
                 label: ORDER_STATUS.AWAITING_COLLECTION,
               },
               {

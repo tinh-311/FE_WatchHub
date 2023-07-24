@@ -111,6 +111,20 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
       }
       case getKeyByValue(
         ORDER_STATUS_DISPLAY,
+        ORDER_STATUS_DISPLAY.CONFIRMED
+      ): {
+        this.totalByStatus = this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+            getKeyByValue(
+              ORDER_STATUS_DISPLAY,
+              ORDER_STATUS_DISPLAY.CONFIRMED
+            )
+        );
+        break;
+      }
+      case getKeyByValue(
+        ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.CANCELLED
       ): {
         this.totalByStatus = this.orders.filter(
@@ -190,6 +204,19 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
       }
       case getKeyByValue(
         ORDER_STATUS_DISPLAY,
+        ORDER_STATUS_DISPLAY.CONFIRMED
+      ): {
+        return this.orders.filter(
+          (order: any) =>
+            order.order_status ===
+            getKeyByValue(
+              ORDER_STATUS_DISPLAY,
+              ORDER_STATUS_DISPLAY.CONFIRMED
+            )
+        );
+      }
+      case getKeyByValue(
+        ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.CANCELLED
       ): {
         return this.orders.filter(
@@ -246,7 +273,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
   }
 
   isShowCancel(id: any) {
-    return ['AWAITING_CONFIRMATION', 'AWAITING_SHIPMENT'].includes(id);
+    return ['AWAITING_CONFIRMATION', 'AWAITING_SHIPMENT', 'CONFIRMED'].includes(id);
   }
 
   getStatusName(data: any) {

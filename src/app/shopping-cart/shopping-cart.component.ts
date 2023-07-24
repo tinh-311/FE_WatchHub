@@ -307,6 +307,7 @@ export class ShoppingCartComponent implements OnInit {
         break;
       }
     }
+    console.log("🚀 ~ file: shopping-cart.component.ts:178 ~ ShoppingCartComponent ~ getParamsFromUrl ~ queryParams:", queryParams);
   }
 
   getUserById(id: string): Promise<any> {
