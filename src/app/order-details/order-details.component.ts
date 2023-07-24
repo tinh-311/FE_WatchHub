@@ -46,8 +46,8 @@ export class OrderDetailsComponent implements OnInit {
               },
               { label: ORDER_STATUS.IN_TRANSIT },
 
-              { label: ORDER_STATUS.DELIVERED },
               { label: ORDER_STATUS.CANCELLED },
+              { label: ORDER_STATUS.DELIVERED },
             ];
 
             const step = convertToDisPlayName(this.orderData?.order_status);

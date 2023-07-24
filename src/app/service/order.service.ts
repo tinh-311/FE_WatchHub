@@ -40,13 +40,28 @@ export class OrderService {
 
     return this.http.get<any>(url, { headers });
   }
-  
+
   getAllOrderById(id: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
 
     let url = `${this.baseUrl}/Order/FilterByUserId${id}`;
+
+    return this.http.get<any>(url, { headers });
+  }
+
+  getAllOrdersByStatus(pageNumber?: number, pageSize?: number, status?: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/Order/FilterByOrderStatus?orderStatus=${status}`;
+
+    if(isPaging) {
+      url = `${this.baseUrl}/Order/FilterByOrderStatus?PageNumber=${pageNumber}&PageSize=${pageSize}&orderStatus=${status}`;
+    }
 
     return this.http.get<any>(url, { headers });
   }
@@ -115,5 +130,5 @@ export class OrderService {
     let url = `${this.baseUrl}/Delivery/T3PDeliveryFail${id}/${cancelReason}`;
     return this.http.post<any>(url, { headers });
   }
-  
+
 }

@@ -105,7 +105,11 @@
               ></p-dropdown>
             </div>
             <div class="mr-2 mt-3">
-              <span> Địa chỉ nhận hàng</span> <br />
+              <span>
+                Địa chỉ nhận hàng
+                <i (click)="navigateProfile()" class="pi pi-plus ml-1 text-info cursor-pointer"></i>
+              </span>
+              <br />
               <p-dropdown
                 [options]="addressOptions"
                 optionLabel="displayName"

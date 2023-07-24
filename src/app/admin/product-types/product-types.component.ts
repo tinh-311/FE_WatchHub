@@ -31,7 +31,7 @@ export class ProductTypesComponent implements OnInit {
   selectedSubCategory: any;
 
   currentPage: any = 1;
-  rowsPerPage: any = 10;
+  rowsPerPage: any = 6;
   totalCount: number = 0;
   isLoading: boolean = false;
 
@@ -47,8 +47,6 @@ export class ProductTypesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getProductTypes();
-    // this.getCategories();
     this.getAllProductTypes();
   }
 

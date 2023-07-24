@@ -102,6 +102,7 @@ import { ManageOrderDetailComponent } from './modals/manage-order-detail/manage-
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import { DeliveryComponent } from './delivery/delivery.component';
 import { AdminUserByIdComponent } from './admin-user-by-id/admin-user-by-id.component';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
   declarations: [
@@ -204,6 +205,7 @@ import { AdminUserByIdComponent } from './admin-user-by-id/admin-user-by-id.comp
     StepsModule,
     ChartModule,
     MultiSelectModule,
+    ScrollTopModule
   ],
   providers: [MessageService, DialogService, ConfirmationService],
   bootstrap: [AppComponent],
