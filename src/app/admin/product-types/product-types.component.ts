@@ -31,7 +31,7 @@ export class ProductTypesComponent implements OnInit {
   selectedSubCategory: any;
 
   currentPage: any = 1;
-  rowsPerPage: any = 10;
+  rowsPerPage: any = 6;
   totalCount: number = 0;
   isLoading: boolean = false;
 

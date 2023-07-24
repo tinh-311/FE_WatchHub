@@ -7,8 +7,8 @@ export enum ORDER_STATUS {
   AWAITING_SHIPMENT = 'Chờ lấy hàng',
   AWAITING_COLLECTION = 'Đang đóng gói',
   IN_TRANSIT = 'Đang giao hàng',
-  DELIVERED = 'Đã giao hàng',
   CANCELLED = 'Đã huỷ',
+  DELIVERED = 'Đã giao hàng',
 }
 
 export enum ORDER_STATUS_DISPLAY {
@@ -17,8 +17,8 @@ export enum ORDER_STATUS_DISPLAY {
   AWAITING_SHIPMENT = 'Chờ lấy hàng',
   AWAITING_COLLECTION = 'Đang đóng gói',
   IN_TRANSIT = 'Đang giao hàng',
-  DELIVERED = 'Đã giao hàng',
   CANCELLED = 'Đã huỷ',
+  DELIVERED = 'Đã giao hàng',
 }
 export enum PAYMENT_METHOD {
   COD = 'Thanh toán khi nhận hàng',
