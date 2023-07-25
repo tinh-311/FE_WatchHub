@@ -14,6 +14,7 @@ import { getKeyByValue } from 'src/app/constant/util.constant';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { AdminUserComponent } from '../admin-user/admin-user.component';
 import { AdminUserByIdComponent } from 'src/app/admin-user-by-id/admin-user-by-id.component';
+import { ProductsService } from 'src/service/products.service';
 
 @Component({
   selector: 'app-manage-order',
@@ -21,18 +22,21 @@ import { AdminUserByIdComponent } from 'src/app/admin-user-by-id/admin-user-by-i
   styleUrls: ['./manage-order.component.scss'],
 })
 export class ManageOrderComponent implements OnInit {
+  order: any;
   orders: any[] = [];
   currentPage: any = 1;
   rowsPerPage: any = 10;
   totalCount: number = 0;
   isLoading: boolean = false;
   paymentMethodDisplay: string = "";
+  filter: any;
 
   constructor(
     private orderService: OrderService,
     private dialogService: DialogService,
     private toastService: ToastService,
-    private userService: UserService
+    private userService: UserService,
+    private productsService: ProductsService
   ) {}
 
   ngOnInit(): void {
@@ -143,5 +147,39 @@ export class ManageOrderComponent implements OnInit {
     }
     console.log("paymentMethodDisplay", this.paymentMethodDisplay);
     return false;
+  }
+
+  clearSearch() {
+    this.filter = '';
+    this.getAllOrders();
+    this.currentPage = 1;
+  }
+
+  search(isClearCurrentPage: boolean = true) {
+    if (this.filter === '') {
+      this.clearSearch();
+      return;
+    }
+
+    if (isClearCurrentPage) {
+      this.currentPage = 1;
+    }
+
+    this.isLoading = true;
+    this.orderService
+      .getById(
+        this.filter
+      )
+      .subscribe(
+        (data: any) => {
+          console.log('🏍️ ~ data: ', data);
+          // this.productTypes = data?.res;
+          this.orders = [data];
+          this.isLoading = false;
+        },
+        (err) => {
+          this.isLoading = false;
+        }
+      );
   }
 }

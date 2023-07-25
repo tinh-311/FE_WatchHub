@@ -47,8 +47,6 @@ export class ProductTypesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getProductTypes();
-    // this.getCategories();
     this.getAllProductTypes();
   }
 

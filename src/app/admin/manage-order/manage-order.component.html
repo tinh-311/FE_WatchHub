@@ -1,3 +1,20 @@
+<input
+  class="mr-2"
+  title="Tìm kiếm theo mã đơn hàng"
+  pInputText
+  type="text"
+  placeholder="Tìm kiếm theo mã đơn hàng"
+  (change)="search()"
+  [(ngModel)]="filter"
+/>
+<p-button
+  (onClick)="clearSearch()"
+  class="mt-4 w-100"
+  styleClass="p-button-warning"
+  icon="pi pi-filter-slash"
+  title="Hủy bỏ tìm kiếm"
+></p-button>
+<hr />
 <p-table
   [value]="orders"
   dataKey="id"
