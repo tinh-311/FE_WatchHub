@@ -157,8 +157,8 @@ export function parseJSON(json: any) {
   return JSON.parse(json);
 }
 
-export const PAYMENT_CALLBACK_URL = 'https://watchhub.website/shopping-cart';
-// export const PAYMENT_CALLBACK_URL = 'http://localhost:4200/shopping-cart';
+// export const PAYMENT_CALLBACK_URL = 'https://watchhub.website/shopping-cart';
+export const PAYMENT_CALLBACK_URL = 'http://localhost:4200/shopping-cart';
 
 export const VNP_RESPONSE_CODE = [
   { code: '00', message: 'Giao dịch thành công' },

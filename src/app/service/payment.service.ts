@@ -7,8 +7,7 @@ import { BE, isProduction_BE } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class PaymentService {
-  // private baseUrl = isProduction_BE ? BE.productionUrl : BE.devUrl;
-  private baseUrl = "https://localhost:8383";
+  private baseUrl = isProduction_BE ? BE.productionUrl : BE.devUrl;
   token: any = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {}

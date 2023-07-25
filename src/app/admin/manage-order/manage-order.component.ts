@@ -16,6 +16,7 @@ import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { AdminUserComponent } from '../admin-user/admin-user.component';
 import { AdminUserByIdComponent } from 'src/app/admin-user-by-id/admin-user-by-id.component';
 import { ProductsService } from 'src/service/products.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-manage-order',
@@ -44,7 +45,6 @@ export class ManageOrderComponent implements OnInit {
     this.orderStatusValues = Object.entries(ORDER_STATUS).map(
       ([key, value]) => ({ key, value })
     );
-    console.log('🏍️ ~ this.orderStatusValues: ', this.orderStatusValues);
   }
 
   ngOnInit(): void {
@@ -80,6 +80,7 @@ export class ManageOrderComponent implements OnInit {
       .subscribe(
         (data) => {
           this.orders = data?.res;
+          console.log("🚀 ~ file: manage-order.component.ts:83 ~ ManageOrderComponent ~ getAllOrders ~ this.orders:", this.orders)
           this.totalCount = data?.totalCount;
           this.isLoading = false;
         },
@@ -223,5 +224,10 @@ export class ManageOrderComponent implements OnInit {
         this.selectedFilterStatus = null;
       }
     );
+  }
+  convertToUtcPlus7(dateString: string): string {
+    const utcDate = moment.utc(dateString);
+    const utcPlus7Date = utcDate.utcOffset(7 * 60);
+    return utcPlus7Date.format('DD/MM/YYYY HH:mm:ss');
   }
 }

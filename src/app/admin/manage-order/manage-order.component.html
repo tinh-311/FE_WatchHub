@@ -69,8 +69,8 @@
       <td>
         {{ data?.phone }}
       </td>
-      <td>{{ data?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
-      <td>{{ data?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+      <td>{{ convertToUtcPlus7(data?.created_date)}}</td>
+      <td>{{ convertToUtcPlus7(data?.updated_date)}}</td>
       <td>
         <div class="d-flex">
           <p-button
