@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
   ORDER_STATUS,
@@ -40,7 +40,8 @@ export class ManageOrderComponent implements OnInit {
     private dialogService: DialogService,
     private toastService: ToastService,
     private userService: UserService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private cdRef: ChangeDetectorRef
   ) {
     this.orderStatusValues = Object.entries(ORDER_STATUS).map(
       ([key, value]) => ({ key, value })
@@ -229,5 +230,8 @@ export class ManageOrderComponent implements OnInit {
     const utcDate = moment.utc(dateString);
     const utcPlus7Date = utcDate.utcOffset(7 * 60);
     return utcPlus7Date.format('DD/MM/YYYY HH:mm:ss');
+  }
+  reloadComponent(): void {
+    this.getAllOrders();
   }
 }
