@@ -59,10 +59,6 @@ export class AdminDasboardComponent implements OnInit {
         this.curentNavItem = SideNav.Order;
         break;
       }
-      case 'profile': {
-        this.curentNavItem = SideNav.Profile;
-        break;
-      }
     }
   }
 
@@ -110,10 +106,6 @@ export class AdminDasboardComponent implements OnInit {
       }
       case SideNav.Order: {
         url = 'order';
-        break;
-      }
-      case SideNav.Profile: {
-        url = 'profile';
         break;
       }
     }

@@ -1,19 +1,30 @@
-<input
-  class="mr-2"
-  title="Tìm kiếm theo mã đơn hàng"
-  pInputText
-  type="text"
-  placeholder="Tìm kiếm theo mã đơn hàng"
-  (change)="search()"
-  [(ngModel)]="filter"
-/>
-<p-button
-  (onClick)="clearSearch()"
-  class="mt-4 w-100"
-  styleClass="p-button-warning"
-  icon="pi pi-filter-slash"
-  title="Hủy bỏ tìm kiếm"
-></p-button>
+<span>
+  <input
+    class="mr-2"
+    title="Tìm kiếm theo mã đơn hàng"
+    pInputText
+    type="text"
+    placeholder="Tìm kiếm theo mã đơn"
+    (change)="search()"
+    [(ngModel)]="filter"
+  />
+  <p-dropdown
+    [options]="orderStatusValues"
+    optionLabel="value"
+    [(ngModel)]="selectedFilterStatus"
+    (onChange)="onDropdownChange($event)"
+    placeholder="Tìm kiếm trạng thái"
+    styleClass="custom-dropdown mr-2"
+  ></p-dropdown>
+
+  <p-button
+    (onClick)="clearSearch()"
+    class="mt-4 w-100"
+    styleClass="p-button-warning"
+    icon="pi pi-filter-slash"
+    title="Hủy bỏ tìm kiếm"
+  ></p-button>
+</span>
 <hr />
 <p-table
   [value]="orders"
