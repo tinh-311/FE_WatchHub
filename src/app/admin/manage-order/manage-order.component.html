@@ -1,3 +1,31 @@
+<span>
+  <input
+    class="mr-2"
+    title="Tìm kiếm theo mã đơn hàng"
+    pInputText
+    type="text"
+    placeholder="Tìm kiếm theo mã đơn"
+    (change)="search()"
+    [(ngModel)]="filter"
+  />
+  <p-dropdown
+    [options]="orderStatusValues"
+    optionLabel="value"
+    [(ngModel)]="selectedFilterStatus"
+    (onChange)="onDropdownChange($event)"
+    placeholder="Tìm kiếm trạng thái"
+    styleClass="custom-dropdown mr-2"
+  ></p-dropdown>
+
+  <p-button
+    (onClick)="clearSearch()"
+    class="mt-4 w-100"
+    styleClass="p-button-warning"
+    icon="pi pi-filter-slash"
+    title="Hủy bỏ tìm kiếm"
+  ></p-button>
+</span>
+<hr />
 <p-table
   [value]="orders"
   dataKey="id"
@@ -24,17 +52,20 @@
       <td>{{ data?.id }}</td>
       <td>
         <p-button
-            (onClick)="viewUserDetail(data)"
-            class="mr-4"
-            icon="pi"
-            styleClass="p-button-rounded"
-          >{{ data?.user_id }}</p-button>
+          (onClick)="viewUserDetail(data)"
+          class="mr-4"
+          icon="pi pi-user"
+          styleClass="p-button-link"
+        ></p-button>
       </td>
-      <td class="formatted-amount">{{ data?.total_amount | currency: 'VND':'symbol':'1.0-0'  }}</td>
-      <td>{{ getOerderStatus(data?.order_status) }}</td>
+      <td class="formatted-amount">
+        {{ data?.total_amount | currency : "VND" : "symbol" : "1.0-0" }}
+      </td>
+      <td>{{ getOrderStatus(data?.order_status) }}</td>
       <td>
         {{ getAddress(data) }}
       </td>
+
       <td>
         {{ data?.phone }}
       </td>

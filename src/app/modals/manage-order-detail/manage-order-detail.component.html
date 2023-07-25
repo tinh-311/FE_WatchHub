@@ -27,9 +27,18 @@
         <span>
           {{ order?.product_type_name }}
         </span>
+        <div *ngIf="paymentMethodConvert()">
+          <span>Phương thức: {{ paymentMethodDisplay }}</span>
+          <br />
+          <span>Tình trạng thanh toán&#160;</span>
+          <span [ngClass]="{ 'success-icon': isPaid, 'fail-icon': !isPaid }">
+            <span *ngIf="isPaid" class="fa fa-check"></span>
+            <span *ngIf="!isPaid" class="fa fa-times"></span>
+          </span>
+        </div>
       </div>
       <div>Số lượng: {{ order?.quantity }}</div>
-      <ul *ngFor="let orderDetail of orderDetailById">
+      <!-- <ul *ngFor="let orderDetail of orderDetailById">
         <li>Mã sản phẩm: {{ orderDetail?.product_code }}</li>
       </ul>
       <div class="d-flex justify-content-center w-100">
@@ -40,15 +49,15 @@
           fill="var(--surface-ground)"
           animationDuration=".5s"
         ></p-progressSpinner>
-      </div>
+      </div> -->
       <hr />
     </li>
   </ul>
   <div *ngIf="isShowCancelReason()" class="">
     <h6>
-      <strong>Lý do huỷ:</strong> 
+      <strong>Lý do huỷ:</strong>
       <strong class="outstanding-message">
-        {{order?.cancel_reason}}
+        {{ order?.cancel_reason }}
       </strong>
     </h6>
   </div>
@@ -56,22 +65,14 @@
     <p-button
       *ngIf="isHiddenVerifyBtn()"
       (onClick)="continue()"
-      [label]= "btnMessage"
+      [label]="btnMessage"
       styleClass="p-button-secondary"
     ></p-button>
     <p-button
-    *ngIf="isHiddenVerifyBtn()"
-    (onClick)="isShowOrderDetail()"
-    label= "Xem chi tiết"
-    styleClass="p-button-secondary"
-  ></p-button>
-    <p-button
       *ngIf="isHiddenCancelBtn()"
       (onClick)="cancelOrder()"
-      label= "Huỷ"
+      label="Huỷ"
       styleClass="ml-3 p-button-danger"
     ></p-button>
   </div>
-  
 </div>
-

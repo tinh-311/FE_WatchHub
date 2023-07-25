@@ -77,7 +77,6 @@ export class ShoppingCartComponent implements OnInit {
         .getUserByID(this.currentUser?.id)
         .subscribe((data: any) => {
           this.currentUser = data;
-          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
           this.address = JSON.parse(this.currentUser?.addresses);
           this.addressOptions = this.mappingAddress(this.address);
           this.selectedAddress = this.addressOptions[0];
@@ -85,11 +84,11 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
-  onCheckbox(event: any, data: any) {
-    console.log('🏍️ ~ data: ', data)
-    console.log('🏍️ ~ event.target.checked: ', event.target.checked)
-    console.log('🏍️ ~ this.selectedProducts: ', this.selectedProducts)
+  navigateProfile() {
+    this.router.navigate(['/profile']);
+  }
 
+  onCheckbox(event: any, data: any) {
     if(this.isCheckAll) {
       this.isCheckAll = !this.isCheckAll;
       this.selectedProducts = [];
@@ -307,6 +306,7 @@ export class ShoppingCartComponent implements OnInit {
         break;
       }
     }
+    console.log("🚀 ~ file: shopping-cart.component.ts:178 ~ ShoppingCartComponent ~ getParamsFromUrl ~ queryParams:", queryParams);
   }
 
   getUserById(id: string): Promise<any> {

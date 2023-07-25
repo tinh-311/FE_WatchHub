@@ -6,6 +6,7 @@ import {
 } from 'primeng/dynamicdialog';
 import {
   ORDER_STATUS,
+  PAYMENT_METHOD,
   convertToDisPlayName,
 } from 'src/app/constant/order-status.constant';
 import { getKeyByValue, parseJSON } from 'src/app/constant/util.constant';
@@ -26,6 +27,8 @@ export class ManageOrderDetailComponent implements OnInit {
   orderDetailById: any;
   isLoading: boolean = false;
   btnMessage: string = 'Xác nhận đơn';
+  paymentMethodDisplay: string = '';
+  isPaid: boolean = false;
 
   constructor(
     private config: DynamicDialogConfig,
@@ -37,6 +40,7 @@ export class ManageOrderDetailComponent implements OnInit {
     if (this.config.data) {
       this.order = this.config.data?.order;
       this.orderInfo = parseJSON(this.order?.order_info);
+      this.isPaid = this.order?.isPaid;
       console.log('🏍️ ~ this.orderInfo : ', this.orderInfo);
       console.log('🏍️ ~ this.order: ', this.order);
     }
@@ -60,12 +64,6 @@ export class ManageOrderDetailComponent implements OnInit {
     //     break;
     //   }
     // }
-    switch (this.order?.order_status) {
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        this.btnMessage = 'Xác nhận lại'
-        break;
-      }
-    }
   }
 
   openImage(imageUrl: string) {
@@ -110,23 +108,21 @@ export class ManageOrderDetailComponent implements OnInit {
 
   awaitingConfirmation() {
     this.isLoading = true;
-    this.orderService.InventoryChecking(this.order?.id).subscribe(
+    this.orderService.ConfirmationChecking(this.order?.id).subscribe(
       (data) => {
-        console.log('🏍️ ~ data: ', data);
-          // inventory checking
-          this.toastService.showMessage(
-            ToasSumary.Info,
-            data?.message,
-            ToastType.Info
-          );
+        // inventory checking
+        this.toastService.showMessage(
+          ToasSumary.Info,
+          data?.message,
+          ToastType.Info
+        );
         this.isLoading = false;
         this.ref.close(true);
       },
       (err) => {
-        console.log('🏍️ ~ err: ', err);
         this.toastService.showMessage(
           ToasSumary.Error,
-          err?.message,
+          err?.error?.message,
           ToastType.Error
         );
         this.isLoading = false;
@@ -148,12 +144,8 @@ export class ManageOrderDetailComponent implements OnInit {
   }
   isHiddenVerifyBtn(): boolean {
     if (
-      [
-        ORDER_STATUS.AWAITING_COLLECTION,
-        ORDER_STATUS.IN_TRANSIT,
-        ORDER_STATUS.DELIVERED,
-        ORDER_STATUS.CANCELLED,
-      ].includes(convertToDisPlayName(this.order?.order_status))
+      convertToDisPlayName(this.order?.order_status) !=
+      ORDER_STATUS.AWAITING_CONFIRMATION
     ) {
       return false;
     }
@@ -171,14 +163,30 @@ export class ManageOrderDetailComponent implements OnInit {
     }
     return true;
   }
-  isShowCancelReason(): boolean{
-    if(convertToDisPlayName(this.order?.order_status) == ORDER_STATUS.CANCELLED){
+  isShowCancelReason(): boolean {
+    if (
+      convertToDisPlayName(this.order?.order_status) == ORDER_STATUS.CANCELLED
+    ) {
       return true;
     }
     return false;
   }
-  isShowOrderDetail(): boolean{
-    if(convertToDisPlayName(this.order?.order_status) == ORDER_STATUS.AWAITING_COLLECTION){
+  isShowOrderDetail(): boolean {
+    if (
+      convertToDisPlayName(this.order?.order_status) ==
+      ORDER_STATUS.AWAITING_COLLECTION
+    ) {
+      return true;
+    }
+    return false;
+  }
+  paymentMethodConvert(): any {
+    if (this.order?.payment_method_id == 2) {
+      this.paymentMethodDisplay = PAYMENT_METHOD.VNPAY;
+      return true;
+    }
+    if (this.order?.payment_method_id == 3) {
+      this.paymentMethodDisplay = PAYMENT_METHOD.COD;
       return true;
     }
     return false;

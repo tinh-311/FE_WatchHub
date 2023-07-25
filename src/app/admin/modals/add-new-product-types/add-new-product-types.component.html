@@ -343,7 +343,10 @@
     label="Hủy"
     styleClass="p-button-warning"
   ></p-button>
-  <p-button (onClick)="create()" class="ml-3" label="Tạo"></p-button>
+  <p-button
+    [disabled]="addNewForm.invalid || imgURLS.length < 1"
+    (onClick)="create()"
+    class="ml-3"
+    label="Tạo"
+  ></p-button>
 </div>
-
-<!-- [disabled]="addNewForm.invalid || imgURLS.length < 1" -->

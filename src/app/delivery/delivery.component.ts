@@ -16,11 +16,9 @@ export class DeliveryComponent {
   constructor(
     private orderService: OrderService,
     private toastService: ToastService
-  ) {
+  ) {}
 
-  }
-
-  DeliveryIntransit(){
+  DeliveryIntransit() {
     this.orderService.T3PDeliveryIntransit(this.orderIdTransit).subscribe(
       (data) => {
         this.toastService.showMessage(
@@ -32,13 +30,13 @@ export class DeliveryComponent {
       (err) => {
         this.toastService.showMessage(
           ToasSumary.Error,
-          err?.message,
+          err?.error?.message,
           ToastType.Error
         );
       }
     );
   }
-  DeliverySuccessful(){
+  DeliverySuccessful() {
     this.orderService.T3PDeliverySuccessful(this.orderIdSuccess).subscribe(
       (data) => {
         this.toastService.showMessage(
@@ -50,29 +48,31 @@ export class DeliveryComponent {
       (err) => {
         this.toastService.showMessage(
           ToasSumary.Error,
-          err?.message,
+          err?.error?.message,
           ToastType.Error
         );
       }
     );
   }
-  DeliveryFail(){
-    this.orderService.T3PDeliveryFail(this.orderIdFail, this.cancelReason).subscribe(
-      (data) => {
-        this.toastService.showMessage(
-          ToasSumary.Info,
-          data?.message,
-          ToastType.Info
-        );
-      },
-      (err) => {
-        this.toastService.showMessage(
-          ToasSumary.Error,
-          err?.message,
-          ToastType.Error
-        );
-      }
-    );
+  DeliveryFail() {
+    this.orderService
+      .T3PDeliveryFail(this.orderIdFail, this.cancelReason)
+      .subscribe(
+        (data) => {
+          this.toastService.showMessage(
+            ToasSumary.Info,
+            data?.message,
+            ToastType.Info
+          );
+        },
+        (err) => {
+          console.log("🚀 ~ file: delivery.component.ts:69 ~ DeliveryComponent ~ DeliveryFail ~ err:", err)
+          this.toastService.showMessage(
+            ToasSumary.Error,
+            err?.error?.message,
+            ToastType.Error
+          );
+        }
+      );
   }
-  
 }

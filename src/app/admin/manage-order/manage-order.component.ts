@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
   ORDER_STATUS,
+  ORDER_STATUS_DISPLAY,
+  PAYMENT_METHOD,
   convertToDisPlayName,
 } from 'src/app/constant/order-status.constant';
 import { OrderService } from 'src/app/service/order.service';
@@ -13,6 +15,7 @@ import { getKeyByValue } from 'src/app/constant/util.constant';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { AdminUserComponent } from '../admin-user/admin-user.component';
 import { AdminUserByIdComponent } from 'src/app/admin-user-by-id/admin-user-by-id.component';
+import { ProductsService } from 'src/service/products.service';
 
 @Component({
   selector: 'app-manage-order',
@@ -20,21 +23,54 @@ import { AdminUserByIdComponent } from 'src/app/admin-user-by-id/admin-user-by-i
   styleUrls: ['./manage-order.component.scss'],
 })
 export class ManageOrderComponent implements OnInit {
+  order: any;
   orders: any[] = [];
   currentPage: any = 1;
   rowsPerPage: any = 10;
   totalCount: number = 0;
   isLoading: boolean = false;
+  paymentMethodDisplay: string = '';
+  filter: any;
+  orderStatusValues: any;
+  selectedFilterStatus: any;
 
   constructor(
     private orderService: OrderService,
     private dialogService: DialogService,
     private toastService: ToastService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private productsService: ProductsService
+  ) {
+    this.orderStatusValues = Object.entries(ORDER_STATUS).map(
+      ([key, value]) => ({ key, value })
+    );
+    console.log('🏍️ ~ this.orderStatusValues: ', this.orderStatusValues);
+  }
 
   ngOnInit(): void {
     this.getAllOrders();
+  }
+
+  onDropdownChange(event: any) {
+    this.filterByStatus(event?.value?.key);
+  }
+
+  filterByStatus(status: any) {
+    this.clearSearch(false);
+    this.isLoading = true;
+    this.orderService
+      .getAllOrdersByStatus(this.currentPage, this.rowsPerPage, status)
+      .subscribe(
+        (data: any) => {
+          this.orders = data?.res || [];
+          console.log('🏍️ ~ this.orders: ', this.orders);
+          this.totalCount = data?.totalCount || 0;
+          this.isLoading = false;
+        },
+        (err) => {
+          this.isLoading = false;
+        }
+      );
   }
 
   getAllOrders() {
@@ -68,10 +104,19 @@ export class ManageOrderComponent implements OnInit {
   onPageChanged(event: any) {
     this.currentPage = event.page + 1;
     this.rowsPerPage = event.rows;
-    this.getAllOrders();
+
+    if (this.filter) {
+      console.log('🏍️ ~ this.filter: ', this.filter)
+      this.search(false);
+    } else if (this.selectedFilterStatus) {
+      console.log('🏍️ ~ this.selectedFilterStatus: ', this.selectedFilterStatus)
+      this.filterByStatus(this.selectedFilterStatus?.key);
+    } else {
+      this.getAllOrders();
+    }
   }
 
-  getOerderStatus(status: any) {
+  getOrderStatus(status: any) {
     return convertToDisPlayName(status);
   }
 
@@ -129,5 +174,54 @@ export class ManageOrderComponent implements OnInit {
         },
         (err) => {}
       );
+  }
+  paymentMethodConvert(paymentMethodId: any): any {
+    if (paymentMethodId == 2) {
+      this.paymentMethodDisplay = PAYMENT_METHOD.COD;
+      return true;
+    }
+    if (paymentMethodId == 3) {
+      this.paymentMethodDisplay = PAYMENT_METHOD.VNPAY;
+      return true;
+    }
+    console.log('paymentMethodDisplay', this.paymentMethodDisplay);
+    return false;
+  }
+
+  clearSearch(isReloadAllData: boolean = true) {
+    this.filter = '';
+    if (isReloadAllData) {
+      this.selectedFilterStatus = null;
+      this.currentPage = 1;
+      this.getAllOrders();
+    }
+  }
+
+  search(isClearCurrentPage: boolean = true) {
+    this.selectedFilterStatus = null;
+
+    if (this.filter === '') {
+      this.clearSearch();
+      return;
+    }
+
+    if (isClearCurrentPage) {
+      this.currentPage = 1;
+    }
+
+    this.isLoading = true;
+    this.orderService.getById(this.filter).subscribe(
+      (data: any) => {
+        console.log('🏍️ ~ data: ', data);
+        // this.productTypes = data?.res;
+        this.orders = [data];
+        this.isLoading = false;
+        this.selectedFilterStatus = null;
+      },
+      (err) => {
+        this.isLoading = false;
+        this.selectedFilterStatus = null;
+      }
+    );
   }
 }

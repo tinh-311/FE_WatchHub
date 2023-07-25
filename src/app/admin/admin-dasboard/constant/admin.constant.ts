@@ -48,12 +48,7 @@ export const SIDE_NAV = [
     iconClass: 'fas fa-shopping-cart fa-2x',
     name: 'ORDER',
     displayName: 'Đơn đặt hàng',
-  },
-  {
-    iconClass: 'fas fa-user-circle fa-2x',
-    name: 'PROFILE',
-    displayName: 'Thông tin cá nhân',
-  },
+  }
 ];
 
 export enum SideNav {
@@ -67,7 +62,6 @@ export enum SideNav {
   ProductCores = 'PRODUCTCORES',
   ProductTypes = 'PRODUCTTYPES',
   SubCategories = 'SUBCATEGORIES',
-  Profile = 'PROFILE',
   Warehouse = 'WAREHOUSE',
   Delivery = 'DELIVERY'
 }
