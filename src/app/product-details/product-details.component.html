@@ -109,8 +109,6 @@
             </dl>
           </dl>
 
-          <hr />
-
           <div
             *ngIf="
               this.currentUser?.is_admin !== 'True' &&
@@ -161,4 +159,103 @@
     </div>
   </div>
 </section>
+<hr />
+
+<div class="container pb-8">
+  <div
+    *ngIf="this.currentUser?.is_admin !== 'True' && !this.currentUser?.is_admin"
+  >
+    <h4>Đánh giá sản phẩm</h4>
+    <div class="form-group">
+      <p-editor
+        [(ngModel)]="newComment"
+        [style]="{ height: '150px' }"
+      ></p-editor>
+
+      <div class="w-100 d-flex justify-content-center">
+        <p-rating [(ngModel)]="newRating">
+          <ng-template pTemplate="onicon">
+            <img
+              src="https://ucarecdn.com/030d086e-35f6-44af-a890-7dc57eddfb7a/Pngtreefivepointedyellowstaricon_5227541.png"
+              width="30px"
+              height="30px"
+            />
+          </ng-template>
+          <ng-template pTemplate="officon">
+            <img
+              src="https://ucarecdn.com/52a6b42e-19a4-4df4-83d5-6cc7714858af/customicon.png"
+              width="30px"
+              height="30px"
+            />
+          </ng-template>
+        </p-rating>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-4">
+      <button class="btn btn-primary" (click)="addComment()">Bình luận</button>
+    </div>
+  </div>
+
+  <h4>Bình luận và đánh giá</h4>
+  <div *ngIf="comments.length === 0 && !isLoadingComment">
+    Không có bình luận nào.
+  </div>
+  <div *ngFor="let comment of comments" class="media mb-4 w-100">
+    <div class="d-flex">
+      <img
+        [src]="comment?.user?.avatar"
+        alt="Avatar"
+        class="mr-3 rounded-circle"
+        style="width: 50px; height: 50px"
+      />
+      <h5 class="my-auto">{{ comment?.user?.fullname }}</h5>
+    </div>
+
+    <div class="media-body ml-6">
+      <p-rating [readonly]="true" [(ngModel)]="comment.rating">
+        <ng-template pTemplate="onicon">
+          <img
+            src="https://ucarecdn.com/030d086e-35f6-44af-a890-7dc57eddfb7a/Pngtreefivepointedyellowstaricon_5227541.png"
+            width="25px"
+            height="25px"
+          />
+        </ng-template>
+        <ng-template pTemplate="officon">
+          <img
+            src="https://ucarecdn.com/52a6b42e-19a4-4df4-83d5-6cc7714858af/customicon.png"
+            width="25px"
+            height="25px"
+          />
+        </ng-template>
+      </p-rating>
+      <ng-template #noRating>
+        <span *ngIf="!isLoadingComment" class="ml-6 px-6"
+          >Chưa có đánh giá.</span
+        >
+      </ng-template>
+      <span
+        class="ml-4 cmt"
+        [innerHTML]="safeHtml(comment.feedback_message)"
+      ></span>
+    </div>
+  </div>
+  <div *ngIf="isLoadingComment" class="d-flex justify-content-center">
+    <p-progressSpinner
+      styleClass="w-3rem h-3rem"
+      strokeWidth="4"
+      fill="var(--surface-ground)"
+      animationDuration=".5s"
+    ></p-progressSpinner>
+  </div>
+  <div *ngIf="isShowLoadMore" class="d-flex justify-content-center">
+    <button
+      [disabled]="isLoadingComment"
+      class="btn btn-primary"
+      (click)="loadMoreComments()"
+    >
+      Xem thêm bình luận
+    </button>
+  </div>
+</div>
+
 <app-footer></app-footer>
