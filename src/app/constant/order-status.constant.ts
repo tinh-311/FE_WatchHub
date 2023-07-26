@@ -4,7 +4,7 @@ export enum ORDER_STATUS {
   AWAITING_CONFIRMATION = 'Chờ xác nhận',
   CONFIRMED = 'Đã xác nhận',
   ON_HOLD = 'Chờ thanh toán',
-  AWAITING_SHIPMENT = 'Chờ lấy hàng',
+  // AWAITING_SHIPMENT = 'Chờ lấy hàng',
   AWAITING_COLLECTION = 'Đang đóng gói',
   IN_TRANSIT = 'Đang giao hàng',
   CANCELLED = 'Đã huỷ',
@@ -14,7 +14,7 @@ export enum ORDER_STATUS {
 export enum ORDER_STATUS_DISPLAY {
   AWAITING_CONFIRMATION = 'Chờ xác nhận',
   CONFIRMED = 'Đã xác nhận',
-  AWAITING_SHIPMENT = 'Chờ lấy hàng',
+  // AWAITING_SHIPMENT = 'Chờ lấy hàng',
   AWAITING_COLLECTION = 'Đang đóng gói',
   IN_TRANSIT = 'Đang giao hàng',
   CANCELLED = 'Đã huỷ',
@@ -33,8 +33,8 @@ export function convertToDisPlayName(status: any): any {
       return 'Đã xác nhận';
     case getKeyByValue(ORDER_STATUS, ORDER_STATUS.ON_HOLD):
       return 'Chờ thanh toán';
-    case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT):
-      return 'Chờ lấy hàng';
+    // case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT):
+      // return 'Chờ lấy hàng';
     case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION):
       return 'Đang đóng gói';
     case getKeyByValue(ORDER_STATUS, ORDER_STATUS.IN_TRANSIT):

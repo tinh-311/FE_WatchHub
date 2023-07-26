@@ -25,6 +25,7 @@
         <tr>
           <th></th>
           <th>Mã đơn hàng</th>
+          <th>Mã giao dịch</th>
           <!-- <th>Trạng thái</th> -->
           <th>Thành tiền</th>
           <th>Thời gian đặt hàng</th>
@@ -44,6 +45,9 @@
           </td>
           <td class="cursor-pointer" (click)="onClickOrder(order)">
             {{ order?.id }}
+          </td>
+          <td class="cursor-pointer" (click)="onClickOrder(order)">
+            {{ order?.vnpay?.transactionNo }}
           </td>
           <!-- <td>{{ getStatusName(order.order_status) }}</td> -->
           <td class="cursor-pointer" (click)="onClickOrder(order)">

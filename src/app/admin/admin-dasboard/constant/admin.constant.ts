@@ -7,7 +7,7 @@ export const SIDE_NAV = [
   {
     iconClass: 'fas fa-users fa-2x',
     name: 'USERS',
-    displayName: 'Người dùng',
+    displayName: 'Khách hàng',
   },
   {
     iconClass: 'fas fa-tags fa-2x',

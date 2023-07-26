@@ -232,6 +232,6 @@ export class ManageOrderComponent implements OnInit {
     return utcPlus7Date.format('DD/MM/YYYY HH:mm:ss');
   }
   reloadComponent(): void {
-    this.getAllOrders();
+    this.clearSearch(true);
   }
 }

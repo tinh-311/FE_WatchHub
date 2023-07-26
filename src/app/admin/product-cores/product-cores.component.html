@@ -12,30 +12,11 @@
   <ng-template pTemplate="header">
     <tr>
       <th>ID</th>
-      <th pSortableColumn="core_name">
-        Loại máy
-        <p-sortIcon field="core_name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="created_date">
-        Ngày tạo
-        <p-sortIcon field="created_date"></p-sortIcon>
-        <p-columnFilter
-          type="text"
-          field="created_date"
-          display="menu"
-        ></p-columnFilter>
-      </th>
-      <th pSortableColumn="updated_date">
-        Ngày chỉnh sửa
-        <p-sortIcon field="updated_date"></p-sortIcon>
-        <p-columnFilter
-          type="text"
-          field="updated_date"
-          display="menu"
-        ></p-columnFilter>
-      </th>
+      <th pSortableColumn="core_name">Loại máy</th>
+      <th pSortableColumn="created_date">Ngày tạo</th>
+      <th pSortableColumn="updated_date">Ngày chỉnh sửa</th>
 
-      <th>Action</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-data>

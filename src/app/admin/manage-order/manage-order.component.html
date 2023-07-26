@@ -44,7 +44,6 @@
       <th>Địa chỉ</th>
       <th>Số điện thoại</th>
       <th>Ngày tạo</th>
-      <th>Ngày chỉnh sửa</th>
       <th>Actions</th>
     </tr>
   </ng-template>
@@ -71,7 +70,6 @@
         {{ data?.phone }}
       </td>
       <td>{{ convertToUtcPlus7(data?.created_date)}}</td>
-      <td>{{ convertToUtcPlus7(data?.updated_date)}}</td>
       <td>
         <div class="d-flex">
           <p-button

@@ -46,6 +46,7 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
     this.orderService
       .getAllOrderById(this.currentUser?.id)
       .subscribe((data: any) => {
+        console.log("🚀 ~ file: my-order.component.ts:49 ~ MyOrderComponent ~ .subscribe ~ data:", data)
         this.orderStatusValues = Object.entries(ORDER_STATUS_DISPLAY).map(
           ([key, value]) => ({ key, value })
         );
@@ -134,14 +135,14 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         );
         break;
       }
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        this.totalByStatus = this.orders.filter(
-          (order: any) =>
-            order.order_status ===
-            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
-        );
-        break;
-      }
+      // case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+      //   this.totalByStatus = this.orders.filter(
+      //     (order: any) =>
+      //       order.order_status ===
+      //       getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+      //   );
+      //   break;
+      // }
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
         this.totalByStatus = this.orders.filter(
           (order: any) =>
@@ -225,15 +226,15 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
             getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.CANCELLED)
         );
       }
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        const f = this.orders.filter(
-          (order: any) =>
-            order.order_status ===
-            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
-        );
+      // case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+      //   const f = this.orders.filter(
+      //     (order: any) =>
+      //       order.order_status ===
+      //       getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+      //   );
 
-        return f;
-      }
+      //   return f;
+      // }
       case getKeyByValue(
         ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.AWAITING_COLLECTION

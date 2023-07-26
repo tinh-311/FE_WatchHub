@@ -25,6 +25,7 @@ import { FilterService } from 'primeng/api';
 })
 export class ProductTypesComponent implements OnInit {
   productTypes: any = [];
+  productType: any;
   categories: any = [];
   selectedCategory: any;
   subCategories: any = [];
@@ -34,7 +35,7 @@ export class ProductTypesComponent implements OnInit {
   rowsPerPage: any = 6;
   totalCount: number = 0;
   isLoading: boolean = false;
-
+  items: any[] = [];
   filter: any;
 
   constructor(
@@ -48,6 +49,26 @@ export class ProductTypesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProductTypes();
+    this.items = [
+      {
+        icon: 'pi pi-refresh',
+        command: () => {
+          this.manageProducts(this.productType);
+        },
+      },
+      {
+        icon: 'pi pi-pencil',
+        command: () => {
+          this.editProductTypes(this.productType);
+        },
+      },
+      {
+        icon: 'pi pi-trash',
+        command: () => {
+          this.deleteProductTypes(this.productType);
+        },
+      },
+    ];
   }
 
   clearSearch() {
@@ -329,5 +350,8 @@ export class ProductTypesComponent implements OnInit {
     ref.onClose.subscribe((data) => {
       this.getProductTypes();
     });
+  }
+  onProductTypeClick(data: any){
+    this.productType = data;
   }
 }
