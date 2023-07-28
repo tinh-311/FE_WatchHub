@@ -14,7 +14,7 @@ import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
   styleUrls: ['./warehouse.component.scss'],
 })
 export class WarehouseComponent implements OnInit {
-  orderId: any;  
+  orderId: any;
   constructor(
     private orderService: OrderService,
     private toastService: ToastService
@@ -22,7 +22,6 @@ export class WarehouseComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.orderId);
   }
   inventoryChecking() {
     this.orderService.InventoryChecking(this.orderId).subscribe(
@@ -34,7 +33,6 @@ export class WarehouseComponent implements OnInit {
         );
       },
       (err) => {
-        console.log('🏍️ ~ err: ', err);
         this.toastService.showMessage(
           ToasSumary.Error,
           err?.error?.message,

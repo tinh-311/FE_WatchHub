@@ -31,7 +31,6 @@ export class OrderDetailsComponent implements OnInit {
             this.orderData = data;
             this.orderInfo = parseJSON(this.orderData?.order_info);
             this.items = [
-              { label: ORDER_STATUS.ON_HOLD },
               {
                 label: ORDER_STATUS.AWAITING_CONFIRMATION,
               },
@@ -40,9 +39,6 @@ export class OrderDetailsComponent implements OnInit {
               },
               {
                 label: ORDER_STATUS.AWAITING_COLLECTION,
-              },
-              {
-                label: ORDER_STATUS.AWAITING_SHIPMENT,
               },
               { label: ORDER_STATUS.IN_TRANSIT },
 

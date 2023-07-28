@@ -32,43 +32,12 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>
-        ID
-        <p-columnFilter
-          type="number"
-          field="id"
-          display="menu"
-        ></p-columnFilter>
-      </th>
-      <th pSortableColumn="sub_category_name">
-        Tên Danh mục con
-        <p-sortIcon field="sub_category_name"></p-sortIcon>
-        <p-columnFilter
-          type="text"
-          field="sub_category_name"
-          display="menu"
-        ></p-columnFilter>
-      </th>
-      <th pSortableColumn="created_date">
-        Ngày tạo
-        <p-sortIcon field="created_date"></p-sortIcon>
-        <p-columnFilter
-          type="text"
-          field="created_date"
-          display="menu"
-        ></p-columnFilter>
-      </th>
-      <th pSortableColumn="updated_date">
-        Ngày chỉnh sửa
-        <p-sortIcon field="updated_date"></p-sortIcon>
-        <p-columnFilter
-          type="text"
-          field="updated_date"
-          display="menu"
-        ></p-columnFilter>
-      </th>
+      <th>ID</th>
+      <th pSortableColumn="sub_category_name">Tên danh mục con</th>
+      <th pSortableColumn="created_date">Ngày tạo</th>
+      <th pSortableColumn="updated_date">Ngày chỉnh sửa</th>
 
-      <th>Action</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-subcategory>

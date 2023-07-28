@@ -203,7 +203,6 @@ export class ProfileComponent implements OnInit {
         })
       ) {
         this.addresses.unshift(data);
-        console.log('🏍️ ~ this.addresses: ', this.addresses)
       } else {
         this.toastService.showMessage(
           ToasSumary.Warn,
@@ -230,7 +229,6 @@ export class ProfileComponent implements OnInit {
       userAddresses: this.addresses || [],
       avatar: this.currentUser?.avatar || '',
     };
-    console.log('🏍️ ~ userUpdate: ', userUpdate);
 
     this.userService.updateUser({ ...userUpdate }).subscribe(
       (res) => {
@@ -238,7 +236,7 @@ export class ProfileComponent implements OnInit {
         this.loadingService.hideLoading();
         this.toastService.showMessage(
           ToasSumary.Success,
-          res?.message,
+          'Cập nhật thành công!',
           ToastType.Success
         );
         this.utilService.onChange(res?.token);

@@ -25,6 +25,7 @@ import { FilterService } from 'primeng/api';
 })
 export class ProductTypesComponent implements OnInit {
   productTypes: any = [];
+  productType: any;
   categories: any = [];
   selectedCategory: any;
   subCategories: any = [];
@@ -34,7 +35,7 @@ export class ProductTypesComponent implements OnInit {
   rowsPerPage: any = 6;
   totalCount: number = 0;
   isLoading: boolean = false;
-
+  items: any[] = [];
   filter: any;
 
   constructor(
@@ -48,6 +49,26 @@ export class ProductTypesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProductTypes();
+    this.items = [
+      {
+        icon: 'pi pi-refresh',
+        command: () => {
+          this.manageProducts(this.productType);
+        },
+      },
+      {
+        icon: 'pi pi-pencil',
+        command: () => {
+          this.editProductTypes(this.productType);
+        },
+      },
+      {
+        icon: 'pi pi-trash',
+        command: () => {
+          this.deleteProductTypes(this.productType);
+        },
+      },
+    ];
   }
 
   clearSearch() {
@@ -68,14 +89,13 @@ export class ProductTypesComponent implements OnInit {
 
     this.isLoading = true;
     this.productsService
-      .searchByProductTypeCodeOrId(
+      .searchByProductTypeCodeOrIdAdmin(
         this.currentPage,
         this.rowsPerPage,
         this.filter
       )
       .subscribe(
         (data: any) => {
-          console.log('🏍️ ~ data: ', data);
           this.productTypes = data?.res;
           this.totalCount = data?.totalCount;
           this.isLoading = false;
@@ -165,7 +185,7 @@ export class ProductTypesComponent implements OnInit {
   getAllProductTypes() {
     this.isLoading = true;
     this.productsService
-      .getAllProductTypes(this.currentPage, this.rowsPerPage)
+      .getAllProductTypesAdmin(this.currentPage, this.rowsPerPage)
       .subscribe(
         (data) => {
           this.selectedSubCategory = !this.selectedSubCategory
@@ -280,7 +300,6 @@ export class ProductTypesComponent implements OnInit {
       },
     });
     ref.onClose.subscribe((data) => {
-      console.log('🏍️ ~ data: ', data);
       if (data) {
         this.getAllProductTypes();
       }
@@ -329,5 +348,8 @@ export class ProductTypesComponent implements OnInit {
     ref.onClose.subscribe((data) => {
       this.getProductTypes();
     });
+  }
+  onProductTypeClick(data: any){
+    this.productType = data;
   }
 }

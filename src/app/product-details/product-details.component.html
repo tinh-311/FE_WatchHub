@@ -59,7 +59,7 @@
             <var class="price h5">
               {{ product?.price | currency : "VND" }}
             </var>
-            <span class="text-muted">/sản phẩm (Full Box)</span>
+            <span class="text-muted">/sản phẩm (Đầy đủ hộp và phụ kiện)</span>
           </div>
 
           <p>
@@ -109,35 +109,6 @@
             </dl>
           </dl>
 
-          <hr />
-
-          <div
-            *ngIf="
-              this.currentUser?.is_admin !== 'True' &&
-              this.currentUser?.is_admin !== true
-            "
-            class="row mb-4"
-          >
-            <div class="col-md-4 col-6 mb-3">
-              <label class="form-label d-block">Quantity</label>
-              <div class="input-group input-spinner">
-                <p-inputNumber
-                  [(ngModel)]="quantity"
-                  [showButtons]="true"
-                  [disabled]="
-                    this.currentUser?.is_admin === 'True' ||
-                    this.currentUser?.is_admin === true
-                  "
-                  inputId="minmax-buttons"
-                  [min]="1"
-                  [max]="99"
-                  [allowEmpty]="false"
-                >
-                </p-inputNumber>
-              </div>
-            </div>
-          </div>
-
           <!-- <a href="#" class="btn btn-warning"> Buy now </a> -->
           <button
             *ngIf="
@@ -151,7 +122,7 @@
             (click)="addToCart()"
             class="btn btn-primary"
           >
-            <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+            <i class="me-1 fa fa-shopping-basket"></i> Thêm vào giỏ hàng
           </button>
           <!-- <a href="#" class="btn btn-light">
             <i class="me-1 fa fa-heart"></i> Save
@@ -161,4 +132,68 @@
     </div>
   </div>
 </section>
+<hr />
+
+<div class="container pb-8">
+  <div
+    *ngIf="this.currentUser?.is_admin !== 'True' && !this.currentUser?.is_admin"
+  >
+    <h4>Đánh giá sản phẩm</h4>
+    <div class="form-group">
+      <p-editor
+        [(ngModel)]="newComment"
+        [style]="{ height: '150px' }"
+      ></p-editor>
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-4">
+      <button class="btn btn-primary" (click)="addComment()">Bình luận</button>
+    </div>
+  </div>
+
+  <h4>Bình luận và đánh giá</h4>
+  <div *ngIf="comments.length === 0 && !isLoadingComment">
+    Không có bình luận nào.
+  </div>
+  <div *ngFor="let comment of comments" class="media mb-4 w-100">
+    <div class="d-flex">
+      <img
+        [src]="comment?.user?.avatar"
+        alt="Avatar"
+        class="mr-3 rounded-circle"
+        style="width: 50px; height: 50px"
+      />
+      <h5 class="my-auto">{{ comment?.user?.fullname }}</h5>
+    </div>
+
+    <div class="media-body ml-6">
+      <ng-template #noRating>
+        <span *ngIf="!isLoadingComment" class="ml-6 px-6"
+          >Chưa có đánh giá.</span
+        >
+      </ng-template>
+      <span
+        class="ml-4 cmt"
+        [innerHTML]="safeHtml(comment.feedback_message)"
+      ></span>
+    </div>
+  </div>
+  <div *ngIf="isLoadingComment" class="d-flex justify-content-center">
+    <p-progressSpinner
+      styleClass="w-3rem h-3rem"
+      strokeWidth="4"
+      fill="var(--surface-ground)"
+      animationDuration=".5s"
+    ></p-progressSpinner>
+  </div>
+  <div *ngIf="isShowLoadMore" class="d-flex justify-content-center">
+    <button
+      [disabled]="isLoadingComment"
+      class="btn btn-primary"
+      (click)="loadMoreComments()"
+    >
+      Xem thêm bình luận
+    </button>
+  </div>
+</div>
+
 <app-footer></app-footer>

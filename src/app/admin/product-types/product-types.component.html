@@ -49,80 +49,30 @@
   title="Hủy bỏ tìm kiếm"
 ></p-button>
 <hr />
-
 <div class="container-fluid">
   <p-table
     [value]="productTypes"
     dataKey="id"
     [loading]="isLoading"
     [lazy]="true"
-    styleClass="p-datatable-striped p-datatable-sm container"
     [rows]="rowsPerPage"
-    responsiveLayout="stack"
-    [breakpoint]="'960px'"
-    [scrollable]="false"
-    scrollHeight="250vh"
-    [virtualScroll]="true"
-    [virtualScrollItemSize]="200"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Quản Lý Sản Phẩm</th>
         <th>ID</th>
-        <th>Mã Loại Sản Phẩm</th>
-        <th>Hình Ảnh</th>
+        <th>Hình ảnh</th>
         <th pSortableColumn="product_type_name">
           Tên Loại Sản Phẩm
           <!-- <p-sortIcon field="product_type_name"></p-sortIcon> -->
         </th>
-        <th>Mô Tả</th>
-        <th>Giới Tính</th>
-        <th pSortableColumn="brand_name">
-          Thương Hiệu
-          <!-- <p-sortIcon field="brand_name"></p-sortIcon> -->
-        </th>
-        <th pSortableColumn="core_name">
-          Loại Máy
-          <!-- <p-sortIcon field="core_name"></p-sortIcon> -->
-        </th>
-        <th pSortableColumn="glass_name">
-          Loại Kính
-          <!-- <p-sortIcon field="core_name"></p-sortIcon> -->
-        </th>
-        <th pSortableColumn="alberts.albert_name">
-          Loại Dây
-          <!-- <p-sortIcon field="core_name"></p-sortIcon> -->
-        </th>
-        <th>Đường kính mặt số</th>
-        <th>Bề dày mặt số</th>
-        <th pSortableColumn="product_dial_color">
-          Màu Mặt đồng hồ
-          <!-- <p-sortIcon field="product_dial_color"></p-sortIcon> -->
-        </th>
-        <th>Chống Nước</th>
-        <th>Chức Năng</th>
-        <th>Bảo Hành</th>
-        <th>Xuất Sứ</th>
         <th>Giá</th>
         <th>Số Lượng</th>
-        <th>Ngày tạo</th>
-        <th>Ngày chỉnh sửa</th>
-
-        <th>Action</th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-productType>
       <tr>
-        <td>
-          <p-button
-            (onClick)="manageProducts(productType)"
-            class="mr-4"
-            icon="pi pi-list"
-            styleClass="p-button-rounded p-button-secondary"
-          ></p-button>
-        </td>
         <td>{{ productType?.id }}</td>
-        <td>{{ productType?.product_type_code }}</td>
         <td>
           <p-carousel
             [value]="productType?.product_image_uuid"
@@ -145,11 +95,7 @@
           </p-carousel>
         </td>
         <td>{{ productType?.product_type_name }}</td>
-        <td>
-          {{ formatText(productType?.product_additional_information) }}
-        </td>
-        <td>{{ getGender(productType?.gender) }}</td>
-        <td>
+        <!-- <td>
           <p-image
             class="cursor-pointer"
             (click)="openImage(productType?.brand_logo)"
@@ -159,60 +105,49 @@
           >
           </p-image>
           {{ productType?.brand?.brand_name }}
-        </td>
-        <td>
-          {{ productType?.core?.core_name }}
-        </td>
-        <td>
-          {{ productType?.glass?.glass_name }}
-        </td>
-        <td>{{ productType?.albert?.albert_name }}</td>
-        <td>
-          {{ productType?.product_dial_height }}
-        </td>
-        <td>
-          {{ productType?.product_dial_width }}
-        </td>
-        <td>
-          {{ getColor(productType?.product_dial_color) }}
-        </td>
-        <td>
-          {{ productType?.product_waterproof }}
-        </td>
-        <td>
-          {{ productType?.product_features }}
-        </td>
-        <td>
-          {{ productType?.product_guarantee }}
-        </td>
-        <td>
-          {{ productType?.product_source }}
-        </td>
+        </td> -->
         <td>
           {{ productType?.price | currency : "VND" }}
         </td>
         <td>
           {{ productType?.quantity }}
         </td>
-        <td>{{ productType?.created_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
-        <td>{{ productType?.updated_date | date : "dd/MM/YYYY HH:ss:mm" }}</td>
+        <!-- <p-button
+          (onClick)="manageProducts(productType)"
+          class="mr-4"
+          icon="pi pi-list"
+          styleClass="p-button-rounded p-button-secondary"
+        ></p-button> -->
         <td>
-          <p-button
-            (onClick)="editProductTypes(productType)"
-            class="mr-4"
-            icon="pi pi-file-edit"
-            styleClass="p-button-rounded p-button-warning"
-          ></p-button>
-          <p-button
-            (onClick)="deleteProductTypes(productType)"
-            icon="pi pi-times"
-            styleClass="p-button-rounded p-button-danger"
-          ></p-button>
+          <!-- Move the speedDial here -->
+          <div style="left: -150px; top: -30px; position: relative">
+            <p-speedDial
+              [model]="items"
+              direction="left"
+              (click)="onProductTypeClick(productType)"
+              type="linear"
+              showIcon="pi pi-bars"
+              hideIcon="pi pi-times"
+              buttonClassName="p-button-outlined"
+            ></p-speedDial>
+          </div>
         </td>
+        <!-- <p-button
+          (onClick)="editProductTypes(productType)"
+          class="mr-4"
+          icon="pi pi-file-edit"
+          styleClass="p-button-rounded p-button-warning"
+        ></p-button>
+        <p-button
+          (onClick)="deleteProductTypes(productType)"
+          icon="pi pi-times"
+          styleClass="p-button-rounded p-button-danger"
+        ></p-button> -->
       </tr>
     </ng-template>
   </p-table>
 </div>
+
 <p-paginator
   [rows]="rowsPerPage"
   [totalRecords]="totalCount"

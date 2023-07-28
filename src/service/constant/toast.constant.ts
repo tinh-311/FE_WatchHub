@@ -6,8 +6,8 @@ export enum ToastType {
 }
 
 export enum ToasSumary {
-  Success = 'Successfully',
-  Info = 'Infomation',
-  Warn = 'Warning ',
-  Error = 'Eror'
+  Success = 'Thành công',
+  Info = 'Thông báo',
+  Warn = 'Cảnh báo ',
+  Error = 'Lỗi'
 }

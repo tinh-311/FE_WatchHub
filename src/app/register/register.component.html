@@ -6,14 +6,13 @@
     <div class="row gx-lg-5 align-items-center">
       <div class="col-lg-7 mb-5 mb-lg-0">
         <h1 class="text-left my-5 display-4 fw-bold ls-tight">
-          Discover Time in Style<br /><span class="text-primary"
-            >WatchHub - Your Premier Watch Shopping Experience!</span
+          Khám phá thời gian với phong cách<br /><span class="text-primary"
+            >WatchHub - Trải nghiệm mua sắm đồng hồ chính hãng và uy tín!</span
           >
         </h1>
         <p class="text-left" style="color: hsl(217, 10%, 50.8%)">
-          A Captivating Haven for Discerning Timepiece Aficionados, Showcasing
-          Exquisite Watches Crafted with Impeccable Precision and Unparalleled
-          Artistry!
+          Một nơi hấp dẫn dành cho những người đam mê Đồng hồ, Những chiếc Đồng
+          hồ tinh tế được chế tạo với độ chính xác tuyệt vời và nghệ thuật!
         </p>
       </div>
       <div class="wrapper col-lg-5 mb-1 mb-lg-0">
@@ -22,13 +21,13 @@
             <form [formGroup]="registerForm">
               <div class="form-floating mb-4">
                 <input
-                  placeholder="Your Name"
+                  placeholder="Họ và Tên của bạn"
                   formControlName="yourName"
                   type="text"
                   class="form-control"
                   id="floatingPassword"
                 />
-                <label for="floatingPassword">Your Name</label>
+                <label for="floatingPassword">Họ và Tên của bạn</label>
                 <small
                   *ngIf="
                     registerForm.controls['yourName']?.errors &&
@@ -39,20 +38,20 @@
                   <div
                     *ngIf="registerForm.controls['yourName']?.errors?.required"
                   >
-                    Your Name is required
+                    Họ và Tên là bắt buộc
                   </div>
                 </small>
               </div>
 
               <div class="form-floating mb-4">
                 <input
-                  placeholder="Email address"
+                  placeholder="Địa chỉ Email"
                   formControlName="email"
                   type="email"
                   class="form-control"
                   id="floatingInput"
                 />
-                <label for="floatingInput">Email address</label>
+                <label for="floatingInput">Địa chỉ Email</label>
 
                 <small
                   class="mt-1"
@@ -63,23 +62,23 @@
                   class="text-danger"
                 >
                   <div *ngIf="registerForm.controls['email'].errors.required">
-                    Email is required
+                    Email là bắt buộc
                   </div>
                   <div *ngIf="registerForm.controls['email'].errors.email">
-                    Invalid email format
+                    Định dạng email không hợp lệ
                   </div>
                 </small>
               </div>
 
               <div class="form-floating mb-4">
                 <input
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                   formControlName="password"
                   type="password"
                   class="form-control"
                   id="floatingPassword"
                 />
-                <label for="floatingPassword">Password</label>
+                <label for="floatingPassword">Mật khẩu</label>
                 <small
                   *ngIf="
                     registerForm.controls['password']?.errors &&
@@ -90,20 +89,20 @@
                   <div
                     *ngIf="registerForm.controls['password']?.errors?.required"
                   >
-                    Password is required
+                    Mật khẩu là bắt buộc
                   </div>
                 </small>
               </div>
 
               <div class="form-floating mb-4">
                 <input
-                  placeholder="Confirm Password"
+                  placeholder="Xác nhận Mật khẩu"
                   formControlName="confirmPassword"
                   type="password"
                   class="form-control"
                   id="floatingPassword"
                 />
-                <label for="floatingPassword">Confirm Password</label>
+                <label for="floatingPassword">Xác nhận Mật khẩu</label>
                 <small
                   *ngIf="
                     registerForm.controls['confirmPassword']?.errors &&
@@ -116,7 +115,7 @@
                       registerForm.controls['confirmPassword']?.errors?.required
                     "
                   >
-                    Confirm Password is required
+                    Xác nhận Mật khẩu là bắt buộc
                   </div>
                   <div
                     *ngIf="
@@ -124,41 +123,29 @@
                         ?.matchPassword
                     "
                   >
-                    Confirm Password and Password not matching
+                    Xác nhận Mật khẩu và Mật khẩu không khớp
                   </div>
                 </small>
               </div>
 
-              <div class="form-check d-flex justify-content-center mb-4">
-                <input
-                  class="form-check-input me-2"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                  checked
-                />
-                <label class="form-check-label" for="flexCheckDefault"
-                  >Subscribe to our newsletter</label
-                >
-              </div>
               <button
                 (click)="register()"
                 [disabled]="registerForm.invalid"
                 type="submit"
                 class="btn w-100 btn-primary py-2 mb-3"
               >
-                Register
+                Đăng ký
               </button>
               <div class="pt-0 mb-3">
-                <span class="fw-normal">Already have an account?</span>
+                <span class="fw-normal">Bạn đã có tài khoản?</span>
                 <a
                   class="ml-1 text-primary cursor-pointer"
                   href="/login"
-                  title="Login now!"
-                  >Login now</a
+                  title="Đăng nhập ngay!"
+                  >Đăng nhập ngay</a
                 >
               </div>
-              <p class="text-center">or register with:</p>
+              <p class="text-center">hoặc đăng ký bằng:</p>
               <div class="container">
                 <div class="my-2 d-flex w-100">
                   <button

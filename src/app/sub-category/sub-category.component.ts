@@ -26,6 +26,8 @@ import {
 } from '../constant/util.constant';
 import { ProductGlassService } from '../service/product-glass.service';
 import { forkJoin } from 'rxjs';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
+import { ToastService } from 'src/service/toast.service';
 
 @Component({
   selector: 'app-sub-category',
@@ -75,7 +77,8 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     private brandService: BrandsService,
     private productAlbertService: ProductAlbertService,
     private productCoreService: ProductCoreService,
-    private productGlassService: ProductGlassService
+    private productGlassService: ProductGlassService,
+    private toastService: ToastService,
   ) {
     this.isDataLoading = false;
     this.route.queryParams.subscribe(
@@ -240,7 +243,6 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       delete this.filters.maxPrice;
     }
 
-    console.log('🏍️ ~ this.filters: ', this.filters)
     if (this.isShowCategories) {
       this.getProductTypes(this.filters);
     } else {
@@ -389,10 +391,28 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   addToCart(product: any) {
+    const p = this.cartItems?.find((p: any) => p?.id === product?.id);
+
+    if(p) {
+      if((p?.orderQty + 1) > this.getMaxCart(p)) {
+        this.toastService.showMessage(
+          ToasSumary.Success,
+          'Bạn đã thêm sản phẩm này vào giỏ hàng!',
+          ToastType.Success
+        );
+        return;
+      }
+    }
+
     this.cartService.addToCart({
       ...product,
     });
+  }
+
+  getMaxCart(product: any) {
+    return product?.quantity > 99 ? 99 : product?.quantity;
   }
 
   removeFromCart(item: any) {

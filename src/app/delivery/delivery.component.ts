@@ -61,12 +61,11 @@ export class DeliveryComponent {
         (data) => {
           this.toastService.showMessage(
             ToasSumary.Info,
-            data?.message,
+            `Đơn hàng đã huỷ vì lý do ` + data?.cancelReason,
             ToastType.Info
           );
         },
         (err) => {
-          console.log("🚀 ~ file: delivery.component.ts:69 ~ DeliveryComponent ~ DeliveryFail ~ err:", err)
           this.toastService.showMessage(
             ToasSumary.Error,
             err?.error?.message,

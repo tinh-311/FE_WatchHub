@@ -58,12 +58,16 @@
                   [showButtons]="true"
                   inputId="minmax-buttons"
                   [min]="1"
-                  [max]="99"
+                  [max]="getMaxCart(cart)"
                   [allowEmpty]="false"
                   (onInput)="onChangeQty(cart)"
                   styleClass="ml-3"
                 >
-                </p-inputNumber>
+                </p-inputNumber> <br> <br>
+
+                <span class="text-warning">
+                  Chỉ có thể mua tối đa <strong>{{ getMaxCart(cart) }} sản phẩm</strong>
+                </span>
               </div>
               <br />
               <div class="d-flex w-100 justify-content-between">
@@ -107,13 +111,17 @@
             <div class="mr-2 mt-3">
               <span>
                 Địa chỉ nhận hàng
-                <i (click)="navigateProfile()" class="pi pi-plus ml-1 text-info cursor-pointer"></i>
+                <i
+                  (click)="navigateProfile()"
+                  class="pi pi-plus ml-1 text-info cursor-pointer"
+                ></i>
               </span>
               <br />
               <p-dropdown
                 [options]="addressOptions"
                 optionLabel="displayName"
                 [(ngModel)]="selectedAddress"
+                [title]="selectedAddress?.displayName"
                 (onChange)="onDropdownAddressChange($event)"
                 styleClass="custom-dropdown"
                 class="w-100"

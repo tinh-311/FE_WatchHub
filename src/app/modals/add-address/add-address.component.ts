@@ -125,7 +125,6 @@ export class AddAddressComponent implements OnInit {
       return;
     }
 
-    console.log('🏍️ ~ this.addressForm?.value?: ', this.addressForm?.value);
     this.ref.close({
       province: this.addressForm?.value?.city?.name_with_type,
       street: this.addressForm?.value?.road,

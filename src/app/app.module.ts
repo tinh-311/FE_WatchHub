@@ -103,7 +103,8 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { DeliveryComponent } from './delivery/delivery.component';
 import { AdminUserByIdComponent } from './admin-user-by-id/admin-user-by-id.component';
 import { ScrollTopModule } from 'primeng/scrolltop';
-
+import { EditorModule } from 'primeng/editor';
+import { SpeedDialModule } from 'primeng/speeddial';
 @NgModule({
   declarations: [
     AppComponent,
@@ -205,7 +206,9 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     StepsModule,
     ChartModule,
     MultiSelectModule,
-    ScrollTopModule
+    ScrollTopModule,
+    EditorModule,
+    SpeedDialModule
   ],
   providers: [MessageService, DialogService, ConfirmationService],
   bootstrap: [AppComponent],

@@ -7,8 +7,7 @@ import { BE, isProduction_BE } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class PaymentService {
-  // private baseUrl = isProduction_BE ? BE.productionUrl : BE.devUrl;
-  private baseUrl = "https://localhost:8383";
+  private baseUrl = isProduction_BE ? BE.productionUrl : BE.devUrl;
   token: any = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {}
@@ -18,7 +17,6 @@ export class PaymentService {
   //   "callbackUrl": "https://zenttt.bsite.net/payment/payment_response"
   // }
   vnPay(data: any): Observable<any> {
-    console.log("data", data);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });

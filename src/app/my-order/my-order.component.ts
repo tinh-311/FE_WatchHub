@@ -6,7 +6,7 @@ import {
 import { MenuItem } from 'primeng/api';
 import { OrderService } from '../service/order.service';
 import jwt_decode from 'jwt-decode';
-import { getKeyByValue, parseJSON } from '../constant/util.constant';
+import { formatDate, getKeyByValue, parseJSON } from '../constant/util.constant';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastService } from 'src/service/toast.service';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
@@ -93,6 +93,10 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
       );
   }
 
+  formatDate(date: string) {
+    return formatDate(date);
+  }
+
   getTotalByStatus(id: any) {
     switch (id) {
       case getKeyByValue(
@@ -134,14 +138,14 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         );
         break;
       }
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        this.totalByStatus = this.orders.filter(
-          (order: any) =>
-            order.order_status ===
-            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
-        );
-        break;
-      }
+      // case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+      //   this.totalByStatus = this.orders.filter(
+      //     (order: any) =>
+      //       order.order_status ===
+      //       getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+      //   );
+      //   break;
+      // }
       case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_COLLECTION): {
         this.totalByStatus = this.orders.filter(
           (order: any) =>
@@ -225,15 +229,15 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
             getKeyByValue(ORDER_STATUS_DISPLAY, ORDER_STATUS_DISPLAY.CANCELLED)
         );
       }
-      case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
-        const f = this.orders.filter(
-          (order: any) =>
-            order.order_status ===
-            getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
-        );
+      // case getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT): {
+      //   const f = this.orders.filter(
+      //     (order: any) =>
+      //       order.order_status ===
+      //       getKeyByValue(ORDER_STATUS, ORDER_STATUS.AWAITING_SHIPMENT)
+      //   );
 
-        return f;
-      }
+      //   return f;
+      // }
       case getKeyByValue(
         ORDER_STATUS_DISPLAY,
         ORDER_STATUS_DISPLAY.AWAITING_COLLECTION

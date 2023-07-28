@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
   ORDER_STATUS,
@@ -16,6 +16,7 @@ import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 import { AdminUserComponent } from '../admin-user/admin-user.component';
 import { AdminUserByIdComponent } from 'src/app/admin-user-by-id/admin-user-by-id.component';
 import { ProductsService } from 'src/service/products.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-manage-order',
@@ -39,12 +40,12 @@ export class ManageOrderComponent implements OnInit {
     private dialogService: DialogService,
     private toastService: ToastService,
     private userService: UserService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private cdRef: ChangeDetectorRef
   ) {
     this.orderStatusValues = Object.entries(ORDER_STATUS).map(
       ([key, value]) => ({ key, value })
     );
-    console.log('🏍️ ~ this.orderStatusValues: ', this.orderStatusValues);
   }
 
   ngOnInit(): void {
@@ -63,7 +64,6 @@ export class ManageOrderComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.orders = data?.res || [];
-          console.log('🏍️ ~ this.orders: ', this.orders);
           this.totalCount = data?.totalCount || 0;
           this.isLoading = false;
         },
@@ -106,10 +106,8 @@ export class ManageOrderComponent implements OnInit {
     this.rowsPerPage = event.rows;
 
     if (this.filter) {
-      console.log('🏍️ ~ this.filter: ', this.filter)
       this.search(false);
     } else if (this.selectedFilterStatus) {
-      console.log('🏍️ ~ this.selectedFilterStatus: ', this.selectedFilterStatus)
       this.filterByStatus(this.selectedFilterStatus?.key);
     } else {
       this.getAllOrders();
@@ -184,7 +182,6 @@ export class ManageOrderComponent implements OnInit {
       this.paymentMethodDisplay = PAYMENT_METHOD.VNPAY;
       return true;
     }
-    console.log('paymentMethodDisplay', this.paymentMethodDisplay);
     return false;
   }
 
@@ -212,8 +209,6 @@ export class ManageOrderComponent implements OnInit {
     this.isLoading = true;
     this.orderService.getById(this.filter).subscribe(
       (data: any) => {
-        console.log('🏍️ ~ data: ', data);
-        // this.productTypes = data?.res;
         this.orders = [data];
         this.isLoading = false;
         this.selectedFilterStatus = null;
@@ -223,5 +218,13 @@ export class ManageOrderComponent implements OnInit {
         this.selectedFilterStatus = null;
       }
     );
+  }
+  convertToUtcPlus7(dateString: string): string {
+    const utcDate = moment.utc(dateString);
+    const utcPlus7Date = utcDate.utcOffset(7 * 60);
+    return utcPlus7Date.format('DD/MM/YYYY HH:mm:ss');
+  }
+  reloadComponent(): void {
+    this.clearSearch(true);
   }
 }

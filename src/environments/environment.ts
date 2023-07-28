@@ -12,7 +12,7 @@ export const isProduction_FE: boolean = false;
 export const isProduction_BE: boolean = true;
 
 export const BE = {
-  devUrl: 'https://localhost:44350',
+  devUrl: 'https://localhost:8383',
   productionUrl: 'https://zenttt.bsite.net'
 }
 
