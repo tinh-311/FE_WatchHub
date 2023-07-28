@@ -39,6 +39,20 @@ export class ProductsService {
 
     return this.http.get<any>(url, { headers });
   }
+  getAllProductTypesAdmin(pageNumber?: number, pageSize?: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/ProductType/GetAllAdmin`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/ProductType/GetAllAdmin?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+    }
+
+    return this.http.get<any>(url, { headers });
+  }
 
   getProductTypesById(id: any): Observable<any> {
     const headers = new HttpHeaders({
@@ -176,4 +190,23 @@ export class ProductsService {
 
     return this.http.post<any>(url, { headers });
   }
+  searchByProductTypeCodeOrIdAdmin(
+    pageNumber?: number,
+    pageSize?: number,
+    searchTerm?: string
+  ) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    let isPaging = pageNumber && pageSize;
+    let url = `${this.baseUrl}/ProductType/SearchByProductTypeCodeOrIdAdmin?searchTerm=${searchTerm}`;
+
+    if (isPaging) {
+      url = `${this.baseUrl}/ProductType/SearchByProductTypeCodeOrIdAdmin?PageNumber=${pageNumber}&PageSize=${pageSize}&searchTerm=${searchTerm}`;
+    }
+
+    return this.http.post<any>(url, { headers });
+  }
+
 }

@@ -89,7 +89,7 @@ export class ProductTypesComponent implements OnInit {
 
     this.isLoading = true;
     this.productsService
-      .searchByProductTypeCodeOrId(
+      .searchByProductTypeCodeOrIdAdmin(
         this.currentPage,
         this.rowsPerPage,
         this.filter
@@ -186,7 +186,7 @@ export class ProductTypesComponent implements OnInit {
   getAllProductTypes() {
     this.isLoading = true;
     this.productsService
-      .getAllProductTypes(this.currentPage, this.rowsPerPage)
+      .getAllProductTypesAdmin(this.currentPage, this.rowsPerPage)
       .subscribe(
         (data) => {
           this.selectedSubCategory = !this.selectedSubCategory
