@@ -1,10 +1,5 @@
 export const SIDE_NAV = [
   {
-    iconClass: 'fas fa-tachometer-alt fa-2x',
-    name: 'DASHBOARD',
-    displayName: 'Bảng điều khiển',
-  },
-  {
     iconClass: 'fas fa-users fa-2x',
     name: 'USERS',
     displayName: 'Khách hàng',
@@ -52,7 +47,6 @@ export const SIDE_NAV = [
 ];
 
 export enum SideNav {
-  Dashboard = 'DASHBOARD',
   Users = 'USERS',
   Brands = 'BRANDS',
   Order = 'ORDER',

@@ -11,7 +11,7 @@ export class AdminDasboardComponent implements OnInit {
   readonly SIDE_NAV = SIDE_NAV;
   readonly SideNav = SideNav;
 
-  curentNavItem: string = SideNav.Dashboard;
+  curentNavItem: string = SideNav.Users;
 
   constructor(private router: Router) {
     const currentUrl = this.router.url;
@@ -19,10 +19,6 @@ export class AdminDasboardComponent implements OnInit {
     const lastSegment = segments[segments.length - 1];
 
     switch (lastSegment) {
-      case 'dashboard': {
-        this.curentNavItem = SideNav.Dashboard;
-        break;
-      }
       case 'user': {
         this.curentNavItem = SideNav.Users;
         break;
@@ -68,10 +64,6 @@ export class AdminDasboardComponent implements OnInit {
     this.curentNavItem = navItem?.name;
     let url = '';
     switch (this.curentNavItem) {
-      case SideNav.Dashboard: {
-        url = 'dashboard';
-        break;
-      }
       case SideNav.Users: {
         url = 'user';
         break;
