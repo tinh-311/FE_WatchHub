@@ -23,7 +23,10 @@
         >
       </p>
       <p>
-        <strong>Mã giao dịch:</strong> {{ orderData?.vnpay?.transactionNo }}
+        <strong>Mã giao dịch:</strong>
+        <strong class="text-warning">
+          {{ orderData?.vnpay?.transactionNo }}
+        </strong>
       </p>
 
       <p>
@@ -32,7 +35,9 @@
       </p>
       <p>
         <strong>Trạng thái:</strong>
-        {{ convertToDisPlayName(orderData?.order_status) }}
+        <strong class="text-info">
+          {{ convertToDisPlayName(orderData?.order_status) }}
+        </strong>
       </p>
       <p>
         <strong>Địa chỉ giao hàng:</strong>

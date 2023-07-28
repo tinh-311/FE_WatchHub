@@ -17,7 +17,6 @@ export class PaymentService {
   //   "callbackUrl": "https://zenttt.bsite.net/payment/payment_response"
   // }
   vnPay(data: any): Observable<any> {
-    console.log("data", data);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });

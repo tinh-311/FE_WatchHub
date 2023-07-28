@@ -89,7 +89,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   onCheckbox(event: any, data: any) {
-    if(this.isCheckAll) {
+    if (this.isCheckAll) {
       this.isCheckAll = !this.isCheckAll;
       this.selectedProducts = [];
       return;
@@ -103,7 +103,6 @@ export class ShoppingCartComponent implements OnInit {
         this.selectedProducts.splice(index, 1);
       }
     }
-    console.log('this.selectedProducts', this.selectedProducts);
   }
 
   getColor(color: any) {
@@ -306,7 +305,6 @@ export class ShoppingCartComponent implements OnInit {
         break;
       }
     }
-    console.log("🚀 ~ file: shopping-cart.component.ts:178 ~ ShoppingCartComponent ~ getParamsFromUrl ~ queryParams:", queryParams);
   }
 
   getUserById(id: string): Promise<any> {
@@ -357,7 +355,24 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   onChangeQty(cart: any) {
+    if (cart?.orderQty < 0) {
+      return;
+    }
+
+    if (cart?.orderQty > cart?.quantity) {
+      cart.orderQty = cart?.quantity;
+      this.toastService.showMessage(
+        ToasSumary.Warn,
+        'Số lượng sản phẩm không đủ',
+        ToastType.Warn
+      );
+      return;
+    }
     this.cartService.updateQuantity(cart, cart?.orderQty);
+  }
+
+  getMaxCart(cart: any) {
+    return cart?.quantity > 99 ? 99 : cart?.quantity;
   }
 
   onClickProduct(product: any) {

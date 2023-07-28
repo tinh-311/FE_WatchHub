@@ -29,7 +29,6 @@ export class OrderDetailsComponent implements OnInit {
         this.orderSrvice.getById(id).subscribe(
           (data: any) => {
             this.orderData = data;
-            console.log("🚀 ~ file: order-details.component.ts:32 ~ OrderDetailsComponent ~ this.orderData:", this.orderData)
             this.orderInfo = parseJSON(this.orderData?.order_info);
             this.items = [
               {

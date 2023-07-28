@@ -64,7 +64,6 @@ export class ManageOrderComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.orders = data?.res || [];
-          console.log('🏍️ ~ this.orders: ', this.orders);
           this.totalCount = data?.totalCount || 0;
           this.isLoading = false;
         },
@@ -81,7 +80,6 @@ export class ManageOrderComponent implements OnInit {
       .subscribe(
         (data) => {
           this.orders = data?.res;
-          console.log("🚀 ~ file: manage-order.component.ts:83 ~ ManageOrderComponent ~ getAllOrders ~ this.orders:", this.orders)
           this.totalCount = data?.totalCount;
           this.isLoading = false;
         },
@@ -108,10 +106,8 @@ export class ManageOrderComponent implements OnInit {
     this.rowsPerPage = event.rows;
 
     if (this.filter) {
-      console.log('🏍️ ~ this.filter: ', this.filter)
       this.search(false);
     } else if (this.selectedFilterStatus) {
-      console.log('🏍️ ~ this.selectedFilterStatus: ', this.selectedFilterStatus)
       this.filterByStatus(this.selectedFilterStatus?.key);
     } else {
       this.getAllOrders();
@@ -186,7 +182,6 @@ export class ManageOrderComponent implements OnInit {
       this.paymentMethodDisplay = PAYMENT_METHOD.VNPAY;
       return true;
     }
-    console.log('paymentMethodDisplay', this.paymentMethodDisplay);
     return false;
   }
 
@@ -214,8 +209,6 @@ export class ManageOrderComponent implements OnInit {
     this.isLoading = true;
     this.orderService.getById(this.filter).subscribe(
       (data: any) => {
-        console.log('🏍️ ~ data: ', data);
-        // this.productTypes = data?.res;
         this.orders = [data];
         this.isLoading = false;
         this.selectedFilterStatus = null;

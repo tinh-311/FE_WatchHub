@@ -7,6 +7,8 @@ import { UserService } from 'src/service/user.service';
 import jwt_decode from 'jwt-decode';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { CommentService } from '../service/comment.service';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
+import { ToastService } from 'src/service/toast.service';
 
 @Component({
   selector: 'app-product-details',
@@ -28,11 +30,9 @@ export class ProductDetailsComponent implements OnInit {
   newComment: string = '';
 
   isShowLoadMore: boolean = true;
+  cartItems: any[] = [];
 
   addComment() {
-    console.log('🏍️ ~ this.newRating: ', this.newRating);
-    console.log('🏍️ ~ this.newComment: ', this.newComment);
-
     if (this.newComment.trim() !== '' && this.newRating) {
       let newComment: any = {
         feedback_message: this.newComment,
@@ -45,10 +45,8 @@ export class ProductDetailsComponent implements OnInit {
           fullname: this.currentUser?.fullname,
         },
       };
-      console.log('🏍️ ~ cmt: ', newComment);
 
       this.commentService.create(newComment).subscribe((res: any) => {
-        console.log('🏍️ ~ res: ', res);
       });
 
       this.comments.unshift(newComment);
@@ -70,7 +68,8 @@ export class ProductDetailsComponent implements OnInit {
     private cartService: CartService,
     private userService: UserService,
     private sanitizer: DomSanitizer,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private toastService: ToastService,
   ) {
     this.route.queryParamMap.subscribe((params) => {
       const id = params.get('id');
@@ -84,17 +83,17 @@ export class ProductDetailsComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       this.currentUser = jwt_decode(token);
-      console.log('🏍️ ~ this.currentUser: ', this.currentUser);
 
       this.getUserById(this.currentUser?.id)
         .then((data: any) => {
           this.currentUser = data;
-          console.log('🏍️ ~ this.currentUser: ', this.currentUser);
         })
         .catch((error: any) => {});
     }
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cartItems = this.cartService.getCartItems();
+  }
 
   loadMoreComments() {
     this.getComments();
@@ -110,13 +109,10 @@ export class ProductDetailsComponent implements OnInit {
           this.isLoadingComment = false;
           this.curentNumpage++;
 
-          console.log('🏍️ ~ comments?.totalCount: ', comments?.totalCount);
 
-          console.log('🏍️ ~ this.comments: ', this.comments);
           if (this.comments?.length === comments?.totalCount) {
             this.isShowLoadMore = false;
           }
-          console.log('🏍️ ~ comments: ', comments);
         },
         (err) => {
           this.isLoadingComment = false;
@@ -166,9 +162,26 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
+    const p = this.cartItems?.find((p: any) => p?.id === this.product?.id);
+
+    if(p) {
+      if((p?.orderQty + 1) > this.getMaxCart(p)) {
+        this.toastService.showMessage(
+          ToasSumary.Success,
+          'Bạn đã thêm sản phẩm này vào giỏ hàng!',
+          ToastType.Success
+        );
+        return;
+      }
+    }
+
     this.cartService.addToCart({
       ...this.product,
       orderQty: this.quantity,
     });
+  }
+
+  getMaxCart(product: any) {
+    return product?.quantity > 99 ? 99 : product?.quantity;
   }
 }

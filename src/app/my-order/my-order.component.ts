@@ -6,7 +6,7 @@ import {
 import { MenuItem } from 'primeng/api';
 import { OrderService } from '../service/order.service';
 import jwt_decode from 'jwt-decode';
-import { getKeyByValue, parseJSON } from '../constant/util.constant';
+import { formatDate, getKeyByValue, parseJSON } from '../constant/util.constant';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastService } from 'src/service/toast.service';
 import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
@@ -46,7 +46,6 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
     this.orderService
       .getAllOrderById(this.currentUser?.id)
       .subscribe((data: any) => {
-        console.log("🚀 ~ file: my-order.component.ts:49 ~ MyOrderComponent ~ .subscribe ~ data:", data)
         this.orderStatusValues = Object.entries(ORDER_STATUS_DISPLAY).map(
           ([key, value]) => ({ key, value })
         );
@@ -92,6 +91,10 @@ export class MyOrderComponent implements OnInit, AfterViewInit {
         },
         (err) => {}
       );
+  }
+
+  formatDate(date: string) {
+    return formatDate(date);
   }
 
   getTotalByStatus(id: any) {

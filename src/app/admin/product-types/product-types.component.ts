@@ -96,7 +96,6 @@ export class ProductTypesComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          console.log('🏍️ ~ data: ', data);
           this.productTypes = data?.res;
           this.totalCount = data?.totalCount;
           this.isLoading = false;
@@ -301,7 +300,6 @@ export class ProductTypesComponent implements OnInit {
       },
     });
     ref.onClose.subscribe((data) => {
-      console.log('🏍️ ~ data: ', data);
       if (data) {
         this.getAllProductTypes();
       }

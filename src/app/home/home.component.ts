@@ -6,6 +6,8 @@ import { BrandsService } from '../brands.service';
 import jwt_decode from 'jwt-decode';
 import { UserService } from 'src/service/user.service';
 import { CartService } from '../service/cart.service';
+import { ToastService } from 'src/service/toast.service';
+import { ToasSumary, ToastType } from 'src/service/constant/toast.constant';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,7 @@ export class HomeComponent implements OnInit {
   yellowRatingClass = 'yellow-rating';
   brands: any;
   currentUser: any;
+  cartItems: any;
 
   constructor(
     private router: Router,
@@ -28,9 +31,12 @@ export class HomeComponent implements OnInit {
     private brandService: BrandsService,
     private userService: UserService,
     private cartService: CartService,
+    private toastService: ToastService,
   ) {}
 
   ngOnInit() {
+    this.cartItems = this.cartService.getCartItems();
+
     this.banners = [
       'https://ucarecdn.com/a60a6643-b399-4f3d-8ba6-ac29d2e18e33/donghonambanner.jpg',
       'https://ucarecdn.com/33933f8c-bf9c-4c2c-8020-29a9e700224b/donghonu1.jpg',
@@ -69,28 +75,13 @@ export class HomeComponent implements OnInit {
     ];
 
     this.productService
-      .filterBySubCategoryId(14, 1, 6, {
-        gender: ['MALE', 'FEMALE'],
-      })
+      .filter(1, 24, {})
       .subscribe((data: any) => {
         this.newProducts = data?.res;
       });
 
-    this.productService
-      .filterBySubCategoryId(17, 1, 6, {})
-      .subscribe((data: any) => {
-        this.products = data?.res;
-      });
-
-    this.productService
-      .filterBySubCategoryId(25, 1, 6, {})
-      .subscribe((data: any) => {
-        this.bestProducts = data?.res;
-      });
-
     this.brandService.getAll().subscribe((brands: any) => {
       this.brands = brands?.res;
-      console.log('🏍️ ~ this.brands: ', this.brands);
     });
 
     const token = localStorage.getItem('token');
@@ -108,9 +99,26 @@ export class HomeComponent implements OnInit {
   }
 
   addToCart(product: any) {
+    const p = this.cartItems?.find((p: any) => p?.id === product?.id);
+
+    if(p) {
+      if((p?.orderQty + 1) > this.getMaxCart(p)) {
+        this.toastService.showMessage(
+          ToasSumary.Success,
+          'Bạn đã thêm sản phẩm này vào giỏ hàng!',
+          ToastType.Success
+        );
+        return;
+      }
+    }
+
     this.cartService.addToCart({
       ...product,
     });
+  }
+
+  getMaxCart(product: any) {
+    return product?.quantity > 99 ? 99 : product?.quantity;
   }
 
   getUserById(id: string): Promise<any> {

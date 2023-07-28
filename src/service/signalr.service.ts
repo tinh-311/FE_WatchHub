@@ -27,10 +27,8 @@ export class SignalRService {
   public async getAll(pageNumber?: number, pageSize?: number): Promise<any>{
     try {
         const result = await this.hubConnection.invoke('GetAll', pageNumber, pageSize);
-        console.log("🚀 ~ file: signalr.service.ts:25 ~ SignalRService ~ getAll ~ result:", result)
         return result;
       } catch (error) {
-        console.error('Error calling Update method: ', error);
         throw error;
       }
   }
@@ -84,5 +82,5 @@ export class SignalRService {
       throw error;
     }
   }
-  
+
 }

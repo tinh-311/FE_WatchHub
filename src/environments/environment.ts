@@ -9,7 +9,7 @@ export const firebaseConfig = {
   measurementId: "G-V1V8N2RYNV"
 };
 export const isProduction_FE: boolean = false;
-export const isProduction_BE: boolean = false;
+export const isProduction_BE: boolean = true;
 
 export const BE = {
   devUrl: 'https://localhost:8383',

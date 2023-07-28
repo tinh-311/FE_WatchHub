@@ -41,8 +41,6 @@ export class ManageOrderDetailComponent implements OnInit {
       this.order = this.config.data?.order;
       this.orderInfo = parseJSON(this.order?.order_info);
       this.isPaid = this.order?.isPaid;
-      console.log('🏍️ ~ this.orderInfo : ', this.orderInfo);
-      console.log('🏍️ ~ this.order: ', this.order);
     }
   }
 
@@ -89,10 +87,6 @@ export class ManageOrderDetailComponent implements OnInit {
     });
     ref.onClose.subscribe((res) => {
       if (res) {
-        console.log(
-          '🏍️ ~ this.order?.order_status: ',
-          this.order?.order_status
-        );
         switch (this.order?.order_status) {
           case getKeyByValue(
             ORDER_STATUS,

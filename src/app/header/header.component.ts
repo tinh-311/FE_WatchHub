@@ -166,8 +166,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        // Đăng xuất thành công
-        console.log('Đăng xuất thành công');
         localStorage.clear();
         this.router.navigate(['/login']);
         setTimeout(() => {
@@ -175,8 +173,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         }, 100);
       })
       .catch((error) => {
-        // Xảy ra lỗi khi đăng xuất
-        console.error('Lỗi đăng xuất:', error);
       });
   }
 
