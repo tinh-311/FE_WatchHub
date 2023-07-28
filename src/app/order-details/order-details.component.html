@@ -48,7 +48,9 @@
 
       <p>
         <strong>Tổng số tiền:</strong>
-        {{ orderData?.total_amount | currency : "VND" }}
+        <strong class="text-success">
+          {{ orderData?.total_amount | currency : "VND" }}
+        </strong>
       </p>
       <p><strong>Số điện thoại:</strong> {{ orderData?.phone }}</p>
       <hr />
