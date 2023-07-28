@@ -59,9 +59,10 @@ export class DeliveryComponent {
       .T3PDeliveryFail(this.orderIdFail, this.cancelReason)
       .subscribe(
         (data) => {
+          console.log("🚀 ~ file: delivery.component.ts:62 ~ DeliveryComponent ~ DeliveryFail ~ data:", data)
           this.toastService.showMessage(
             ToasSumary.Info,
-            data?.message,
+            `Đơn hàng đã huỷ vì lý do ` + data?.cancelReason,
             ToastType.Info
           );
         },
